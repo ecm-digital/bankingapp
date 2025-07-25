@@ -215,7 +215,7 @@ export const productsApi = {
     return product;
   },
 
-  async applyForProduct(productId: string, customerId: string, applicationData: any): Promise<{ applicationId: string; status: string }> {
+  async applyForProduct(productId: string, customerId: string, _applicationData: any): Promise<{ applicationId: string; status: string }> {
     await delay(1500);
     
     // Mock application validation

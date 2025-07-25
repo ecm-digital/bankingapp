@@ -36,8 +36,9 @@ export interface PaymentRecord {
   status: 'PAID' | 'PENDING' | 'OVERDUE';
   principalAmount: number;
   interestAmount: number;
-}// 
-Customer Model
+}
+
+// Customer Model
 export interface Account {
   id: string;
   accountNumber: string;
@@ -72,8 +73,9 @@ export interface Customer {
   lastActivity: Date;
   avatar?: string;
   status: 'ACTIVE' | 'INACTIVE' | 'SUSPENDED';
-}// Transacti
-on Model
+}
+
+// Transaction Model
 export interface Transaction {
   id: string;
   type: 'TRANSFER' | 'DEPOSIT' | 'WITHDRAWAL' | 'PAYMENT';
@@ -88,8 +90,9 @@ export interface Transaction {
   employeeId: string;
   customerId: string;
   referenceNumber: string;
-}// Queue 
-Item Model
+}
+
+// Queue Item Model
 export interface QueueItem {
   id: string;
   customerId: string;
@@ -101,8 +104,9 @@ export interface QueueItem {
   status: 'WAITING' | 'IN_SERVICE' | 'COMPLETED';
   assignedEmployee?: string;
   queueNumber: number;
-}// Bank
- Product Model
+}
+
+// Bank Product Model
 export interface BankProduct {
   id: string;
   name: string;
@@ -114,8 +118,9 @@ export interface BankProduct {
   fees: Fee[];
   isPromotional: boolean;
   promotionDetails?: PromotionDetails;
-}// Card M
-odel
+}
+
+// Card Model
 export interface Card {
   id: string;
   customerId: string;
@@ -128,8 +133,9 @@ export interface Card {
   availableLimit?: number;
   issuedDate: Date;
   lastUsed?: Date;
-}/
-/ Loan Model
+}
+
+// Loan Model
 export interface Loan {
   id: string;
   customerId: string;
@@ -143,8 +149,9 @@ export interface Loan {
   status: 'ACTIVE' | 'PAID_OFF' | 'DELINQUENT' | 'DEFAULT';
   startDate: Date;
   paymentHistory: PaymentRecord[];
-}// Empl
-oyee Model
+}
+
+// Employee Model
 export interface Employee {
   id: string;
   firstName: string;

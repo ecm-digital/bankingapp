@@ -1,6 +1,6 @@
 import { useProductsStore } from '@/stores/productsStore';
 import { useCallback, useEffect } from 'react';
-import { Card, Loan } from '@/types';
+import { Card } from '@/types';
 
 export const useProducts = () => {
   const {

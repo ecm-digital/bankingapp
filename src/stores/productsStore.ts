@@ -14,7 +14,7 @@ interface ProductsActions {
   fetchProducts: () => Promise<void>;
   fetchCustomerCards: (customerId: string) => Promise<void>;
   fetchCustomerLoans: (customerId: string) => Promise<void>;
-  applyForProduct: (productId: string, customerId: string, applicationData: any) => Promise<void>;
+  applyForProduct: (productId: string, customerId: string, applicationData: any) => Promise<{ applicationId: string; status: string }>;
   updateCardStatus: (cardId: string, status: Card['status']) => Promise<void>;
   updateCardLimits: (cardId: string, creditLimit: number) => Promise<void>;
   clearError: () => void;

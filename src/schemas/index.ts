@@ -21,8 +21,9 @@ export const FeeSchema = z.object({
   amount: z.number().positive('Kwota musi być dodatnia'),
   currency: z.string().length(3, 'Waluta musi mieć 3 znaki'),
   frequency: z.enum(['MONTHLY', 'YEARLY', 'ONE_TIME']),
-});// Custo
-mer schemas
+});
+
+// Customer schemas
 export const AccountSchema = z.object({
   id: z.string(),
   accountNumber: z.string().min(1, 'Numer konta jest wymagany'),
@@ -57,8 +58,9 @@ export const CustomerSchema = z.object({
   lastActivity: z.date(),
   avatar: z.string().optional(),
   status: z.enum(['ACTIVE', 'INACTIVE', 'SUSPENDED']),
-});/
-/ Transaction schema
+});
+
+// Transaction schema
 export const TransactionSchema = z.object({
   id: z.string(),
   type: z.enum(['TRANSFER', 'DEPOSIT', 'WITHDRAWAL', 'PAYMENT']),
@@ -82,8 +84,9 @@ export const TransferFormSchema = z.object({
   amount: z.number().positive('Kwota musi być dodatnia'),
   description: z.string().min(1, 'Opis przelewu jest wymagany'),
   recipientName: z.string().min(1, 'Nazwa odbiorcy jest wymagana'),
-});// Cont
-act edit schema
+});
+
+// Contact edit schema
 export const ContactEditSchema = z.object({
   email: z.string().email('Nieprawidłowy adres email'),
   phone: z.string().min(9, 'Numer telefonu musi mieć co najmniej 9 cyfr'),

@@ -195,8 +195,9 @@ export const generateMockCustomers = (): Customer[] => {
       status: 'ACTIVE',
     },
   ];
-};e
-xport const generateMockTransactions = (): Transaction[] => {
+};
+
+export const generateMockTransactions = (): Transaction[] => {
   return [
     {
       id: 'tx1',
@@ -242,8 +243,9 @@ xport const generateMockTransactions = (): Transaction[] => {
       referenceNumber: 'TXN20240118001',
     },
   ];
-};e
-xport const generateMockQueue = (): QueueItem[] => {
+};
+
+export const generateMockQueue = (): QueueItem[] => {
   return [
     {
       id: 'q1',

@@ -94,6 +94,7 @@ export const setupDemoScenario = async (scenario: 'customer-service' | 'busy-que
         serviceType: 'Konsultacja inwestycyjna',
         priority: 'HIGH',
         estimatedTime: 45,
+        status: 'WAITING',
       });
       await queueStore.addToQueue({
         customerId: '4',
@@ -101,6 +102,7 @@ export const setupDemoScenario = async (scenario: 'customer-service' | 'busy-que
         serviceType: 'Spłata zadłużenia',
         priority: 'URGENT',
         estimatedTime: 20,
+        status: 'WAITING',
       });
       console.log('🏃‍♂️ Busy queue scenario set up');
       break;

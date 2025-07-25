@@ -12,7 +12,7 @@ interface TransactionsState {
 interface TransactionsActions {
   fetchTransactions: () => Promise<void>;
   fetchCustomerTransactions: (customerId: string) => Promise<void>;
-  createTransaction: (transaction: Omit<Transaction, 'id' | 'timestamp' | 'referenceNumber'>) => Promise<void>;
+  createTransaction: (transaction: Omit<Transaction, 'id' | 'timestamp' | 'referenceNumber'>) => Promise<Transaction>;
   updateTransactionStatus: (id: string, status: Transaction['status']) => Promise<void>;
   clearError: () => void;
 }

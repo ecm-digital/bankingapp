@@ -1,4 +1,4 @@
-import { HTMLAttributes, forwardRef, ReactNode } from 'react';
+import { HTMLAttributes, forwardRef } from 'react';
 import { cn } from '@/utils';
 
 export interface TableProps extends HTMLAttributes<HTMLTableElement> {}
