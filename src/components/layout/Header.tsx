@@ -20,7 +20,7 @@ export function Header({ onMenuClick }: HeaderProps) {
               type="button"
               className="lg:hidden p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 transition-colors"
               onClick={onMenuClick}
-              aria-label="Otwórz menu"
+              aria-label="Open menu"
             >
               <Menu className="h-6 w-6" />
             </button>
@@ -36,7 +36,7 @@ export function Header({ onMenuClick }: HeaderProps) {
                   value={searchValue}
                   onChange={(e) => setSearchValue(e.target.value)}
                   className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
-                  placeholder="Wyszukaj klienta..."
+                  placeholder="Search customer..."
                 />
               </div>
             </div>
@@ -47,7 +47,7 @@ export function Header({ onMenuClick }: HeaderProps) {
             {/* Notifications */}
             <button 
               className="relative p-2 text-gray-400 hover:text-gray-500 hover:bg-gray-100 rounded-md transition-colors"
-              aria-label="Powiadomienia"
+              aria-label="Notifications"
             >
               <Bell className="h-6 w-6" />
               {notificationCount > 0 && (
@@ -66,8 +66,8 @@ export function Header({ onMenuClick }: HeaderProps) {
                   </div>
                 </div>
                 <div className="hidden md:block text-left">
-                  <div className="text-sm font-medium text-gray-900">Katarzyna Wiśniewska</div>
-                  <div className="text-xs text-gray-500">Doradca Klienta</div>
+                  <div className="text-sm font-medium text-gray-900">Katherine Wilson</div>
+                  <div className="text-xs text-gray-500">Customer Advisor</div>
                 </div>
                 <ChevronDown className="hidden md:block h-4 w-4 text-gray-400" />
               </button>

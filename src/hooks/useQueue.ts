@@ -30,7 +30,7 @@ export const useQueue = () => {
     } catch (error) {
       return { 
         success: false, 
-        error: error instanceof Error ? error.message : 'Błąd dodawania do kolejki' 
+        error: error instanceof Error ? error.message : 'Error adding to queue' 
       };
     }
   }, [addToQueue]);
@@ -42,7 +42,7 @@ export const useQueue = () => {
     } catch (error) {
       return { 
         success: false, 
-        error: error instanceof Error ? error.message : 'Błąd wywoływania klienta' 
+        error: error instanceof Error ? error.message : 'Error calling customer' 
       };
     }
   }, [callNextCustomer]);
@@ -57,7 +57,7 @@ export const useQueue = () => {
     } catch (error) {
       return { 
         success: false, 
-        error: error instanceof Error ? error.message : 'Błąd aktualizacji statusu' 
+        error: error instanceof Error ? error.message : 'Status update error' 
       };
     }
   }, [updateQueueItemStatus]);
@@ -69,7 +69,7 @@ export const useQueue = () => {
     } catch (error) {
       return { 
         success: false, 
-        error: error instanceof Error ? error.message : 'Błąd usuwania z kolejki' 
+        error: error instanceof Error ? error.message : 'Error removing from queue' 
       };
     }
   }, [removeFromQueue]);

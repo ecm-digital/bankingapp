@@ -20,14 +20,14 @@ export interface NavigationItem {
 
 export const navigationItems: NavigationItem[] = [
   { name: 'Dashboard', href: '/', icon: Home },
-  { name: 'Klienci', href: '/customers', icon: Users },
-  { name: 'Transakcje', href: '/transactions', icon: CreditCard },
-  { name: 'Kolejka', href: '/queue', icon: Clock, badge: 3 },
-  { name: 'Karty', href: '/cards', icon: CreditCard },
-  { name: 'Kredyty', href: '/loans', icon: DollarSign },
-  { name: 'Produkty', href: '/products', icon: Building2 },
-  { name: 'Raporty', href: '/reports', icon: BarChart3 },
-  { name: 'Ustawienia', href: '/settings', icon: Settings },
+  { name: 'Customers', href: '/customers', icon: Users },
+  { name: 'Transactions', href: '/transactions', icon: CreditCard },
+  { name: 'Queue', href: '/queue', icon: Clock, badge: 3 },
+  { name: 'Cards', href: '/cards', icon: CreditCard },
+  { name: 'Loans', href: '/loans', icon: DollarSign },
+  { name: 'Products', href: '/products', icon: Building2 },
+  { name: 'Reports', href: '/reports', icon: BarChart3 },
+  { name: 'Settings', href: '/settings', icon: Settings },
 ];
 
 interface NavigationProps {

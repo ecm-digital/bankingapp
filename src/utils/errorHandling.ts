@@ -22,7 +22,7 @@ export class AppErrorHandler {
       if (error.message.includes('fetch') || error.message.includes('network')) {
         return this.createError(
           'NETWORK',
-          'Błąd połączenia z serwerem',
+          'Server connection error',
           error.message,
           true
         );
@@ -32,7 +32,7 @@ export class AppErrorHandler {
       if (error.message.includes('validation') || error.message.includes('required')) {
         return this.createError(
           'VALIDATION',
-          'Błąd walidacji danych',
+          'Data validation error',
           error.message,
           true
         );
@@ -42,7 +42,7 @@ export class AppErrorHandler {
       if (error.message.includes('unauthorized') || error.message.includes('forbidden')) {
         return this.createError(
           'AUTHORIZATION',
-          'Brak uprawnień do wykonania operacji',
+          'Insufficient permissions to perform operation',
           error.message,
           false
         );
@@ -59,7 +59,7 @@ export class AppErrorHandler {
 
     return this.createError(
       'SYSTEM',
-      'Wystąpił nieoczekiwany błąd',
+      'An unexpected error occurred',
       String(error),
       true
     );
@@ -68,14 +68,14 @@ export class AppErrorHandler {
   static getErrorMessage(error: AppError): string {
     switch (error.type) {
       case 'NETWORK':
-        return 'Sprawdź połączenie internetowe i spróbuj ponownie';
+        return 'Check your internet connection and try again';
       case 'VALIDATION':
-        return 'Sprawdź wprowadzone dane i popraw błędy';
+        return 'Check the entered data and correct errors';
       case 'AUTHORIZATION':
-        return 'Nie masz uprawnień do wykonania tej operacji';
+        return 'You do not have permission to perform this operation';
       case 'SYSTEM':
       default:
-        return error.message || 'Wystąpił nieoczekiwany błąd';
+        return error.message || 'An unexpected error occurred';
     }
   }
 

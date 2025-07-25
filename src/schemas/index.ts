@@ -2,36 +2,36 @@ import { z } from 'zod';
 
 // Base schemas
 export const AddressSchema = z.object({
-  street: z.string().min(1, 'Ulica jest wymagana'),
-  city: z.string().min(1, 'Miasto jest wymagane'),
-  postalCode: z.string().regex(/^\d{2}-\d{3}$/, 'Nieprawidłowy kod pocztowy'),
-  country: z.string().min(1, 'Kraj jest wymagany'),
+  street: z.string().min(1, 'Street is required'),
+  city: z.string().min(1, 'City is required'),
+  postalCode: z.string().regex(/^\d{5}(-\d{4})?$/, 'Invalid postal code'),
+  country: z.string().min(1, 'Country is required'),
 });
 
 export const NoteSchema = z.object({
   id: z.string(),
-  content: z.string().min(1, 'Treść notatki jest wymagana'),
+  content: z.string().min(1, 'Note content is required'),
   createdAt: z.date(),
   createdBy: z.string(),
   type: z.enum(['GENERAL', 'IMPORTANT', 'REMINDER']),
 });
 
 export const FeeSchema = z.object({
-  name: z.string().min(1, 'Nazwa opłaty jest wymagana'),
-  amount: z.number().positive('Kwota musi być dodatnia'),
-  currency: z.string().length(3, 'Waluta musi mieć 3 znaki'),
+  name: z.string().min(1, 'Fee name is required'),
+  amount: z.number().positive('Amount must be positive'),
+  currency: z.string().length(3, 'Currency must be 3 characters'),
   frequency: z.enum(['MONTHLY', 'YEARLY', 'ONE_TIME']),
 });
 
 // Customer schemas
 export const AccountSchema = z.object({
   id: z.string(),
-  accountNumber: z.string().min(1, 'Numer konta jest wymagany'),
-  iban: z.string().min(15, 'IBAN musi mieć co najmniej 15 znaków'),
-  swiftBic: z.string().min(8, 'SWIFT/BIC musi mieć co najmniej 8 znaków'),
+  accountNumber: z.string().min(1, 'Account number is required'),
+  iban: z.string().min(15, 'IBAN must have at least 15 characters'),
+  swiftBic: z.string().min(8, 'SWIFT/BIC must have at least 8 characters'),
   type: z.enum(['PERSONAL_CHECKING', 'BUSINESS', 'SAVINGS', 'INVESTMENT']),
   balance: z.number(),
-  currency: z.string().length(3, 'Waluta musi mieć 3 znaki'),
+  currency: z.string().length(3, 'Currency must be 3 characters'),
   isActive: z.boolean(),
   openedDate: z.date(),
 });
@@ -39,12 +39,12 @@ export const AccountSchema = z.object({
 export const CustomerSchema = z.object({
   id: z.string(),
   personalInfo: z.object({
-    firstName: z.string().min(1, 'Imię jest wymagane'),
-    lastName: z.string().min(1, 'Nazwisko jest wymagane'),
-    pesel: z.string().length(11, 'PESEL musi mieć 11 cyfr'),
+    firstName: z.string().min(1, 'First name is required'),
+    lastName: z.string().min(1, 'Last name is required'),
+    pesel: z.string().length(11, 'SSN must have 11 digits'),
     dateOfBirth: z.date(),
-    email: z.string().email('Nieprawidłowy adres email'),
-    phone: z.string().min(9, 'Numer telefonu musi mieć co najmniej 9 cyfr'),
+    email: z.string().email('Invalid email address'),
+    phone: z.string().min(9, 'Phone number must have at least 9 digits'),
     address: AddressSchema,
   }),
   bankingInfo: z.object({
@@ -64,11 +64,11 @@ export const CustomerSchema = z.object({
 export const TransactionSchema = z.object({
   id: z.string(),
   type: z.enum(['TRANSFER', 'DEPOSIT', 'WITHDRAWAL', 'PAYMENT']),
-  amount: z.number().positive('Kwota musi być dodatnia'),
-  currency: z.string().length(3, 'Waluta musi mieć 3 znaki'),
-  fromAccount: z.string().min(1, 'Konto źródłowe jest wymagane'),
+  amount: z.number().positive('Amount must be positive'),
+  currency: z.string().length(3, 'Currency must be 3 characters'),
+  fromAccount: z.string().min(1, 'Source account is required'),
   toAccount: z.string().optional(),
-  description: z.string().min(1, 'Opis jest wymagany'),
+  description: z.string().min(1, 'Description is required'),
   category: z.enum(['FOOD', 'TRANSPORT', 'SHOPPING', 'BILLS', 'ENTERTAINMENT', 'OTHER']),
   status: z.enum(['PENDING', 'COMPLETED', 'FAILED']),
   timestamp: z.date(),
@@ -79,17 +79,17 @@ export const TransactionSchema = z.object({
 
 // Transfer form schema
 export const TransferFormSchema = z.object({
-  fromAccount: z.string().min(1, 'Wybierz konto źródłowe'),
-  toAccount: z.string().min(1, 'Podaj numer konta odbiorcy'),
-  amount: z.number().positive('Kwota musi być dodatnia'),
-  description: z.string().min(1, 'Opis przelewu jest wymagany'),
-  recipientName: z.string().min(1, 'Nazwa odbiorcy jest wymagana'),
+  fromAccount: z.string().min(1, 'Select source account'),
+  toAccount: z.string().min(1, 'Enter recipient account number'),
+  amount: z.number().positive('Amount must be positive'),
+  description: z.string().min(1, 'Transfer description is required'),
+  recipientName: z.string().min(1, 'Recipient name is required'),
 });
 
 // Contact edit schema
 export const ContactEditSchema = z.object({
-  email: z.string().email('Nieprawidłowy adres email'),
-  phone: z.string().min(9, 'Numer telefonu musi mieć co najmniej 9 cyfr'),
+  email: z.string().email('Invalid email address'),
+  phone: z.string().min(9, 'Phone number must have at least 9 digits'),
   address: AddressSchema,
 });
 
@@ -104,8 +104,8 @@ export const CardApplicationSchema = z.object({
 // Loan application schema
 export const LoanApplicationSchema = z.object({
   loanType: z.enum(['PERSONAL', 'MORTGAGE', 'AUTO', 'BUSINESS']),
-  requestedAmount: z.number().positive('Kwota musi być dodatnia'),
-  termMonths: z.number().min(1, 'Okres musi być co najmniej 1 miesiąc'),
-  purpose: z.string().min(1, 'Cel kredytu jest wymagany'),
-  monthlyIncome: z.number().positive('Dochód miesięczny musi być dodatni'),
+  requestedAmount: z.number().positive('Amount must be positive'),
+  termMonths: z.number().min(1, 'Term must be at least 1 month'),
+  purpose: z.string().min(1, 'Loan purpose is required'),
+  monthlyIncome: z.number().positive('Monthly income must be positive'),
 });

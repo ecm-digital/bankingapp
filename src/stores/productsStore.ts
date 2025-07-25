@@ -68,7 +68,7 @@ export const useProductsStore = create<ProductsStore>((set, get) => ({
     } catch (error) {
       set({
         isLoading: false,
-        error: error instanceof Error ? error.message : 'Błąd pobierania kart klienta',
+        error: error instanceof Error ? error.message : 'Error fetching customer cards',
       });
     }
   },
@@ -90,7 +90,7 @@ export const useProductsStore = create<ProductsStore>((set, get) => ({
     } catch (error) {
       set({
         isLoading: false,
-        error: error instanceof Error ? error.message : 'Błąd pobierania kredytów klienta',
+        error: error instanceof Error ? error.message : 'Error fetching customer loans',
       });
     }
   },

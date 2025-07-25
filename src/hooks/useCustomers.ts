@@ -39,7 +39,7 @@ export const useCustomers = () => {
     } catch (error) {
       return { 
         success: false, 
-        error: error instanceof Error ? error.message : 'Błąd aktualizacji' 
+        error: error instanceof Error ? error.message : 'Update error' 
       };
     }
   }, [updateCustomer]);
@@ -55,7 +55,7 @@ export const useCustomers = () => {
     } catch (error) {
       return { 
         success: false, 
-        error: error instanceof Error ? error.message : 'Błąd dodawania notatki' 
+        error: error instanceof Error ? error.message : 'Error adding note' 
       };
     }
   }, [addNote]);

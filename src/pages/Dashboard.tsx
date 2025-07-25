@@ -4,28 +4,28 @@ import { Card, CardContent, Button } from '@/components/ui';
 export function Dashboard() {
   const stats = [
     {
-      name: 'Obsłużeni klienci',
+      name: 'Customers Served',
       value: '12',
       change: '+2',
       changeType: 'increase',
       icon: Users,
     },
     {
-      name: 'Transakcje dzisiaj',
+      name: 'Transactions Today',
       value: '24',
       change: '+4',
       changeType: 'increase',
       icon: CreditCard,
     },
     {
-      name: 'Czas oczekiwania',
+      name: 'Wait Time',
       value: '8 min',
       change: '-2 min',
       changeType: 'decrease',
       icon: Clock,
     },
     {
-      name: 'Cel miesięczny',
+      name: 'Monthly Goal',
       value: '78%',
       change: '+12%',
       changeType: 'increase',
@@ -39,7 +39,7 @@ export function Dashboard() {
       <div>
         <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
         <p className="mt-1 text-sm text-gray-500">
-          Przegląd aktywności na dzień {new Date().toLocaleDateString('pl-PL')}
+          Activity overview for {new Date().toLocaleDateString('en-US')}
         </p>
       </div>
 
@@ -72,19 +72,19 @@ export function Dashboard() {
       {/* Quick actions */}
       <Card>
         <CardContent className="p-6">
-          <h3 className="text-lg font-medium leading-6 text-gray-900">Szybkie akcje</h3>
+          <h3 className="text-lg font-medium leading-6 text-gray-900">Quick Actions</h3>
           <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             <Button variant="secondary" className="h-auto p-4 justify-start">
               <Users className="h-6 w-6 text-gray-400 mr-3" />
-              <span className="text-sm font-medium text-gray-900">Nowy klient</span>
+              <span className="text-sm font-medium text-gray-900">New Customer</span>
             </Button>
             <Button variant="secondary" className="h-auto p-4 justify-start">
               <CreditCard className="h-6 w-6 text-gray-400 mr-3" />
-              <span className="text-sm font-medium text-gray-900">Nowy przelew</span>
+              <span className="text-sm font-medium text-gray-900">New Transfer</span>
             </Button>
             <Button variant="secondary" className="h-auto p-4 justify-start">
               <Clock className="h-6 w-6 text-gray-400 mr-3" />
-              <span className="text-sm font-medium text-gray-900">Zarządzaj kolejką</span>
+              <span className="text-sm font-medium text-gray-900">Manage Queue</span>
             </Button>
           </div>
         </CardContent>
@@ -93,9 +93,9 @@ export function Dashboard() {
       {/* Recent activity placeholder */}
       <Card>
         <CardContent className="p-6">
-          <h3 className="text-lg font-medium leading-6 text-gray-900">Ostatnia aktywność</h3>
+          <h3 className="text-lg font-medium leading-6 text-gray-900">Recent Activity</h3>
           <div className="mt-5">
-            <p className="text-sm text-gray-500">Brak ostatnich aktywności do wyświetlenia.</p>
+            <p className="text-sm text-gray-500">No recent activities to display.</p>
           </div>
         </CardContent>
       </Card>

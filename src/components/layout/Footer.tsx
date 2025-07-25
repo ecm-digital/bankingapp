@@ -52,7 +52,7 @@ export function Footer() {
               <WifiOff className="h-4 w-4 text-red-500" />
             )}
             <span className={isOnline ? 'text-green-600' : 'text-red-600'}>
-              {isOnline ? 'Połączono' : 'Brak połączenia'}
+              {isOnline ? 'Connected' : 'No connection'}
             </span>
           </div>
           

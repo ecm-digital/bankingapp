@@ -37,7 +37,7 @@ export const authApi = {
     const employee = employees.find(emp => emp.email === email);
     
     if (!employee || password !== 'password123') {
-      throw new MockApiError('Nieprawidłowe dane logowania', 401);
+      throw new MockApiError('Invalid login credentials', 401);
     }
     
     return employee;
@@ -63,7 +63,7 @@ export const customersApi = {
     const customer = customers.find(c => c.id === id);
     
     if (!customer) {
-      throw new MockApiError('Klient nie został znaleziony', 404);
+      throw new MockApiError('Customer not found', 404);
     }
     
     return customer;
@@ -95,7 +95,7 @@ export const customersApi = {
     const customer = customers.find(c => c.id === id);
     
     if (!customer) {
-      throw new MockApiError('Klient nie został znaleziony', 404);
+      throw new MockApiError('Customer not found', 404);
     }
     
     return { ...customer, ...updates };
@@ -128,11 +128,11 @@ export const transactionsApi = {
     
     // Validate transaction data
     if (transactionData.amount <= 0) {
-      throw new MockApiError('Kwota musi być większa od zera', 400);
+      throw new MockApiError('Amount must be greater than zero', 400);
     }
     
     if (!transactionData.fromAccount) {
-      throw new MockApiError('Konto źródłowe jest wymagane', 400);
+      throw new MockApiError('Source account is required', 400);
     }
     
     const newTransaction: Transaction = {
@@ -209,7 +209,7 @@ export const productsApi = {
     const product = products.find(p => p.id === id);
     
     if (!product) {
-      throw new MockApiError('Produkt nie został znaleziony', 404);
+      throw new MockApiError('Product not found', 404);
     }
     
     return product;
@@ -251,7 +251,7 @@ export const cardsApi = {
     await delay(500);
     
     if (creditLimit < 0) {
-      throw new MockApiError('Limit kredytowy nie może być ujemny', 400);
+      throw new MockApiError('Credit limit cannot be negative', 400);
     }
     
     console.log('Card limits updated:', { cardId, creditLimit });
@@ -290,7 +290,7 @@ export const loansApi = {
     const loan = loans.find(l => l.id === id);
     
     if (!loan) {
-      throw new MockApiError('Kredyt nie został znaleziony', 404);
+      throw new MockApiError('Loan not found', 404);
     }
     
     return loan;
@@ -305,11 +305,11 @@ export const loansApi = {
     
     // Mock loan validation
     if (loanData.principalAmount <= 0) {
-      throw new MockApiError('Kwota kredytu musi być większa od zera', 400);
+      throw new MockApiError('Loan amount must be greater than zero', 400);
     }
     
     if (loanData.termMonths <= 0) {
-      throw new MockApiError('Okres kredytu musi być większy od zera', 400);
+      throw new MockApiError('Loan term must be greater than zero', 400);
     }
     
     const applicationId = `loan_app_${Date.now()}`;

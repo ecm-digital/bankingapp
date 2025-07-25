@@ -44,7 +44,7 @@ export const useProducts = () => {
     } catch (error) {
       return { 
         success: false, 
-        error: error instanceof Error ? error.message : 'Błąd składania wniosku' 
+        error: error instanceof Error ? error.message : 'Application submission error' 
       };
     }
   }, [applyForProduct]);
@@ -59,7 +59,7 @@ export const useProducts = () => {
     } catch (error) {
       return { 
         success: false, 
-        error: error instanceof Error ? error.message : 'Błąd aktualizacji statusu karty' 
+        error: error instanceof Error ? error.message : 'Error updating card status' 
       };
     }
   }, [updateCardStatus]);
@@ -74,7 +74,7 @@ export const useProducts = () => {
     } catch (error) {
       return { 
         success: false, 
-        error: error instanceof Error ? error.message : 'Błąd aktualizacji limitów karty' 
+        error: error instanceof Error ? error.message : 'Error updating card limits' 
       };
     }
   }, [updateCardLimits]);

@@ -93,7 +93,7 @@ export const useQueueStore = create<QueueStore>((set, get) => ({
       const waitingCustomers = queueItems.filter(item => item.status === 'WAITING');
       
       if (waitingCustomers.length === 0) {
-        throw new Error('Brak klientów w kolejce');
+        throw new Error('No customers in queue');
       }
       
       // Sort by priority and arrival time
@@ -116,7 +116,7 @@ export const useQueueStore = create<QueueStore>((set, get) => ({
     } catch (error) {
       set({
         isLoading: false,
-        error: error instanceof Error ? error.message : 'Błąd wywoływania klienta',
+        error: error instanceof Error ? error.message : 'Error calling customer',
       });
     }
   },

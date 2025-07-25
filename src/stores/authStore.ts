@@ -37,7 +37,7 @@ export const useAuthStore = create<AuthStore>((set) => ({
       const employee = employees.find(emp => emp.email === email);
       
       if (!employee || password !== 'password123') {
-        throw new Error('Nieprawidłowe dane logowania');
+        throw new Error('Invalid login credentials');
       }
       
       set({
@@ -49,7 +49,7 @@ export const useAuthStore = create<AuthStore>((set) => ({
     } catch (error) {
       set({
         isLoading: false,
-        error: error instanceof Error ? error.message : 'Błąd logowania',
+        error: error instanceof Error ? error.message : 'Login error',
       });
     }
   },

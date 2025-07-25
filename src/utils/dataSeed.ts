@@ -13,7 +13,7 @@ export const seedDemoData = async () => {
   try {
     // Seed auth store with a demo employee login
     const authStore = useAuthStore.getState();
-    await authStore.login('k.wisniewska@bank.pl', 'password123');
+    await authStore.login('k.wilson@bank.com', 'password123');
     console.log('✅ Auth store seeded');
 
     // Seed customers store
@@ -83,23 +83,23 @@ export const setupDemoScenario = async (scenario: 'customer-service' | 'busy-que
     case 'customer-service':
       // Select a customer for service
       await customersStore.getCustomerById('1');
-      console.log('👤 Customer Anna Kowalska selected for service');
+      console.log('👤 Customer Anna Johnson selected for service');
       break;
       
     case 'busy-queue':
       // Add more customers to queue
       await queueStore.addToQueue({
         customerId: '3',
-        customerName: 'Maria Wiśniewska',
-        serviceType: 'Konsultacja inwestycyjna',
+        customerName: 'Maria Williams',
+        serviceType: 'Investment consultation',
         priority: 'HIGH',
         estimatedTime: 45,
         status: 'WAITING',
       });
       await queueStore.addToQueue({
         customerId: '4',
-        customerName: 'Tomasz Zieliński',
-        serviceType: 'Spłata zadłużenia',
+        customerName: 'Thomas Green',
+        serviceType: 'Debt payment',
         priority: 'URGENT',
         estimatedTime: 20,
         status: 'WAITING',
@@ -110,7 +110,7 @@ export const setupDemoScenario = async (scenario: 'customer-service' | 'busy-que
     case 'vip-client':
       // Select VIP customer
       await customersStore.getCustomerById('3');
-      console.log('⭐ VIP client Maria Wiśniewska selected');
+      console.log('⭐ VIP client Maria Williams selected');
       break;
   }
   

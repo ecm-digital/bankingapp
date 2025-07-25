@@ -31,7 +31,7 @@ export const useTransactions = () => {
     } catch (error) {
       return { 
         success: false, 
-        error: error instanceof Error ? error.message : 'Błąd tworzenia transakcji' 
+        error: error instanceof Error ? error.message : 'Error creating transaction' 
       };
     }
   }, [createTransaction]);
@@ -50,7 +50,7 @@ export const useTransactions = () => {
     } catch (error) {
       return { 
         success: false, 
-        error: error instanceof Error ? error.message : 'Błąd aktualizacji statusu' 
+        error: error instanceof Error ? error.message : 'Status update error' 
       };
     }
   }, [updateTransactionStatus]);

@@ -46,7 +46,7 @@ export const useCustomersStore = create<CustomersStore>((set, get) => ({
     } catch (error) {
       set({
         isLoading: false,
-        error: error instanceof Error ? error.message : 'Błąd pobierania klientów',
+        error: error instanceof Error ? error.message : 'Error fetching customers',
       });
     }
   },
@@ -83,7 +83,7 @@ export const useCustomersStore = create<CustomersStore>((set, get) => ({
     } catch (error) {
       set({
         isLoading: false,
-        error: error instanceof Error ? error.message : 'Błąd wyszukiwania klientów',
+        error: error instanceof Error ? error.message : 'Error searching customers',
       });
     }
   },
@@ -99,7 +99,7 @@ export const useCustomersStore = create<CustomersStore>((set, get) => ({
       const customer = customers.find(c => c.id === id);
       
       if (!customer) {
-        throw new Error('Klient nie został znaleziony');
+        throw new Error('Customer not found');
       }
       
       set({
@@ -109,7 +109,7 @@ export const useCustomersStore = create<CustomersStore>((set, get) => ({
     } catch (error) {
       set({
         isLoading: false,
-        error: error instanceof Error ? error.message : 'Błąd pobierania danych klienta',
+        error: error instanceof Error ? error.message : 'Error fetching customer data',
       });
     }
   },
@@ -138,7 +138,7 @@ export const useCustomersStore = create<CustomersStore>((set, get) => ({
     } catch (error) {
       set({
         isLoading: false,
-        error: error instanceof Error ? error.message : 'Błąd aktualizacji danych klienta',
+        error: error instanceof Error ? error.message : 'Error updating customer data',
       });
     }
   },

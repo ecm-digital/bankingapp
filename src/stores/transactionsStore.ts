@@ -64,7 +64,7 @@ export const useTransactionsStore = create<TransactionsStore>((set, get) => ({
     } catch (error) {
       set({
         isLoading: false,
-        error: error instanceof Error ? error.message : 'Błąd pobierania transakcji klienta',
+        error: error instanceof Error ? error.message : 'Error fetching customer transactions',
       });
     }
   },

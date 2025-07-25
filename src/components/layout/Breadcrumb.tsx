@@ -57,13 +57,13 @@ function generateBreadcrumbItems(pathname: string): BreadcrumbItem[] {
   
   const routeLabels: Record<string, string> = {
     customers: 'Klienci',
-    transactions: 'Transakcje',
-    queue: 'Kolejka',
-    cards: 'Karty',
-    loans: 'Kredyty',
-    products: 'Produkty',
-    reports: 'Raporty',
-    settings: 'Ustawienia',
+    transactions: 'Transactions',
+    queue: 'Queue',
+    cards: 'Cards',
+    loans: 'Loans',
+    products: 'Products',
+    reports: 'Reports',
+    settings: 'Settings',
   };
 
   return pathSegments.map((segment, index) => {

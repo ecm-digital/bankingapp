@@ -19,7 +19,7 @@ export const useAuth = () => {
     } catch (error) {
       return { 
         success: false, 
-        error: error instanceof Error ? error.message : 'Błąd logowania' 
+        error: error instanceof Error ? error.message : 'Login error' 
       };
     }
   }, [login]);
