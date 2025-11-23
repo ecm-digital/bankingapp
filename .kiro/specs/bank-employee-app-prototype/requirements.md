@@ -2,7 +2,9 @@
 
 ## Wprowadzenie
 
-Celem projektu jest stworzenie prototypu UX/UI aplikacji bankowej przeznaczonej dla pracowników banku do obsługi klientów. Prototyp będzie służył jako demonstracja na stronę internetową senior product designera, prezentując nowoczesne podejście do projektowania interfejsów dla systemów bankowych. Aplikacja ma być w pełni funkcjonalną symulacją, pokazującą kluczowe przepływy pracy i interakcje w środowisku bankowym.
+Celem projektu jest stworzenie prototypu UX/UI aplikacji bankowej przeznaczonej dla pracowników banku do obsługi klientów. Prototyp będzie służył jako demonstracja na stronę internetową senior product designera, prezentując nowoczesne podejście do projektowania interfejsów dla systemów bankowych. 
+
+**UWAGA: To jest tylko prototyp interfejsu użytkownika z mockowanymi danymi - nie implementujemy rzeczywistych funkcjonalności biznesowych, tylko symulację UX/UI pokazującą kluczowe przepływy pracy i interakcje w środowisku bankowym.**
 
 ## Wymagania
 
@@ -12,10 +14,10 @@ Celem projektu jest stworzenie prototypu UX/UI aplikacji bankowej przeznaczonej 
 
 #### Kryteria Akceptacji
 
-1. WHEN pracownik loguje się do systemu THEN system SHALL wyświetlić dashboard z podsumowaniem dnia
-2. WHEN dashboard się ładuje THEN system SHALL pokazać liczbę oczekujących klientów, zaplanowane spotkania i pilne zadania
-3. WHEN pracownik przegląda dashboard THEN system SHALL wyświetlić powiadomienia o ważnych aktualizacjach
-4. IF pracownik ma zaplanowane spotkania THEN system SHALL wyświetlić je w widocznym miejscu z czasem i szczegółami klienta
+1. WHEN pracownik loguje się do systemu THEN prototyp SHALL wyświetlić dashboard z mockowanym podsumowaniem dnia
+2. WHEN dashboard się ładuje THEN prototyp SHALL pokazać mockowaną liczbę oczekujących klientów, zaplanowane spotkania i pilne zadania
+3. WHEN pracownik przegląda dashboard THEN prototyp SHALL wyświetlić mockowane powiadomienia o ważnych aktualizacjach
+4. IF pracownik ma zaplanowane spotkania THEN prototyp SHALL wyświetlić je w widocznym miejscu z mockowanym czasem i szczegółami klienta
 
 ### Wymaganie 2
 
@@ -23,16 +25,16 @@ Celem projektu jest stworzenie prototypu UX/UI aplikacji bankowej przeznaczonej 
 
 #### Kryteria Akceptacji
 
-1. WHEN pracownik wprowadza dane klienta w wyszukiwarkę THEN system SHALL wyświetlić pasujące wyniki w czasie rzeczywistym
-2. WHEN pracownik wybiera klienta z wyników THEN system SHALL otworzyć szczegółowy profil klienta
-3. WHEN profil klienta się ładuje THEN system SHALL wyświetlić dane osobowe, historię transakcji, produkty bankowe i notatki
-4. IF klient ma aktywne kredyty lub pożyczki THEN system SHALL wyraźnie wyświetlić te informacje z kluczowymi szczegółami
-5. WHEN pracownik przegląda profil THEN system SHALL umożliwić dodawanie notatek i komentarzy
-6. WHEN profil klienta się wyświetla THEN system SHALL pokazać avatar klienta, status konta i ID klienta
-7. WHEN pracownik przegląda informacje o koncie THEN system SHALL wyświetlić numer konta, IBAN, SWIFT/BIC i typ konta
-8. WHEN pracownik sprawdza saldo THEN system SHALL wyświetlić aktualny stan konta z trendem miesięcznym
-9. WHEN pracownik przegląda dane kontaktowe THEN system SHALL umożliwić edycję email, telefonu i adresu
-10. WHEN pracownik przegląda ostatnie transakcje THEN system SHALL wyświetlić je w tabeli z kategoriami i kolorowym kodowaniem
+1. WHEN pracownik wprowadza dane klienta w wyszukiwarkę THEN prototyp SHALL wyświetlić pasujące wyniki z mockowanych danych w symulowanym czasie rzeczywistym
+2. WHEN pracownik wybiera klienta z wyników THEN prototyp SHALL otworzyć szczegółowy profil klienta z mockowanymi danymi
+3. WHEN profil klienta się ładuje THEN prototyp SHALL wyświetlić mockowane dane osobowe, historię transakcji, produkty bankowe i notatki
+4. IF klient ma aktywne kredyty lub pożyczki THEN prototyp SHALL wyraźnie wyświetlić te mockowane informacje z kluczowymi szczegółami
+5. WHEN pracownik przegląda profil THEN prototyp SHALL symulować możliwość dodawania notatek i komentarzy (tylko UI)
+6. WHEN profil klienta się wyświetla THEN prototyp SHALL pokazać mockowany avatar klienta, status konta i ID klienta
+7. WHEN pracownik przegląda informacje o koncie THEN prototyp SHALL wyświetlić mockowane numery konta, IBAN, SWIFT/BIC i typ konta
+8. WHEN pracownik sprawdza saldo THEN prototyp SHALL wyświetlić mockowany aktualny stan konta z trendem miesięcznym
+9. WHEN pracownik przegląda dane kontaktowe THEN prototyp SHALL symulować możliwość edycji email, telefonu i adresu (tylko UI)
+10. WHEN pracownik przegląda ostatnie transakcje THEN prototyp SHALL wyświetlić je w tabeli z mockowanymi kategoriami i kolorowym kodowaniem
 
 ### Wymaganie 3
 
@@ -40,11 +42,11 @@ Celem projektu jest stworzenie prototypu UX/UI aplikacji bankowej przeznaczonej 
 
 #### Kryteria Akceptacji
 
-1. WHEN pracownik wybiera opcję nowej transakcji THEN system SHALL wyświetlić dostępne typy operacji
-2. WHEN pracownik inicjuje przelew THEN system SHALL wymagać weryfikacji danych odbiorcy i kwoty
-3. WHEN transakcja jest przygotowana THEN system SHALL wyświetlić podsumowanie do zatwierdzenia
-4. IF transakcja wymaga dodatkowej autoryzacji THEN system SHALL wyraźnie wskazać wymagane kroki
-5. WHEN transakcja zostanie zatwierdzona THEN system SHALL wyświetlić potwierdzenie z numerem referencyjnym
+1. WHEN pracownik wybiera opcję nowej transakcji THEN prototyp SHALL wyświetlić dostępne typy operacji
+2. WHEN pracownik inicjuje przelew THEN prototyp SHALL symulować weryfikację danych odbiorcy i kwoty (tylko walidacja UI)
+3. WHEN transakcja jest przygotowana THEN prototyp SHALL wyświetlić mockowane podsumowanie do zatwierdzenia
+4. IF transakcja wymaga dodatkowej autoryzacji THEN prototyp SHALL wyraźnie wskazać symulowane wymagane kroki
+5. WHEN transakcja zostanie zatwierdzona THEN prototyp SHALL wyświetlić mockowane potwierdzenie z numerem referencyjnym
 
 ### Wymaganie 4
 
@@ -104,3 +106,14 @@ Celem projektu jest stworzenie prototypu UX/UI aplikacji bankowej przeznaczonej 
 3. WHEN użytkownik wykonuje akcje THEN system SHALL zapewniać natychmiastową wizualną odpowiedź
 4. IF wystąpi błąd THEN system SHALL wyświetlić przyjazne komunikaty z jasnymi instrukcjami
 5. WHEN użytkownik przegląda różne sekcje THEN system SHALL zachować spójną hierarchię wizualną i typografię
+## Uw
+agi Implementacyjne dla Prototypu
+
+**Ważne:** Wszystkie wymagania dotyczą tylko warstwy prezentacji (UI/UX). Prototyp nie implementuje:
+- Rzeczywistych połączeń z bazami danych
+- Prawdziwych transakcji bankowych
+- Rzeczywistej autoryzacji i bezpieczeństwa
+- Integracji z systemami bankowymi
+- Prawdziwego przetwarzania płatności
+
+Prototyp używa wyłącznie mockowanych danych i symuluje interakcje użytkownika w celu demonstracji przepływów UX/UI.

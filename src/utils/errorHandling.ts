@@ -1,126 +1,240 @@
-import { AppError } from '@/types';
+import { MockApiError } from '@/api/mockApi';
 
-export class AppErrorHandler {
-  static createError(
-    type: AppError['type'],
-    message: string,
-    details?: string,
-    recoverable: boolean = true
-  ): AppError {
-    return {
-      type,
-      message,
-      details,
-      recoverable,
-      actions: [],
-    };
-  }
-
-  static handleApiError(error: unknown): AppError {
-    if (error instanceof Error) {
-      // Check if it's a network error
-      if (error.message.includes('fetch') || error.message.includes('network')) {
-        return this.createError(
-          'NETWORK',
-          'Server connection error',
-          error.message,
-          true
-        );
-      }
-
-      // Check if it's a validation error
-      if (error.message.includes('validation') || error.message.includes('required')) {
-        return this.createError(
-          'VALIDATION',
-          'Data validation error',
-          error.message,
-          true
-        );
-      }
-
-      // Check if it's an authorization error
-      if (error.message.includes('unauthorized') || error.message.includes('forbidden')) {
-        return this.createError(
-          'AUTHORIZATION',
-          'Insufficient permissions to perform operation',
-          error.message,
-          false
-        );
-      }
-
-      // Default to system error
-      return this.createError(
-        'SYSTEM',
-        error.message,
-        undefined,
-        true
-      );
-    }
-
-    return this.createError(
-      'SYSTEM',
-      'An unexpected error occurred',
-      String(error),
-      true
-    );
-  }
-
-  static getErrorMessage(error: AppError): string {
-    switch (error.type) {
-      case 'NETWORK':
-        return 'Check your internet connection and try again';
-      case 'VALIDATION':
-        return 'Check the entered data and correct errors';
-      case 'AUTHORIZATION':
-        return 'You do not have permission to perform this operation';
-      case 'SYSTEM':
-      default:
-        return error.message || 'An unexpected error occurred';
-    }
-  }
-
-  static isRetryable(error: AppError): boolean {
-    return error.recoverable && (error.type === 'NETWORK' || error.type === 'SYSTEM');
-  }
-
-  static logError(error: AppError, context?: string): void {
-    const logData = {
-      type: error.type,
-      message: error.message,
-      details: error.details,
-      context,
-      timestamp: new Date().toISOString(),
-    };
-
-    // In development, log to console
-    if (import.meta.env.DEV) {
-      console.error('Application Error:', logData);
-    }
-
-    // In production, you would send this to your logging service
-    // Example: sendToLoggingService(logData);
-  }
+export interface AppError {
+  type: 'VALIDATION' | 'NETWORK' | 'AUTHORIZATION' | 'SYSTEM' | 'BUSINESS';
+  message: string;
+  details?: string;
+  code?: string;
+  recoverable: boolean;
+  actions?: ErrorAction[];
 }
 
-// Hook for error handling in components
-export const useErrorHandler = () => {
-  const handleError = (error: unknown, context?: string): AppError => {
-    const appError = AppErrorHandler.handleApiError(error);
-    AppErrorHandler.logError(appError, context);
-    return appError;
-  };
+export interface ErrorAction {
+  label: string;
+  action: () => void;
+  primary?: boolean;
+}
 
-  const getErrorMessage = (error: AppError): string => {
-    return AppErrorHandler.getErrorMessage(error);
-  };
-
-  const isRetryable = (error: AppError): boolean => {
-    return AppErrorHandler.isRetryable(error);
-  };
-
+/**
+ * Converts various error types to standardized AppError format
+ */
+export const normalizeError = (error: unknown): AppError => {
+  if (error instanceof MockApiError) {
+    return {
+      type: getErrorTypeFromStatus(error.status),
+      message: error.message,
+      code: error.code,
+      recoverable: isRecoverableError(error.status),
+      actions: getErrorActions(error),
+    };
+  }
+  
+  if (error instanceof Error) {
+    return {
+      type: 'SYSTEM',
+      message: error.message,
+      recoverable: true,
+      actions: [
+        {
+          label: 'Try Again',
+          action: () => window.location.reload(),
+          primary: true,
+        },
+      ],
+    };
+  }
+  
   return {
-    handleError,
-    getErrorMessage,
-    isRetryable,
+    type: 'SYSTEM',
+    message: 'An unexpected error occurred',
+    recoverable: true,
+    actions: [
+      {
+        label: 'Try Again',
+        action: () => window.location.reload(),
+        primary: true,
+      },
+    ],
+  };
+};
+
+/**
+ * Maps HTTP status codes to error types
+ */
+const getErrorTypeFromStatus = (status: number): AppError['type'] => {
+  if (status >= 400 && status < 500) {
+    if (status === 401 || status === 403) return 'AUTHORIZATION';
+    if (status === 400 || status === 422) return 'VALIDATION';
+    return 'BUSINESS';
+  }
+  
+  if (status >= 500) return 'SYSTEM';
+  
+  return 'NETWORK';
+};
+
+/**
+ * Determines if an error is recoverable based on status code
+ */
+const isRecoverableError = (status: number): boolean => {
+  // Client errors (4xx) are generally not recoverable by retrying
+  if (status >= 400 && status < 500) {
+    return status === 408 || status === 429; // Timeout or rate limit
+  }
+  
+  // Server errors (5xx) are generally recoverable
+  return status >= 500;
+};
+
+/**
+ * Generates appropriate actions for different error types
+ */
+const getErrorActions = (error: MockApiError): ErrorAction[] => {
+  const actions: ErrorAction[] = [];
+  
+  switch (error.code) {
+    case 'TIMEOUT':
+    case 'SERVICE_UNAVAILABLE':
+      actions.push({
+        label: 'Retry',
+        action: () => {}, // Will be overridden by caller
+        primary: true,
+      });
+      break;
+      
+    case 'RATE_LIMITED':
+      actions.push({
+        label: 'Wait and Retry',
+        action: () => {
+          setTimeout(() => {}, 5000); // Will be overridden by caller
+        },
+        primary: true,
+      });
+      break;
+      
+    case 'INVALID_PASSWORD':
+    case 'EMPLOYEE_NOT_FOUND':
+      actions.push({
+        label: 'Try Again',
+        action: () => {}, // Will be overridden by caller
+        primary: true,
+      });
+      break;
+      
+    case 'INSUFFICIENT_FUNDS':
+      actions.push({
+        label: 'Check Balance',
+        action: () => {}, // Will be overridden by caller
+        primary: true,
+      });
+      break;
+      
+    default:
+      actions.push({
+        label: 'Dismiss',
+        action: () => {},
+        primary: true,
+      });
+  }
+  
+  return actions;
+};
+
+/**
+ * User-friendly error messages for common error codes
+ */
+export const getErrorMessage = (error: AppError): string => {
+  const friendlyMessages: Record<string, string> = {
+    'TIMEOUT': 'The request timed out. Please check your connection and try again.',
+    'SERVICE_UNAVAILABLE': 'The service is temporarily unavailable. Please try again in a few moments.',
+    'RATE_LIMITED': 'Too many requests. Please wait a moment before trying again.',
+    'EMPLOYEE_NOT_FOUND': 'Employee account not found. Please check your email address.',
+    'INVALID_PASSWORD': 'Incorrect password. Please try again.',
+    'CUSTOMER_NOT_FOUND': 'Customer not found. Please verify the customer ID.',
+    'INSUFFICIENT_FUNDS': 'Insufficient funds in the account for this transaction.',
+    'AMOUNT_LIMIT_EXCEEDED': 'Transaction amount exceeds the daily limit.',
+    'INVALID_EMAIL': 'Please enter a valid email address.',
+    'CONTENT_TOO_LONG': 'Content is too long. Please shorten your message.',
+    'QUERY_TOO_SHORT': 'Search query must be at least 2 characters long.',
+  };
+  
+  return error.code && friendlyMessages[error.code] 
+    ? friendlyMessages[error.code] 
+    : error.message;
+};
+
+/**
+ * Determines if an error should be shown to the user
+ */
+export const shouldShowError = (error: AppError): boolean => {
+  // Don't show system errors that are being handled automatically
+  if (error.type === 'SYSTEM' && !error.recoverable) {
+    return false;
+  }
+  
+  // Always show validation and business errors
+  if (error.type === 'VALIDATION' || error.type === 'BUSINESS') {
+    return true;
+  }
+  
+  // Show authorization errors
+  if (error.type === 'AUTHORIZATION') {
+    return true;
+  }
+  
+  // Show network errors that user can act on
+  return error.recoverable;
+};
+
+/**
+ * Logs errors for debugging purposes
+ */
+export const logError = (error: AppError, context?: string) => {
+  const logData = {
+    timestamp: new Date().toISOString(),
+    context,
+    error: {
+      type: error.type,
+      message: error.message,
+      code: error.code,
+      recoverable: error.recoverable,
+    },
+  };
+  
+  if (error.type === 'SYSTEM') {
+    console.error('System Error:', logData);
+  } else {
+    console.warn('Application Error:', logData);
+  }
+};
+
+/**
+ * Creates a retry function with exponential backoff
+ */
+export const createRetryFunction = <T>(
+  fn: () => Promise<T>,
+  maxRetries: number = 3,
+  baseDelay: number = 1000
+) => {
+  return async (): Promise<T> => {
+    let lastError: Error;
+    
+    for (let attempt = 0; attempt <= maxRetries; attempt++) {
+      try {
+        return await fn();
+      } catch (error) {
+        lastError = error instanceof Error ? error : new Error('Unknown error');
+        
+        if (attempt === maxRetries) {
+          throw lastError;
+        }
+        
+        // Exponential backoff with jitter
+        const delay = baseDelay * Math.pow(2, attempt) + Math.random() * 1000;
+        await new Promise(resolve => setTimeout(resolve, delay));
+      }
+    }
+    
+    throw lastError!;
   };
 };

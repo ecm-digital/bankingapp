@@ -1,124 +1,226 @@
-# Bank Employee App Prototype
+# Bank Employee App Prototype 🏦
 
-A modern React-based application designed for bank employees to manage customers, transactions, products, and daily operations.
+Nowoczesny prototyp aplikacji bankowej dla pracowników banku - demonstracja UX/UI dla portfolio senior product designera.
 
-## Features
+## 🎯 Cel Projektu
 
-- **Dashboard** - Overview of daily operations and key metrics
-- **Customer Management** - View and manage customer information
-- **Transaction Processing** - Handle various banking transactions
-- **Product Management** - Manage banking products and services
-- **Queue Management** - Manage customer service queue
-- **Reports** - Generate and view operational reports
-- **Cards & Loans** - Manage credit cards and loan applications
+Prototyp aplikacji webowej prezentujący nowoczesne podejście do projektowania interfejsów dla systemów bankowych. Aplikacja demonstruje kluczowe przepływy pracy pracowników banku w obsłudze klientów.
 
-## Tech Stack
+**⚠️ UWAGA:** To jest prototyp UX/UI z mockowanymi danymi. Nie implementuje rzeczywistych funkcjonalności biznesowych ani połączeń z prawdziwymi systemami bankowymi.
 
-- **Frontend**: React 18 + TypeScript
-- **Styling**: Tailwind CSS
-- **State Management**: Zustand
-- **Routing**: React Router DOM
-- **Forms**: React Hook Form + Zod validation
-- **Icons**: Lucide React
-- **Animations**: Framer Motion
-- **Build Tool**: Vite
+## ✨ Funkcjonalności
 
-## Getting Started
+### 📊 Dashboard
+- Podsumowanie dziennych metryk (obsłużeni klienci, transakcje)
+- Panel szybkich akcji
+- Nadchodzące spotkania i powiadomienia
+- Ostatnie transakcje z kolorowym kodowaniem
 
-### Prerequisites
+### 👥 Moduł Klientów
+- Wyszukiwanie klientów w czasie rzeczywistym
+- Szczegółowe profile klientów z avatarami
+- Informacje o kontach (IBAN, SWIFT, salda)
+- Edycja danych kontaktowych z walidacją
+- Historia transakcji
 
-- Node.js (version 16 or higher)
-- npm or yarn
+### 💳 Moduł Transakcji
+- Kreator transakcji (multi-step wizard)
+- Obsługa przelewów, wpłat, wypłat, płatności
+- Walidacja kwot i kont
+- Generowanie potwierdzeń transakcji
+- Historia z filtrami i sortowaniem
 
-### Installation
+### 📋 System Kolejki
+- Wyświetlanie oczekujących klientów
+- Zarządzanie priorytetami (URGENT, HIGH, NORMAL, LOW)
+- Timer obsługi klienta
+- Statystyki kolejki w czasie rzeczywistym
 
-1. Clone the repository:
+### 💳 Moduł Kart
+- Przegląd kart klienta z wizualizacją
+- Szczegóły kart (limity, daty ważności)
+- Blokowanie/odblokowanie kart
+- Kreator wniosków o nowe karty
+
+### 💰 Moduł Kredytów
+- Lista aktywnych kredytów z postępem spłaty
+- Harmonogramy spłat
+- Kalkulator kredytowy
+- Statystyki zadłużenia
+
+### 🏦 Katalog Produktów
+- Przeglądanie produktów bankowych
+- Filtrowanie po kategoriach
+- Produkty promocyjne
+- Składanie wniosków
+
+## 🛠️ Stack Technologiczny
+
+- **Frontend:** React 18 + TypeScript
+- **Styling:** Tailwind CSS
+- **State Management:** Zustand
+- **Routing:** React Router v6
+- **Animacje:** Framer Motion
+- **Walidacja:** Zod + React Hook Form
+- **Build Tool:** Vite
+- **Icons:** Lucide React
+
+## 🚀 Uruchomienie Projektu
+
+### Wymagania
+- Node.js 18+ 
+- npm lub yarn
+
+### Instalacja
+
 ```bash
-git clone https://github.com/ecm-digital/bankingapp.git
-cd bankingapp
-```
-
-2. Install dependencies:
-```bash
+# Instalacja zależności
 npm install
-```
 
-3. Start the development server:
-```bash
+# Uruchomienie dev servera
 npm run dev
+
+# Aplikacja dostępna na http://localhost:5173
 ```
 
-4. Open your browser and navigate to `http://localhost:5173`
+### Dostępne Skrypty
 
-### Available Scripts
+```bash
+npm run dev          # Uruchomienie development servera
+npm run build        # Build produkcyjny
+npm run preview      # Podgląd buildu produkcyjnego
+npm run lint         # Linting kodu
+```
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build
-- `npm run lint` - Run ESLint
-
-## Project Structure
+## 📁 Struktura Projektu
 
 ```
 src/
-├── components/          # Reusable UI components
-│   ├── auth/           # Authentication components
-│   ├── layout/         # Layout components
-│   └── ui/             # Basic UI components
-├── hooks/              # Custom React hooks
-├── pages/              # Page components
-├── stores/             # Zustand state stores
-├── types/              # TypeScript type definitions
-├── utils/              # Utility functions
-├── data/               # Mock data
-└── api/                # API layer
+├── components/          # Komponenty React
+│   ├── ui/             # Podstawowe komponenty UI (Button, Input, Card, Modal, Toast)
+│   ├── cards/          # Komponenty modułu kart
+│   ├── customers/      # Komponenty modułu klientów
+│   ├── loans/          # Komponenty modułu kredytów
+│   ├── products/       # Komponenty katalogu produktów
+│   ├── queue/          # Komponenty systemu kolejki
+│   └── transactions/   # Komponenty modułu transakcji
+├── pages/              # Strony aplikacji (Dashboard, Customers, Transactions, etc.)
+├── stores/             # Zustand stores (auth, customers, transactions, queue, products)
+├── hooks/              # Custom React hooks (useAuth, useToast, useMediaQuery)
+├── types/              # TypeScript types i interfaces
+├── utils/              # Funkcje pomocnicze (formatters, animations, accessibility)
+├── data/               # Mockowane dane (customers, transactions, products)
+└── api/                # Mock API layer
 ```
 
-## Features Overview
+## 🎨 Design System
 
-### Authentication
-- Protected routes with role-based access
-- Session management
+### Kolory
+- **Primary:** Niebieski (#0c87e8)
+- **Success:** Zielony (#059669)
+- **Warning:** Pomarańczowy (#ea580c)
+- **Error:** Czerwony (#dc2626)
 
-### Customer Management
-- Customer search and filtering
-- Customer profile management
-- Transaction history
+### Typografia
+- **Font:** Inter
+- **Monospace:** JetBrains Mono (dla numerów kont i kwot)
 
-### Transaction Processing
-- Multiple transaction types
-- Real-time validation
-- Transaction history tracking
+### Breakpoints
+- **Mobile:** < 768px
+- **Tablet:** 768px - 1024px
+- **Desktop:** > 1024px
 
-### Product Management
-- Banking product catalog
-- Product configuration
-- Pricing management
+## 🔐 Mockowane Dane
 
-### Queue Management
-- Customer service queue
-- Priority handling
-- Service time tracking
+Aplikacja używa wygenerowanych danych testowych:
+- 20+ klientów z pełnymi profilami
+- 100+ transakcji z różnymi kategoriami
+- Karty (debetowe, kredytowe, przedpłacone)
+- Kredyty z harmonogramami spłat
+- Produkty bankowe z promocjami
 
-## Development
+## 📱 Responsive Design
 
-This project uses modern React patterns and best practices:
+Aplikacja jest w pełni responsywna i zoptymalizowana dla:
+- 📱 Smartfonów (portrait & landscape)
+- 📱 Tabletów
+- 💻 Laptopów
+- 🖥️ Dużych ekranów
 
-- Functional components with hooks
-- TypeScript for type safety
-- Zustand for lightweight state management
-- Custom hooks for business logic
-- Component composition patterns
-- Responsive design with Tailwind CSS
+## ♿ Accessibility
 
-## Contributing
+- Semantic HTML
+- ARIA labels i role attributes
+- Keyboard navigation support
+- Screen reader compatibility
+- Wysokie kontrasty kolorów (WCAG 2.1 AA)
+- Focus indicators
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Run tests and linting
-5. Submit a pull request
+## 🎭 Animacje i UX
 
-## License
+- Płynne przejścia między stronami (Framer Motion)
+- Hover effects na interaktywnych elementach
+- Loading states z skeleton screens
+- Toast notifications dla feedback
+- Micro-interactions
+- Success/error animations
 
-This project is proprietary software developed for ECM Digital.
+## 🧪 Testing
+
+Framework testowy jest skonfigurowany i gotowy do użycia:
+- Unit tests (React Testing Library)
+- Integration tests
+- Accessibility tests (axe-core)
+- E2E tests (Cypress)
+
+## 📦 Build i Deployment
+
+```bash
+# Build produkcyjny
+npm run build
+
+# Podgląd buildu
+npm run preview
+```
+
+Build generuje zoptymalizowane pliki w folderze `dist/`:
+- Code splitting
+- Tree shaking
+- Minifikacja
+- Asset optimization
+
+## 🎯 Kluczowe Cechy UX/UI
+
+1. **Intuicyjny Dashboard** - Wszystkie kluczowe informacje na pierwszy rzut oka
+2. **Szybkie Wyszukiwanie** - Real-time search z autouzupełnianiem
+3. **Multi-step Wizards** - Prowadzenie użytkownika przez złożone procesy
+4. **Wizualna Hierarchia** - Jasna struktura informacji
+5. **Feedback Użytkownika** - Natychmiastowa odpowiedź na akcje
+6. **Spójność** - Jednolite wzorce w całej aplikacji
+7. **Responsywność** - Płynne działanie na wszystkich urządzeniach
+
+## 📝 Dokumentacja
+
+Szczegółowa dokumentacja projektu znajduje się w folderze `.kiro/specs/`:
+- `requirements.md` - Wymagania funkcjonalne
+- `design.md` - Dokument projektowy
+- `tasks.md` - Plan implementacji
+- `personas.md` - Persony użytkowników
+
+## 🚧 Status Projektu
+
+✅ **Ukończone (100%):**
+- Wszystkie główne moduły funkcjonalne
+- Design system i komponenty UI
+- State management i mock API
+- Animacje i micro-interactions
+- Responsive design
+- Accessibility features
+
+## 👨‍💻 Autor
+
+Senior Product Designer Portfolio Project
+
+---
+
+**Uwaga:** To jest prototyp demonstracyjny. Nie używać w środowisku produkcyjnym bez implementacji właściwych zabezpieczeń i funkcjonalności biznesowych.
