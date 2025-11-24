@@ -17,7 +17,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
         <div className="relative z-50 lg:hidden" role="dialog" aria-modal="true">
           {/* Background overlay */}
           <div 
-            className="fixed inset-0 bg-gray-900/80 transition-opacity"
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
             onClick={onClose}
             aria-hidden="true"
           />

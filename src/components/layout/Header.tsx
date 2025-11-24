@@ -20,9 +20,9 @@ export function Header({ onMenuClick }: HeaderProps) {
   ];
 
   return (
-    <header className="bg-transparent py-6 sticky top-0 z-40 transition-all duration-300">
+    <header className="bg-transparent py-4 lg:py-6 sticky top-0 z-40 transition-all duration-300">
       <div className="mx-auto max-w-[1600px] px-4 sm:px-6 lg:px-8">
-        <div className="flex h-20 justify-between items-center bg-white/10 backdrop-blur-xl rounded-3xl px-8 border border-white/20 shadow-2xl ring-1 ring-black/5">
+        <div className="flex h-16 lg:h-20 justify-between items-center bg-white/10 backdrop-blur-xl rounded-2xl lg:rounded-3xl px-4 lg:px-8 border border-white/20 shadow-2xl ring-1 ring-black/5">
           {/* Left side - Logo */}
           <div className="flex items-center">
             <button
