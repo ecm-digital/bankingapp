@@ -12,28 +12,28 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
 
   return (
     <>
-      {/* Mobile sidebar overlay */}
+      {/* Mobile sidebar overlay - Only visible when isOpen is true */}
       {isOpen && (
-        <div className="relative z-50 lg:hidden" role="dialog" aria-modal="true">
+        <div className="fixed inset-0 z-50 lg:hidden" role="dialog" aria-modal="true">
           {/* Background overlay */}
           <div 
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity animate-in fade-in duration-200"
             onClick={onClose}
             aria-hidden="true"
           />
           
           {/* Sidebar panel */}
-          <div className="fixed inset-0 flex">
-            <div className="relative mr-16 flex w-full max-w-xs flex-1">
+          <div className="fixed inset-y-0 left-0 flex w-full max-w-xs">
+            <div className="relative flex w-full flex-1 flex-col transform transition-transform duration-300 ease-out translate-x-0">
               {/* Close button */}
-              <div className="absolute left-full top-0 flex w-16 justify-center pt-5">
+              <div className="absolute -right-12 top-0 flex w-12 justify-center pt-5">
                 <button 
                   type="button" 
-                  className="-m-2.5 p-2.5 text-white hover:text-gray-300 transition-colors"
+                  className="p-2.5 text-white hover:text-gray-300 transition-colors bg-black/40 rounded-full backdrop-blur-sm"
                   onClick={onClose}
                   aria-label={t.common.closeMenu}
                 >
-                  <X className="h-6 w-6" />
+                  <X className="h-5 w-5" />
                 </button>
               </div>
               
@@ -43,8 +43,8 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
         </div>
       )}
 
-      {/* Desktop sidebar */}
-      <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-64 lg:flex-col">
+      {/* Desktop sidebar - Only visible on large screens and above */}
+      <div className="hidden lg:block lg:fixed lg:inset-y-0 lg:z-40 lg:w-64">
         <SidebarContent />
       </div>
     </>
@@ -59,7 +59,7 @@ function SidebarContent({ onItemClick }: SidebarContentProps) {
   const { t } = useLanguage();
 
   return (
-    <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-black/20 backdrop-blur-xl px-6 pb-4 shadow-2xl border-r border-white/10">
+    <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-black/20 backdrop-blur-xl px-4 sm:px-6 pb-4 pt-4 sm:pt-0 shadow-2xl border-r border-white/10 h-full">
       {/* Logo */}
       <div className="flex h-16 shrink-0 items-center">
         <div className="flex items-center space-x-3">
