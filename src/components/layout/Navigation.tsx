@@ -52,26 +52,29 @@ export function Navigation({ items, className }: NavigationProps) {
                   to={item.href}
                   className={({ isActive }) =>
                     cn(
-                      'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold transition-colors',
+                      'group flex gap-x-3 rounded-xl p-3 text-sm leading-6 font-medium transition-all duration-300 relative overflow-hidden',
                       isActive
-                        ? 'bg-white/10 text-white'
+                        ? 'text-white bg-white/10 shadow-[0_0_15px_rgba(255,255,255,0.1)] border border-white/10'
                         : 'text-gray-400 hover:text-white hover:bg-white/5'
                     )
                   }
                 >
                   {({ isActive }) => (
                     <>
+                      {isActive && (
+                         <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-emerald-400 to-cyan-500 rounded-r-full"></div>
+                      )}
                       <item.icon
                         className={cn(
-                          'h-6 w-6 shrink-0 transition-colors',
+                          'h-5 w-5 shrink-0 transition-colors relative z-10',
                           isActive 
                             ? 'text-white' 
                             : 'text-gray-400 group-hover:text-white'
                         )}
                       />
-                      <span className="flex-1">{item.name}</span>
+                      <span className="flex-1 relative z-10">{item.name}</span>
                       {item.badge && (
-                        <span className="ml-auto inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-red-500 rounded-full">
+                        <span className="ml-auto inline-flex items-center justify-center px-2 py-0.5 text-xs font-bold leading-none text-white bg-red-500 rounded-full shadow-lg relative z-10">
                           {item.badge}
                         </span>
                       )}
