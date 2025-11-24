@@ -20,9 +20,9 @@ export function Header({ onMenuClick }: HeaderProps) {
   ];
 
   return (
-    <header className="bg-dashboard-bg py-4 sticky top-0 z-40">
+    <header className="bg-transparent py-6 sticky top-0 z-40 transition-all duration-300">
       <div className="mx-auto max-w-[1600px] px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 justify-between items-center bg-white/5 backdrop-blur-md rounded-2xl px-6 border border-white/10">
+        <div className="flex h-20 justify-between items-center bg-white/10 backdrop-blur-xl rounded-3xl px-8 border border-white/20 shadow-2xl ring-1 ring-black/5">
           {/* Left side - Logo */}
           <div className="flex items-center">
             <button
@@ -35,28 +35,38 @@ export function Header({ onMenuClick }: HeaderProps) {
             
             <div className="flex items-center gap-2">
               <div className="flex -space-x-2">
-                <div className="h-6 w-6 rounded-full bg-dashboard-accent-green border-2 border-dashboard-bg z-10"></div>
-                <div className="h-6 w-6 rounded-full bg-dashboard-text-light border-2 border-dashboard-bg"></div>
+                <div className="h-8 w-8 rounded-full bg-gradient-to-br from-emerald-400 to-cyan-500 border-2 border-white/20 z-10 shadow-lg"></div>
+                <div className="h-8 w-8 rounded-full bg-white/20 backdrop-blur-md border-2 border-white/20"></div>
               </div>
             </div>
           </div>
 
           {/* Center - Navigation */}
-          <nav className="hidden lg:flex items-center bg-white/10 rounded-full p-1.5">
+          <nav className="hidden lg:flex items-center bg-black/20 backdrop-blur-lg rounded-full p-1.5 border border-white/10">
             {navItems.map((item) => (
               <NavLink
                 key={item.href}
                 to={item.href}
                 className={({ isActive }) =>
                   cn(
-                    'px-6 py-2 rounded-full text-sm font-medium transition-all duration-200',
+                    'px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 relative overflow-hidden',
                     isActive
-                      ? 'bg-dashboard-accent-teal text-white shadow-lg'
-                      : 'text-dashboard-text-muted hover:text-white hover:bg-white/5'
+                      ? 'text-white shadow-lg'
+                      : 'text-gray-300 hover:text-white hover:bg-white/5'
                   )
                 }
               >
-                {item.name}
+                {({ isActive }) => (
+                  <>
+                    {isActive && (
+                      <div className="absolute inset-0 bg-white/20 backdrop-blur-md rounded-full shadow-inner"></div>
+                    )}
+                    <span className="relative z-10 flex items-center gap-2">
+                      <item.icon className="h-4 w-4" />
+                      {item.name}
+                    </span>
+                  </>
+                )}
               </NavLink>
             ))}
           </nav>

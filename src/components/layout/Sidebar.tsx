@@ -59,14 +59,14 @@ function SidebarContent({ onItemClick }: SidebarContentProps) {
   const { t } = useLanguage();
 
   return (
-    <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-dashboard-bg px-6 pb-4 shadow-lg border-r border-white/10">
+    <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-black/20 backdrop-blur-xl px-6 pb-4 shadow-2xl border-r border-white/10">
       {/* Logo */}
       <div className="flex h-16 shrink-0 items-center">
         <div className="flex items-center space-x-3">
-          <div className="h-8 w-8 rounded bg-dashboard-accent-green flex items-center justify-center">
-            <Building2 className="h-5 w-5 text-dashboard-bg" />
+          <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-emerald-400 to-cyan-500 flex items-center justify-center shadow-lg shadow-emerald-500/20">
+            <Building2 className="h-5 w-5 text-white" />
           </div>
-          <span className="text-xl font-bold text-white">BankApp</span>
+          <span className="text-xl font-bold text-white tracking-tight">BankApp</span>
         </div>
       </div>
 

@@ -7,7 +7,7 @@ export function MainLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-dashboard-bg flex flex-col font-sans">
+    <div className="min-h-screen flex flex-col font-sans">
       {/* Mobile Sidebar (keep for mobile compatibility if needed) */}
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
       
