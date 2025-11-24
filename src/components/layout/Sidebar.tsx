@@ -1,5 +1,6 @@
 import { Building2, X } from 'lucide-react';
 import { Navigation } from './Navigation';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -7,6 +8,8 @@ interface SidebarProps {
 }
 
 export function Sidebar({ isOpen, onClose }: SidebarProps) {
+  const { t } = useLanguage();
+
   return (
     <>
       {/* Mobile sidebar overlay */}
@@ -28,7 +31,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
                   type="button" 
                   className="-m-2.5 p-2.5 text-white hover:text-gray-300 transition-colors"
                   onClick={onClose}
-                  aria-label="Zamknij menu"
+                  aria-label={t.common.closeMenu}
                 >
                   <X className="h-6 w-6" />
                 </button>
@@ -53,15 +56,17 @@ interface SidebarContentProps {
 }
 
 function SidebarContent({ onItemClick }: SidebarContentProps) {
+  const { t } = useLanguage();
+
   return (
-    <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6 pb-4 shadow-lg border-r border-gray-200">
+    <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-dashboard-bg px-6 pb-4 shadow-lg border-r border-white/10">
       {/* Logo */}
       <div className="flex h-16 shrink-0 items-center">
         <div className="flex items-center space-x-3">
-          <div className="h-8 w-8 rounded bg-primary-600 flex items-center justify-center">
-            <Building2 className="h-5 w-5 text-white" />
+          <div className="h-8 w-8 rounded bg-dashboard-accent-green flex items-center justify-center">
+            <Building2 className="h-5 w-5 text-dashboard-bg" />
           </div>
-          <span className="text-xl font-bold text-gray-900">BankApp</span>
+          <span className="text-xl font-bold text-white">BankApp</span>
         </div>
       </div>
 
@@ -71,9 +76,9 @@ function SidebarContent({ onItemClick }: SidebarContentProps) {
       </div>
       
       {/* Bottom section */}
-      <div className="mt-auto pt-4 border-t border-gray-200">
-        <div className="text-xs text-gray-500 text-center">
-          <p>Prototyp UX/UI</p>
+      <div className="mt-auto pt-4 border-t border-white/10">
+        <div className="text-xs text-gray-400 text-center">
+          <p>{t.common.prototype}</p>
           <p className="mt-1">© 2024 BankApp</p>
         </div>
       </div>
