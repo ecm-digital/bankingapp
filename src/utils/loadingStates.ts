@@ -87,7 +87,7 @@ export const debounce = <T extends any[]>(
   fn: (...args: T) => void,
   delay: number
 ) => {
-  let timeoutId: NodeJS.Timeout;
+  let timeoutId: ReturnType<typeof setTimeout>;
   
   return (...args: T) => {
     clearTimeout(timeoutId);
@@ -135,8 +135,10 @@ export const createCache = <K, V>(maxSize: number = 100) => {
     set: (key: K, value: V): void => {
       // Remove oldest entries if cache is full
       if (cache.size >= maxSize) {
-        const firstKey = cache.keys().next().value;
-        cache.delete(firstKey);
+        const firstKey = cache.keys().next().value as K | undefined;
+        if (firstKey !== undefined) {
+          cache.delete(firstKey);
+        }
       }
       
       cache.set(key, { value, timestamp: Date.now() });

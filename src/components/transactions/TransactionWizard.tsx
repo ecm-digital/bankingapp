@@ -154,7 +154,7 @@ export function TransactionWizard({ onComplete, onCancel, customerId, employeeId
           {currentStep === 'details' && (
             <TransferForm
               description={transactionData.description || ''}
-              category={transactionData.category || 'OTHER'}
+              category={(transactionData.category || 'OTHER') as Transaction['category']}
               onChange={(description, category) => updateTransactionData({ description, category })}
               onNext={handleNext}
             />

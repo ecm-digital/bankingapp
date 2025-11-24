@@ -13,7 +13,7 @@ export function ServiceTimer({ customer, onComplete }: ServiceTimerProps) {
   const [elapsedTime, setElapsedTime] = useState(0);
 
   useEffect(() => {
-    let interval: NodeJS.Timeout;
+    let interval: ReturnType<typeof setInterval>;
 
     if (isRunning && customer) {
       interval = setInterval(() => {

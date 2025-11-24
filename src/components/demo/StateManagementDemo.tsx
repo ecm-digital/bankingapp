@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useAppState } from '@/hooks/useAppState';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
-import { Loading } from '@/components/ui/Loading';
+import { LoadingSpinner } from '@/components/ui/Loading';
 
 /**
  * Demo component showcasing state management and mock API functionality
@@ -18,7 +18,6 @@ export const StateManagementDemo: React.FC = () => {
     transactions,
     queue,
     products,
-    initializeApp,
     setupScenario,
     loadCustomerData,
     clearAllErrors,
@@ -71,7 +70,7 @@ export const StateManagementDemo: React.FC = () => {
   if (!isInitialized && isLoading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <Loading size="lg" />
+        <LoadingSpinner size="lg" />
         <span className="ml-3 text-lg">Initializing application...</span>
       </div>
     );
@@ -233,7 +232,7 @@ export const StateManagementDemo: React.FC = () => {
       {isLoading && (
         <Card className="p-4 border-blue-200 bg-blue-50">
           <div className="flex items-center">
-            <Loading size="sm" />
+            <LoadingSpinner size="sm" />
             <span className="ml-2 text-blue-800">Operations in progress...</span>
           </div>
         </Card>

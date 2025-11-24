@@ -1,4 +1,4 @@
-import { Check, X, DollarSign, FileText } from 'lucide-react';
+import { Check, DollarSign, FileText } from 'lucide-react';
 import { Modal, Button } from '@/components/ui';
 import { BankProduct } from '@/types';
 import { formatCurrency } from '@/utils';

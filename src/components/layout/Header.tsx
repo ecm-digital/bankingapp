@@ -1,5 +1,4 @@
-import { Bell, Menu, Search, User, Settings, LayoutDashboard, CreditCard, Calendar, PieChart, Globe } from 'lucide-react';
-import { useState } from 'react';
+import { Bell, Menu, Search, Settings, LayoutDashboard, CreditCard, Calendar, PieChart, Globe } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 import { cn } from '@/utils';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -9,7 +8,6 @@ interface HeaderProps {
 }
 
 export function Header({ onMenuClick }: HeaderProps) {
-  const [searchValue, setSearchValue] = useState('');
   const { t, language, toggleLanguage } = useLanguage();
 
   const navItems = [

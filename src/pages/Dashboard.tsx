@@ -6,17 +6,13 @@ import {
   ArrowUpRight, 
   ArrowDownLeft, 
   Plus, 
-  Wifi,
-  CreditCard,
-  CheckCircle2
+  Wifi
 } from 'lucide-react';
 import { useTransactionsStore } from '@/stores/transactionsStore';
-import { useAuth } from '@/hooks/useAuth';
 import { formatCurrency } from '@/utils';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 export function Dashboard() {
-  const { currentEmployee } = useAuth();
   const { transactions, fetchTransactions } = useTransactionsStore();
   const { t, language } = useLanguage();
 

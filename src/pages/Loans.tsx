@@ -7,7 +7,7 @@ import { useCustomersStore } from '@/stores/customersStore';
 import { Loan } from '@/types';
 
 export function Loans() {
-  const [selectedLoan, setSelectedLoan] = useState<Loan | null>(null);
+  const [, setSelectedLoan] = useState<Loan | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCustomerId, setSelectedCustomerId] = useState<string>('');
   const [showCalculator, setShowCalculator] = useState(false);

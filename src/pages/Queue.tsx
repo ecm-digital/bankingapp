@@ -22,7 +22,7 @@ export function Queue() {
     return () => clearInterval(interval);
   }, [fetchQueue]);
 
-  const handleCallCustomer = async (item: any) => {
+  const handleCallCustomer = async () => {
     await callNextCustomer();
   };
 

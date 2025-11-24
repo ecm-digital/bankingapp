@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import { Input, Button } from '@/components/ui';
+import { Transaction } from '@/types';
+
+type TransactionCategory = Transaction['category'];
 
 interface TransferFormProps {
   description: string;
-  category: string;
-  onChange: (description: string, category: string) => void;
+  category: TransactionCategory;
+  onChange: (description: string, category: TransactionCategory) => void;
   onNext: () => void;
 }
 
@@ -19,7 +22,7 @@ const categories = [
 
 export function TransferForm({ description, category, onChange, onNext }: TransferFormProps) {
   const [desc, setDesc] = useState(description);
-  const [selectedCategory, setSelectedCategory] = useState(category);
+  const [selectedCategory, setSelectedCategory] = useState<TransactionCategory>(category);
   const [error, setError] = useState('');
 
   const handleNext = () => {
@@ -69,7 +72,7 @@ export function TransferForm({ description, category, onChange, onNext }: Transf
           {categories.map((cat) => (
             <button
               key={cat.value}
-              onClick={() => setSelectedCategory(cat.value)}
+              onClick={() => setSelectedCategory(cat.value as TransactionCategory)}
               className={`p-3 border-2 rounded-lg text-sm font-medium transition-all ${
                 selectedCategory === cat.value
                   ? 'border-primary-500 bg-primary-50 text-primary-700'

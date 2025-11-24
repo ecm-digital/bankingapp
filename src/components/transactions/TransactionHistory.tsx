@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Search, Filter, Download } from 'lucide-react';
+import { Search, Download } from 'lucide-react';
 import { Card, CardContent, Input, Button } from '@/components/ui';
 import { Transaction } from '@/types';
 import { formatCurrency, formatDateTime, getCategoryColor, getStatusColor } from '@/utils';
