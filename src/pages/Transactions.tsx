@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Plus } from 'lucide-react';
-import { Button, Card, CardContent } from '@/components/ui';
 import { TransactionWizard, TransactionHistory, ReceiptModal } from '@/components/transactions';
 import { useTransactionsStore } from '@/stores/transactionsStore';
 import { useAuth } from '@/hooks/useAuth';
@@ -40,34 +39,32 @@ export function Transactions() {
       {/* Page header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Transakcje</h1>
-          <p className="mt-1 text-sm text-gray-500">
+          <h1 className="text-2xl font-bold text-white">Transakcje</h1>
+          <p className="mt-1 text-sm text-gray-400">
             Historia transakcji i zarządzanie operacjami bankowymi
           </p>
         </div>
         {!showWizard && (
-          <Button
-            variant="primary"
+          <button
             onClick={() => setShowWizard(true)}
+            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-emerald-500/20 text-emerald-300 hover:bg-emerald-500/30 border border-emerald-500/30 transition-all font-medium"
           >
-            <Plus className="h-5 w-5 mr-2" />
+            <Plus className="h-5 w-5" />
             Nowa Transakcja
-          </Button>
+          </button>
         )}
       </div>
 
       {/* Transaction Wizard */}
       {showWizard ? (
-        <Card>
-          <CardContent className="p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-6">Kreator Nowej Transakcji</h2>
+        <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-6 shadow-lg">
+            <h2 className="text-xl font-semibold text-white mb-6">Kreator Nowej Transakcji</h2>
             <TransactionWizard
               onComplete={handleCreateTransaction}
               onCancel={() => setShowWizard(false)}
               employeeId={currentEmployee?.id || 'emp_demo'}
             />
-          </CardContent>
-        </Card>
+        </div>
       ) : (
         /* Transaction History */
         <TransactionHistory

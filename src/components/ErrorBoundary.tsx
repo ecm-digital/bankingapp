@@ -1,4 +1,4 @@
-import { Component, ErrorInfo, ReactNode } from 'react';
+import React, { Component, ErrorInfo, ReactNode } from 'react';
 import { AlertTriangle, RefreshCw, Home } from 'lucide-react';
 import { Button } from './ui';
 
@@ -78,7 +78,7 @@ export class ErrorBoundary extends Component<Props, State> {
                 i pracuje nad rozwiązaniem problemu.
               </p>
 
-              {import.meta.env.DEV && this.state.error && (
+              {process.env.NODE_ENV === 'development' && this.state.error && (
                 <div className="w-full mb-6 p-4 bg-gray-100 rounded-lg text-left">
                   <p className="text-sm font-mono text-red-600 mb-2">
                     {this.state.error.toString()}

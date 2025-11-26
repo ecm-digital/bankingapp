@@ -1,5 +1,4 @@
 import { Clock, User, AlertCircle } from 'lucide-react';
-import { Card, CardContent, Button } from '@/components/ui';
 import { QueueItem } from '@/types';
 
 interface QueueDisplayProps {
@@ -9,10 +8,10 @@ interface QueueDisplayProps {
 }
 
 const priorityColors = {
-  URGENT: 'bg-red-100 border-red-300 text-red-800',
-  HIGH: 'bg-orange-100 border-orange-300 text-orange-800',
-  NORMAL: 'bg-blue-100 border-blue-300 text-blue-800',
-  LOW: 'bg-gray-100 border-gray-300 text-gray-800',
+  URGENT: 'bg-red-500/10 border-red-500/20 text-red-400',
+  HIGH: 'bg-orange-500/10 border-orange-500/20 text-orange-400',
+  NORMAL: 'bg-blue-500/10 border-blue-500/20 text-blue-400',
+  LOW: 'bg-gray-500/10 border-gray-500/20 text-gray-400',
 };
 
 const priorityLabels = {
@@ -30,134 +29,131 @@ export function QueueDisplay({ queueItems, onCallCustomer, currentlyServing }: Q
     <div className="space-y-6">
       {/* Currently Serving */}
       {currentlyServing && (
-        <Card className="border-2 border-primary-500">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-500 mb-1">Obecnie obsługiwany</p>
-                <h3 className="text-2xl font-bold text-gray-900">{currentlyServing.customerName}</h3>
-                <p className="text-sm text-gray-600 mt-1">
-                  Numer: <span className="font-mono font-semibold">{currentlyServing.queueNumber}</span>
+        <div className="glass-panel rounded-2xl p-6 border-emerald-500/30 shadow-lg shadow-emerald-500/10 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 rounded-full blur-3xl -mr-8 -mt-8" />
+          <div className="flex items-center justify-between relative z-10">
+            <div>
+              <p className="text-sm text-emerald-400 mb-1 font-medium">Obecnie obsługiwany</p>
+              <h3 className="text-3xl font-bold text-white mb-2">{currentlyServing.customerName}</h3>
+              <div className="flex items-center gap-4 text-sm">
+                <p className="text-gray-300">
+                  Numer: <span className="font-mono font-bold text-emerald-400 text-lg">{currentlyServing.queueNumber}</span>
                 </p>
-                <p className="text-sm text-gray-600">
+                <span className="w-1 h-1 rounded-full bg-gray-600" />
+                <p className="text-gray-300">
                   Usługa: {currentlyServing.serviceType}
                 </p>
               </div>
-              <div className="text-right">
-                <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${
-                  priorityColors[currentlyServing.priority]
-                }`}>
-                  {priorityLabels[currentlyServing.priority]}
-                </span>
-              </div>
             </div>
-          </CardContent>
-        </Card>
+            <div className="text-right">
+              <span className={`inline-flex items-center px-4 py-1.5 rounded-full text-sm font-medium border ${priorityColors[currentlyServing.priority]
+                }`}>
+                {priorityLabels[currentlyServing.priority]}
+              </span>
+            </div>
+          </div>
+        </div>
       )}
 
       {/* Waiting Queue */}
-      <Card>
-        <CardContent className="p-6">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-medium text-gray-900">
-              Kolejka Oczekujących ({waitingCustomers.length})
-            </h3>
-            {waitingCustomers.length > 0 && (
-              <Button
-                variant="primary"
-                onClick={() => onCallCustomer(waitingCustomers[0])}
-              >
-                Wywołaj Następnego
-              </Button>
-            )}
-          </div>
+      <div className="glass-panel rounded-2xl p-6">
+        <div className="flex items-center justify-between mb-6">
+          <h3 className="text-lg font-medium text-white">
+            Kolejka Oczekujących ({waitingCustomers.length})
+          </h3>
+          {waitingCustomers.length > 0 && (
+            <button
+              onClick={() => onCallCustomer(waitingCustomers[0])}
+              className="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-medium transition-colors shadow-lg shadow-emerald-500/20"
+            >
+              Wywołaj Następnego
+            </button>
+          )}
+        </div>
 
-          {waitingCustomers.length > 0 ? (
-            <div className="space-y-3">
-              {waitingCustomers.map((item, index) => (
-                <div
-                  key={item.id}
-                  className={`p-4 border-2 rounded-lg transition-all ${
-                    index === 0 ? 'border-primary-300 bg-primary-50' : 'border-gray-200'
+        {waitingCustomers.length > 0 ? (
+          <div className="space-y-3">
+            {waitingCustomers.map((item, index) => (
+              <div
+                key={item.id}
+                className={`p-4 rounded-xl border transition-all hover:bg-white/5 ${index === 0
+                    ? 'bg-emerald-500/5 border-emerald-500/30 shadow-lg shadow-emerald-500/5'
+                    : 'bg-black/20 border-white/5'
                   }`}
-                >
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-4">
-                      <div className="flex-shrink-0">
-                        <div className="h-12 w-12 rounded-full bg-primary-500 flex items-center justify-center text-white font-bold text-lg">
-                          {item.queueNumber}
-                        </div>
-                      </div>
-                      <div>
-                        <div className="flex items-center space-x-2">
-                          <User className="h-4 w-4 text-gray-400" />
-                          <p className="font-medium text-gray-900">{item.customerName}</p>
-                        </div>
-                        <p className="text-sm text-gray-600 mt-1">{item.serviceType}</p>
-                        <div className="flex items-center space-x-2 mt-1">
-                          <Clock className="h-4 w-4 text-gray-400" />
-                          <p className="text-xs text-gray-500">
-                            Oczekuje: {Math.round((Date.now() - item.arrivalTime.getTime()) / 60000)} min
-                          </p>
-                        </div>
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-4">
+                    <div className="flex-shrink-0">
+                      <div className={`h-12 w-12 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-lg ${index === 0 ? 'bg-gradient-to-br from-emerald-500 to-emerald-700' : 'bg-white/10'
+                        }`}>
+                        {item.queueNumber}
                       </div>
                     </div>
-                    <div className="flex items-center space-x-3">
-                      <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${
-                        priorityColors[item.priority]
-                      }`}>
-                        {priorityLabels[item.priority]}
-                      </span>
-                      <Button
-                        variant="secondary"
-                        size="sm"
-                        onClick={() => onCallCustomer(item)}
-                      >
-                        Wywołaj
-                      </Button>
+                    <div>
+                      <div className="flex items-center space-x-2">
+                        <User className="h-4 w-4 text-gray-400" />
+                        <p className="font-medium text-white">{item.customerName}</p>
+                      </div>
+                      <p className="text-sm text-gray-400 mt-1">{item.serviceType}</p>
+                      <div className="flex items-center space-x-2 mt-1">
+                        <Clock className="h-3.5 w-3.5 text-gray-500" />
+                        <p className="text-xs text-gray-500">
+                          Oczekuje: {Math.round((Date.now() - item.arrivalTime.getTime()) / 60000)} min
+                        </p>
+                      </div>
                     </div>
                   </div>
+                  <div className="flex items-center space-x-3">
+                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${priorityColors[item.priority]
+                      }`}>
+                      {priorityLabels[item.priority]}
+                    </span>
+                    <button
+                      onClick={() => onCallCustomer(item)}
+                      className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-white text-sm transition-colors"
+                    >
+                      Wywołaj
+                    </button>
+                  </div>
                 </div>
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-12">
-              <AlertCircle className="h-12 w-12 text-gray-400 mx-auto mb-3" />
-              <p className="text-gray-500">Brak klientów w kolejce</p>
-            </div>
-          )}
-        </CardContent>
-      </Card>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-12">
+            <AlertCircle className="h-12 w-12 text-gray-600 mx-auto mb-3" />
+            <p className="text-gray-500">Brak klientów w kolejce</p>
+          </div>
+        )}
+      </div>
 
       {/* In Service */}
       {inServiceCustomers.length > 0 && (
-        <Card>
-          <CardContent className="p-6">
-            <h3 className="text-lg font-medium text-gray-900 mb-4">
-              Obecnie Obsługiwani ({inServiceCustomers.length})
-            </h3>
-            <div className="space-y-3">
-              {inServiceCustomers.map((item) => (
-                <div key={item.id} className="p-4 border border-gray-200 rounded-lg bg-gray-50">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="font-medium text-gray-900">{item.customerName}</p>
-                      <p className="text-sm text-gray-600">{item.serviceType}</p>
-                      {item.assignedEmployee && (
-                        <p className="text-xs text-gray-500 mt-1">
-                          Pracownik: {item.assignedEmployee}
-                        </p>
-                      )}
-                    </div>
-                    <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                      W trakcie obsługi
-                    </span>
+        <div className="glass-panel rounded-2xl p-6">
+          <h3 className="text-lg font-medium text-white mb-4">
+            Obecnie Obsługiwani ({inServiceCustomers.length})
+          </h3>
+          <div className="space-y-3">
+            {inServiceCustomers.map((item) => (
+              <div key={item.id} className="p-4 border border-white/5 rounded-xl bg-white/5 hover:bg-white/10 transition-colors">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="font-medium text-white">{item.customerName}</p>
+                    <p className="text-sm text-gray-400">{item.serviceType}</p>
+                    {item.assignedEmployee && (
+                      <p className="text-xs text-gray-500 mt-1">
+                        Pracownik: {item.assignedEmployee}
+                      </p>
+                    )}
                   </div>
+                  <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                    W trakcie obsługi
+                  </span>
                 </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+              </div>
+            ))}
+          </div>
+        </div>
       )}
     </div>
   );

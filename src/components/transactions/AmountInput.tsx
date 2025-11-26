@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { DollarSign } from 'lucide-react';
-import { Input, Button } from '@/components/ui';
 
 interface AmountInputProps {
   value: number;
@@ -42,31 +41,32 @@ export function AmountInput({ value, currency, onChange, onNext }: AmountInputPr
 
   return (
     <div className="space-y-6">
-      <h3 className="text-lg font-medium text-gray-900">Wprowadź kwotę transakcji</h3>
+      <h3 className="text-lg font-medium text-white">Wprowadź kwotę transakcji</h3>
       
-      <div className="space-y-4">
+      <div className="space-y-6">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-gray-300 mb-2">
             Kwota
           </label>
           <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <DollarSign className="h-5 w-5 text-gray-400" />
+            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+              <DollarSign className="h-6 w-6 text-gray-400" />
             </div>
-            <Input
+            <input
               type="text"
               value={amount}
               onChange={handleAmountChange}
-              className="pl-10 text-2xl font-semibold"
+              className={`w-full pl-12 pr-4 py-4 rounded-xl border ${
+                error ? 'border-red-500/50' : 'border-white/10'
+              } bg-black/20 text-white text-3xl font-bold focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-transparent transition-all placeholder-gray-600`}
               placeholder="0.00"
-              error={error}
             />
           </div>
-          {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
+          {error && <p className="mt-2 text-sm text-red-400">{error}</p>}
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-gray-300 mb-2">
             Waluta
           </label>
           <div className="grid grid-cols-3 gap-3">
@@ -74,10 +74,10 @@ export function AmountInput({ value, currency, onChange, onNext }: AmountInputPr
               <button
                 key={curr}
                 onClick={() => setSelectedCurrency(curr)}
-                className={`p-3 border-2 rounded-lg font-medium transition-all ${
+                className={`p-3 border rounded-xl font-medium transition-all ${
                   selectedCurrency === curr
-                    ? 'border-primary-500 bg-primary-50 text-primary-700'
-                    : 'border-gray-200 text-gray-700 hover:border-primary-300'
+                    ? 'border-emerald-500/50 bg-emerald-500/20 text-emerald-400'
+                    : 'border-white/10 bg-white/5 text-gray-400 hover:border-white/20 hover:text-white'
                 }`}
               >
                 {curr}
@@ -88,7 +88,7 @@ export function AmountInput({ value, currency, onChange, onNext }: AmountInputPr
 
         {/* Quick Amount Buttons */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-gray-300 mb-2">
             Szybki wybór
           </label>
           <div className="grid grid-cols-4 gap-2">
@@ -96,7 +96,7 @@ export function AmountInput({ value, currency, onChange, onNext }: AmountInputPr
               <button
                 key={quickAmount}
                 onClick={() => setAmount(quickAmount.toString())}
-                className="p-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-50 transition-colors"
+                className="p-2 border border-white/10 bg-white/5 rounded-lg text-sm text-gray-300 hover:bg-white/10 hover:text-white hover:border-white/20 transition-colors"
               >
                 {quickAmount}
               </button>
@@ -105,14 +105,13 @@ export function AmountInput({ value, currency, onChange, onNext }: AmountInputPr
         </div>
       </div>
 
-      <Button
-        variant="primary"
+      <button
         onClick={handleNext}
-        className="w-full"
+        className="w-full py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold shadow-lg shadow-emerald-500/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
         disabled={!amount || parseFloat(amount) <= 0}
       >
         Dalej
-      </Button>
+      </button>
     </div>
   );
 }

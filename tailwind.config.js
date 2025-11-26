@@ -7,21 +7,6 @@ export default {
   theme: {
     extend: {
       colors: {
-        dashboard: {
-          bg: '#23303B',
-          card: '#FFFFFF',
-          text: {
-            main: '#1A1A1A',
-            muted: '#9CA3AF',
-            light: '#F3F4F6',
-          },
-          accent: {
-            teal: '#1E293B', // Dark chart bars
-            green: '#10B981', // Success/Green accents
-            yellow: '#F59E0B', // Warning/Yellow accents
-            lightGreen: '#D1FAE5',
-          }
-        },
         primary: {
           50: '#f0f7ff',
           100: '#e0effe',

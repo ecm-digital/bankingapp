@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Button } from '@/components/ui';
 import { formatCurrency } from '@/utils';
 
 interface AccountSelectorProps {
@@ -35,7 +34,7 @@ export function AccountSelector({ transactionType, fromAccount, toAccount, onSel
   return (
     <div className="space-y-6">
       <div>
-        <h3 className="text-lg font-medium text-gray-900 mb-4">
+        <h3 className="text-lg font-medium text-white mb-4">
           {transactionType === 'DEPOSIT' ? 'Wybierz konto docelowe' :
            transactionType === 'WITHDRAWAL' ? 'Wybierz konto źródłowe' :
            'Wybierz konta'}
@@ -44,27 +43,29 @@ export function AccountSelector({ transactionType, fromAccount, toAccount, onSel
         {/* From Account */}
         {transactionType !== 'DEPOSIT' && (
           <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700 mb-3">
+            <label className="block text-sm font-medium text-gray-300 mb-3">
               Konto źródłowe
             </label>
-            <div className="space-y-2">
+            <div className="space-y-3">
               {mockAccounts.map((account) => (
                 <button
                   key={account.id}
                   onClick={() => setSelectedFrom(account.number)}
-                  className={`w-full p-4 border-2 rounded-lg text-left transition-all ${
+                  className={`w-full p-4 border rounded-xl text-left transition-all group ${
                     selectedFrom === account.number
-                      ? 'border-primary-500 bg-primary-50'
-                      : 'border-gray-200 hover:border-primary-300'
+                      ? 'border-emerald-500/50 bg-emerald-500/10'
+                      : 'border-white/10 bg-white/5 hover:bg-white/10 hover:border-white/20'
                   }`}
                 >
                   <div className="flex justify-between items-start">
                     <div>
-                      <p className="font-medium text-gray-900">{account.type}</p>
-                      <p className="text-sm text-gray-500 font-mono mt-1">{account.number}</p>
+                      <p className={`font-medium ${selectedFrom === account.number ? 'text-emerald-400' : 'text-white'}`}>
+                        {account.type}
+                      </p>
+                      <p className="text-sm text-gray-400 font-mono mt-1">{account.number}</p>
                     </div>
                     <div className="text-right">
-                      <p className="font-semibold text-gray-900">
+                      <p className="font-semibold text-white">
                         {formatCurrency(account.balance, account.currency)}
                       </p>
                       <p className="text-xs text-gray-500 mt-1">Dostępne</p>
@@ -79,13 +80,13 @@ export function AccountSelector({ transactionType, fromAccount, toAccount, onSel
         {/* To Account */}
         {needsToAccount && (
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-3">
+            <label className="block text-sm font-medium text-gray-300 mb-3">
               Konto docelowe
             </label>
             
             {/* Own accounts */}
-            <div className="space-y-2 mb-4">
-              <p className="text-xs text-gray-500 uppercase tracking-wide">Moje konta</p>
+            <div className="space-y-3 mb-6">
+              <p className="text-xs text-gray-500 uppercase tracking-wide font-bold">Moje konta</p>
               {mockAccounts.filter(acc => acc.number !== selectedFrom).map((account) => (
                 <button
                   key={account.id}
@@ -93,19 +94,21 @@ export function AccountSelector({ transactionType, fromAccount, toAccount, onSel
                     setSelectedTo(account.number);
                     setRecipientAccount('');
                   }}
-                  className={`w-full p-4 border-2 rounded-lg text-left transition-all ${
+                  className={`w-full p-4 border rounded-xl text-left transition-all group ${
                     selectedTo === account.number
-                      ? 'border-primary-500 bg-primary-50'
-                      : 'border-gray-200 hover:border-primary-300'
+                      ? 'border-emerald-500/50 bg-emerald-500/10'
+                      : 'border-white/10 bg-white/5 hover:bg-white/10 hover:border-white/20'
                   }`}
                 >
                   <div className="flex justify-between items-start">
                     <div>
-                      <p className="font-medium text-gray-900">{account.type}</p>
-                      <p className="text-sm text-gray-500 font-mono mt-1">{account.number}</p>
+                      <p className={`font-medium ${selectedTo === account.number ? 'text-emerald-400' : 'text-white'}`}>
+                        {account.type}
+                      </p>
+                      <p className="text-sm text-gray-400 font-mono mt-1">{account.number}</p>
                     </div>
                     <div className="text-right">
-                      <p className="font-semibold text-gray-900">
+                      <p className="font-semibold text-white">
                         {formatCurrency(account.balance, account.currency)}
                       </p>
                     </div>
@@ -116,7 +119,7 @@ export function AccountSelector({ transactionType, fromAccount, toAccount, onSel
 
             {/* External account */}
             <div>
-              <p className="text-xs text-gray-500 uppercase tracking-wide mb-2">Lub wprowadź numer konta</p>
+              <p className="text-xs text-gray-500 uppercase tracking-wide font-bold mb-2">Lub wprowadź numer konta</p>
               <input
                 type="text"
                 value={recipientAccount}
@@ -125,31 +128,33 @@ export function AccountSelector({ transactionType, fromAccount, toAccount, onSel
                   setSelectedTo('');
                 }}
                 placeholder="PL XXXX XXXX XXXX XXXX XXXX XXXX"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg font-mono text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                className="w-full px-4 py-3 border border-white/10 bg-black/20 rounded-xl font-mono text-sm text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-transparent placeholder-gray-600 transition-all"
               />
             </div>
           </div>
         )}
 
         {transactionType === 'DEPOSIT' && (
-          <div className="space-y-2">
+          <div className="space-y-3">
             {mockAccounts.map((account) => (
               <button
                 key={account.id}
                 onClick={() => setSelectedTo(account.number)}
-                className={`w-full p-4 border-2 rounded-lg text-left transition-all ${
+                className={`w-full p-4 border rounded-xl text-left transition-all group ${
                   selectedTo === account.number
-                    ? 'border-primary-500 bg-primary-50'
-                    : 'border-gray-200 hover:border-primary-300'
+                    ? 'border-emerald-500/50 bg-emerald-500/10'
+                    : 'border-white/10 bg-white/5 hover:bg-white/10 hover:border-white/20'
                 }`}
               >
                 <div className="flex justify-between items-start">
                   <div>
-                    <p className="font-medium text-gray-900">{account.type}</p>
-                    <p className="text-sm text-gray-500 font-mono mt-1">{account.number}</p>
+                    <p className={`font-medium ${selectedTo === account.number ? 'text-emerald-400' : 'text-white'}`}>
+                      {account.type}
+                    </p>
+                    <p className="text-sm text-gray-400 font-mono mt-1">{account.number}</p>
                   </div>
                   <div className="text-right">
-                    <p className="font-semibold text-gray-900">
+                    <p className="font-semibold text-white">
                       {formatCurrency(account.balance, account.currency)}
                     </p>
                   </div>
@@ -160,14 +165,13 @@ export function AccountSelector({ transactionType, fromAccount, toAccount, onSel
         )}
       </div>
 
-      <Button
-        variant="primary"
+      <button
         onClick={handleNext}
-        className="w-full"
+        className="w-full py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold shadow-lg shadow-emerald-500/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
         disabled={!selectedFrom && !selectedTo}
       >
         Dalej
-      </Button>
+      </button>
     </div>
   );
 }

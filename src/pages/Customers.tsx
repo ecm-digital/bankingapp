@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { useCustomersStore } from '@/stores/customersStore';
 import { useTransactionsStore } from '@/stores/transactionsStore';
 import { CustomerSearch, CustomerProfile, BalanceCard, RecentTransactions } from '@/components/customers';
-import { Card, CardContent } from '@/components/ui';
 import { Customer } from '@/types';
+import { ArrowLeft, Users } from 'lucide-react';
 
 export function Customers() {
   const {
@@ -59,8 +59,8 @@ export function Customers() {
     <div className="space-y-6">
       {/* Page header */}
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Klienci</h1>
-        <p className="mt-1 text-sm text-gray-500">
+        <h1 className="text-2xl font-bold text-white">Klienci</h1>
+        <p className="mt-1 text-sm text-gray-400">
           Wyszukaj i zarządzaj profilami klientów banku
         </p>
       </div>
@@ -68,54 +68,51 @@ export function Customers() {
       {/* Customer Search */}
       {viewMode === 'search' && (
         <>
-          <Card>
-            <CardContent className="p-6">
-              <CustomerSearch
-                onSearch={handleSearch}
-                searchResults={searchResults}
-                onSelectCustomer={handleSelectCustomer}
-                isLoading={isLoading}
-              />
-            </CardContent>
-          </Card>
+          <div className="glass-panel rounded-2xl p-6">
+            <CustomerSearch
+              onSearch={handleSearch}
+              searchResults={searchResults}
+              onSelectCustomer={handleSelectCustomer}
+              isLoading={isLoading}
+            />
+          </div>
 
           {/* Customer List */}
-          <Card>
-            <CardContent className="p-6">
-              <h3 className="text-lg font-medium text-gray-900 mb-4">
-                Wszyscy Klienci ({customers.length})
-              </h3>
-              {customers.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {customers.slice(0, 12).map((customer) => (
-                    <button
-                      key={customer.id}
-                      onClick={() => handleSelectCustomer(customer)}
-                      className="p-4 border border-gray-200 rounded-lg hover:border-primary-500 hover:shadow-md transition-all text-left"
-                    >
-                      <div className="flex items-center space-x-3">
-                        <div className="h-12 w-12 rounded-full bg-primary-500 flex items-center justify-center text-white font-bold">
-                          {customer.personalInfo.firstName[0]}{customer.personalInfo.lastName[0]}
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium text-gray-900 truncate">
-                            {customer.personalInfo.firstName} {customer.personalInfo.lastName}
-                          </p>
-                          <p className="text-xs text-gray-500 truncate">
-                            {customer.personalInfo.email}
-                          </p>
-                        </div>
+          <div className="glass-panel rounded-2xl p-6">
+            <h3 className="text-lg font-medium text-white mb-4 flex items-center gap-2">
+              <Users className="h-5 w-5 text-emerald-400" />
+              Wszyscy Klienci ({customers.length})
+            </h3>
+            {customers.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {customers.slice(0, 12).map((customer) => (
+                  <button
+                    key={customer.id}
+                    onClick={() => handleSelectCustomer(customer)}
+                    className="p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-emerald-500/30 transition-all text-left group"
+                  >
+                    <div className="flex items-center space-x-3">
+                      <div className="h-12 w-12 rounded-full bg-gradient-to-br from-emerald-500 to-blue-600 flex items-center justify-center text-white font-bold shadow-lg shadow-emerald-500/20 group-hover:scale-110 transition-transform">
+                        {customer.personalInfo.firstName[0]}{customer.personalInfo.lastName[0]}
                       </div>
-                    </button>
-                  ))}
-                </div>
-              ) : (
-                <p className="text-sm text-gray-500 text-center py-8">
-                  Brak klientów do wyświetlenia
-                </p>
-              )}
-            </CardContent>
-          </Card>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium text-white truncate group-hover:text-emerald-300 transition-colors">
+                          {customer.personalInfo.firstName} {customer.personalInfo.lastName}
+                        </p>
+                        <p className="text-xs text-gray-400 truncate">
+                          {customer.personalInfo.email}
+                        </p>
+                      </div>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm text-gray-500 text-center py-8">
+                Brak klientów do wyświetlenia
+              </p>
+            )}
+          </div>
         </>
       )}
 
@@ -125,9 +122,10 @@ export function Customers() {
           <div className="flex items-center justify-between">
             <button
               onClick={handleBackToSearch}
-              className="text-sm text-primary-600 hover:text-primary-700 font-medium"
+              className="flex items-center gap-2 text-sm text-emerald-400 hover:text-emerald-300 font-medium transition-colors"
             >
-              ← Powrót do wyszukiwania
+              <ArrowLeft className="h-4 w-4" />
+              Powrót do wyszukiwania
             </button>
           </div>
 

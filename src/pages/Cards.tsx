@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Plus, Search } from 'lucide-react';
-import { Button, Input, Card as UICard, CardContent } from '@/components/ui';
+import { Plus, Search, CreditCard } from 'lucide-react';
 import { CardComponent, CardDetailsModal, NewCardWizard } from '@/components/cards';
 import { useProductsStore } from '@/stores/productsStore';
 import { useCustomersStore } from '@/stores/customersStore';
@@ -74,72 +73,71 @@ export function Cards() {
       {/* Page header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Zarządzanie Kartami</h1>
-          <p className="mt-1 text-sm text-gray-500">
+          <h1 className="text-2xl font-bold text-white">Zarządzanie Kartami</h1>
+          <p className="mt-1 text-sm text-gray-400">
             Przeglądaj i zarządzaj kartami klientów
           </p>
         </div>
-        <Button
-          variant="primary"
+        <button
           onClick={() => setShowNewCardWizard(true)}
           disabled={!selectedCustomerId}
+          className="flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-medium transition-colors shadow-lg shadow-emerald-500/20 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          <Plus className="h-5 w-5 mr-2" />
+          <Plus className="h-5 w-5" />
           Nowa Karta
-        </Button>
+        </button>
       </div>
 
       {/* Customer Selector & Search */}
-      <UICard>
-        <CardContent className="p-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Wybierz klienta
-              </label>
-              <select
-                value={selectedCustomerId}
-                onChange={(e) => {
-                  setSelectedCustomerId(e.target.value);
-                  fetchCustomerCards(e.target.value);
-                }}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-              >
-                <option value="">Wybierz klienta...</option>
-                {customers.map((customer) => (
-                  <option key={customer.id} value={customer.id}>
-                    {customer.personalInfo.firstName} {customer.personalInfo.lastName}
-                  </option>
-                ))}
-              </select>
-            </div>
+      <div className="glass-panel rounded-2xl p-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-2">
+              Wybierz klienta
+            </label>
+            <select
+              value={selectedCustomerId}
+              onChange={(e) => {
+                setSelectedCustomerId(e.target.value);
+                fetchCustomerCards(e.target.value);
+              }}
+              className="w-full px-4 py-2.5 rounded-xl bg-black/20 border border-white/10 text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/50 transition-all"
+            >
+              <option value="" className="bg-[#0f172a]">Wybierz klienta...</option>
+              {customers.map((customer) => (
+                <option key={customer.id} value={customer.id} className="bg-[#0f172a]">
+                  {customer.personalInfo.firstName} {customer.personalInfo.lastName}
+                </option>
+              ))}
+            </select>
+          </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Szukaj karty
-              </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Search className="h-5 w-5 text-gray-400" />
-                </div>
-                <Input
-                  type="text"
-                  placeholder="Szukaj po numerze lub marce..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10"
-                />
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-2">
+              Szukaj karty
+            </label>
+            <div className="relative group">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <Search className="h-5 w-5 text-gray-400 group-focus-within:text-emerald-400 transition-colors" />
               </div>
+              <input
+                type="text"
+                placeholder="Szukaj po numerze lub marce..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-black/20 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 transition-all"
+              />
             </div>
           </div>
-        </CardContent>
-      </UICard>
+        </div>
+      </div>
 
       {/* Cards Overview */}
       {selectedCustomerId ? (
         <div>
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-medium text-gray-900">
+            <h2 className="text-lg font-medium text-white flex items-center gap-2">
+              <CreditCard className="h-5 w-5 text-emerald-400" />
               Karty klienta ({filteredCards.length})
             </h2>
           </div>
@@ -157,31 +155,26 @@ export function Cards() {
               ))}
             </div>
           ) : (
-            <UICard>
-              <CardContent className="p-12 text-center">
-                <p className="text-gray-500">
-                  {searchQuery
-                    ? 'Nie znaleziono kart spełniających kryteria wyszukiwania'
-                    : 'Klient nie posiada żadnych kart'}
-                </p>
-                <Button
-                  variant="primary"
-                  onClick={() => setShowNewCardWizard(true)}
-                  className="mt-4"
-                >
-                  <Plus className="h-5 w-5 mr-2" />
-                  Złóż wniosek o kartę
-                </Button>
-              </CardContent>
-            </UICard>
+            <div className="glass-panel rounded-2xl p-12 text-center">
+              <p className="text-gray-400 mb-4">
+                {searchQuery
+                  ? 'Nie znaleziono kart spełniających kryteria wyszukiwania'
+                  : 'Klient nie posiada żadnych kart'}
+              </p>
+              <button
+                onClick={() => setShowNewCardWizard(true)}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white transition-colors"
+              >
+                <Plus className="h-5 w-5" />
+                Złóż wniosek o kartę
+              </button>
+            </div>
           )}
         </div>
       ) : (
-        <UICard>
-          <CardContent className="p-12 text-center">
-            <p className="text-gray-500">Wybierz klienta, aby wyświetlić jego karty</p>
-          </CardContent>
-        </UICard>
+        <div className="glass-panel rounded-2xl p-12 text-center">
+          <p className="text-gray-400">Wybierz klienta, aby wyświetlić jego karty</p>
+        </div>
       )}
 
       {/* Modals */}

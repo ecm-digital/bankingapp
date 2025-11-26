@@ -13,7 +13,7 @@ export function Queue() {
 
   useEffect(() => {
     fetchQueue();
-    
+
     // Simulate real-time updates every 30 seconds
     const interval = setInterval(() => {
       fetchQueue();
@@ -36,8 +36,8 @@ export function Queue() {
     <div className="space-y-6">
       {/* Page header */}
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Zarządzanie Kolejką</h1>
-        <p className="mt-1 text-sm text-gray-500">
+        <h1 className="text-2xl font-bold text-white">Zarządzanie Kolejką</h1>
+        <p className="mt-1 text-sm text-gray-400">
           System zarządzania kolejką klientów w oddziale
         </p>
       </div>
