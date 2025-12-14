@@ -23,8 +23,8 @@ export function QueueStatistics({ queueItems }: QueueStatisticsProps) {
       name: 'Oczekujący',
       value: waiting.toString(),
       icon: Users,
-      color: 'bg-blue-500',
-      textColor: 'text-blue-400',
+      iconBg: 'bg-blue-100',
+      iconColor: 'text-blue-600',
       change: waiting > 5 ? 'Wysoka kolejka' : 'Normalna kolejka',
       changeType: waiting > 5 ? 'warning' : 'normal',
     },
@@ -32,8 +32,8 @@ export function QueueStatistics({ queueItems }: QueueStatisticsProps) {
       name: 'W Obsłudze',
       value: inService.toString(),
       icon: Clock,
-      color: 'bg-yellow-500',
-      textColor: 'text-yellow-400',
+      iconBg: 'bg-amber-100',
+      iconColor: 'text-amber-600',
       change: `${inService} stanowisk aktywnych`,
       changeType: 'normal',
     },
@@ -41,8 +41,8 @@ export function QueueStatistics({ queueItems }: QueueStatisticsProps) {
       name: 'Średni Czas',
       value: `${avgWaitTime} min`,
       icon: TrendingUp,
-      color: 'bg-purple-500',
-      textColor: 'text-purple-400',
+      iconBg: 'bg-purple-100',
+      iconColor: 'text-purple-600',
       change: avgWaitTime > 15 ? 'Powyżej normy' : 'W normie',
       changeType: avgWaitTime > 15 ? 'warning' : 'positive',
     },
@@ -50,44 +50,38 @@ export function QueueStatistics({ queueItems }: QueueStatisticsProps) {
       name: 'Obsłużeni Dzisiaj',
       value: completed.toString(),
       icon: CheckCircle,
-      color: 'bg-emerald-500',
-      textColor: 'text-emerald-400',
+      iconBg: 'bg-green-100',
+      iconColor: 'text-green-600',
       change: '+' + Math.round(completed * 0.15) + ' od wczoraj',
       changeType: 'positive',
     },
   ];
 
   return (
-    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
       {stats.map((stat) => (
-        <div key={stat.name} className="glass-panel rounded-2xl p-5 hover:bg-white/10 transition-colors group">
+        <div key={stat.name} className="bg-white rounded-xl border border-slate-200 shadow-sm p-5">
           <div className="flex items-center">
-            <div className={`flex-shrink-0 rounded-xl ${stat.color}/20 p-3 border border-${stat.color}/20 group-hover:border-${stat.color}/40 transition-colors`}>
-              <stat.icon className={`h-6 w-6 ${stat.textColor}`} />
+            <div className={`flex-shrink-0 rounded-lg ${stat.iconBg} p-3`}>
+              <stat.icon className={`h-5 w-5 ${stat.iconColor}`} />
             </div>
-            <div className="ml-5 w-0 flex-1">
-              <dl>
-                <dt className="text-sm font-medium text-gray-400 truncate">
-                  {stat.name}
-                </dt>
-                <dd className="flex items-baseline">
-                  <div className="text-2xl font-semibold text-white">
-                    {stat.value}
-                  </div>
-                </dd>
-                <dd className="mt-1">
-                  <span
-                    className={`text-xs font-medium ${stat.changeType === 'positive'
-                        ? 'text-emerald-400'
-                        : stat.changeType === 'warning'
-                          ? 'text-yellow-400'
-                          : 'text-gray-400'
-                      }`}
-                  >
-                    {stat.change}
-                  </span>
-                </dd>
-              </dl>
+            <div className="ml-4 flex-1">
+              <p className="text-sm font-medium text-slate-500">
+                {stat.name}
+              </p>
+              <p className="text-2xl font-bold text-slate-900">
+                {stat.value}
+              </p>
+              <span
+                className={`text-xs font-medium ${stat.changeType === 'positive'
+                    ? 'text-green-600'
+                    : stat.changeType === 'warning'
+                      ? 'text-amber-600'
+                      : 'text-slate-500'
+                  }`}
+              >
+                {stat.change}
+              </span>
             </div>
           </div>
         </div>

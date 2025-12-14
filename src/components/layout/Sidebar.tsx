@@ -1,4 +1,4 @@
-import { Building2, X } from 'lucide-react';
+import { X } from 'lucide-react';
 import { Navigation } from './Navigation';
 
 interface SidebarProps {
@@ -9,74 +9,57 @@ interface SidebarProps {
 export function Sidebar({ isOpen, onClose }: SidebarProps) {
   return (
     <>
-      {/* Mobile sidebar overlay */}
+      {/* Mobile overlay */}
       {isOpen && (
-        <div className="relative z-50 lg:hidden" role="dialog" aria-modal="true">
-          {/* Background overlay */}
-          <div
-            className="fixed inset-0 bg-black/80 backdrop-blur-sm transition-opacity"
-            onClick={onClose}
-            aria-hidden="true"
-          />
-
-          {/* Sidebar panel */}
-          <div className="fixed inset-0 flex">
-            <div className="relative mr-16 flex w-full max-w-xs flex-1">
-              {/* Close button */}
-              <div className="absolute left-full top-0 flex w-16 justify-center pt-5">
-                <button
-                  type="button"
-                  className="-m-2.5 p-2.5 text-white hover:text-emerald-400 transition-colors"
-                  onClick={onClose}
-                  aria-label="Zamknij menu"
-                >
-                  <X className="h-6 w-6" />
-                </button>
-              </div>
-
-              <SidebarContent onItemClick={onClose} />
-            </div>
-          </div>
-        </div>
+        <div 
+          className="fixed inset-0 bg-slate-900/50 z-40 lg:hidden"
+          onClick={onClose}
+        />
       )}
 
-      {/* Desktop sidebar */}
-      <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-64 lg:flex-col">
-        <SidebarContent />
-      </div>
-    </>
-  );
-}
-
-interface SidebarContentProps {
-  onItemClick?: () => void;
-}
-
-function SidebarContent({ onItemClick }: SidebarContentProps) {
-  return (
-    <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-black/20 backdrop-blur-xl border-r border-white/5 px-6 pb-4 shadow-2xl">
-      {/* Logo */}
-      <div className="flex h-16 shrink-0 items-center">
-        <div className="flex items-center space-x-3">
-          <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-emerald-500 to-blue-600 flex items-center justify-center shadow-lg shadow-emerald-500/20">
-            <Building2 className="h-5 w-5 text-white" />
+      {/* Sidebar */}
+      <aside
+        className={`
+          fixed top-0 left-0 z-50 h-full w-64 
+          bg-slate-900 
+          transform transition-transform duration-300 ease-in-out
+          lg:translate-x-0
+          ${isOpen ? 'translate-x-0' : '-translate-x-full'}
+        `}
+      >
+        {/* Header */}
+        <div className="flex items-center justify-between h-16 px-6 border-b border-slate-700">
+          <div className="flex items-center gap-3">
+            <div className="h-8 w-8 rounded-lg bg-blue-600 flex items-center justify-center">
+              <span className="text-white font-bold text-sm">B</span>
+            </div>
+            <div>
+              <h1 className="text-white font-bold text-lg tracking-tight">BankApp</h1>
+              <p className="text-slate-400 text-xs">Panel Pracownika</p>
+            </div>
           </div>
-          <span className="text-xl font-bold text-white tracking-tight">BankApp</span>
+          <button
+            onClick={onClose}
+            className="lg:hidden p-1.5 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors"
+          >
+            <X className="h-5 w-5" />
+          </button>
         </div>
-      </div>
 
-      {/* Navigation */}
-      <div onClick={onItemClick}>
-        <Navigation />
-      </div>
-
-      {/* Bottom section */}
-      <div className="mt-auto pt-4 border-t border-white/5">
-        <div className="text-xs text-gray-400 text-center">
-          <p>Prototyp UX/UI</p>
-          <p className="mt-1">© 2024 BankApp</p>
+        {/* Navigation */}
+        <div className="flex-1 overflow-y-auto py-4">
+          <Navigation onItemClick={onClose} />
         </div>
-      </div>
-    </div>
+
+        {/* Footer */}
+        <div className="p-4 border-t border-slate-700">
+          <div className="px-3 py-2 bg-slate-800 rounded-lg">
+            <p className="text-slate-400 text-xs mb-1">Aktywna sesja</p>
+            <p className="text-white text-sm font-medium">Oddział: Warszawa Centrum</p>
+            <p className="text-slate-400 text-xs mt-1">Stanowisko: OK-01</p>
+          </div>
+        </div>
+      </aside>
+    </>
   );
 }

@@ -37,17 +37,17 @@ export function Transactions() {
   return (
     <div className="space-y-6">
       {/* Page header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-white">Transakcje</h1>
-          <p className="mt-1 text-sm text-gray-400">
+          <h1 className="text-2xl font-bold text-slate-900">Transakcje</h1>
+          <p className="text-slate-500 mt-1">
             Historia transakcji i zarządzanie operacjami bankowymi
           </p>
         </div>
         {!showWizard && (
           <button
             onClick={() => setShowWizard(true)}
-            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-emerald-500/20 text-emerald-300 hover:bg-emerald-500/30 border border-emerald-500/30 transition-all font-medium"
+            className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors shadow-sm"
           >
             <Plus className="h-5 w-5" />
             Nowa Transakcja
@@ -57,13 +57,13 @@ export function Transactions() {
 
       {/* Transaction Wizard */}
       {showWizard ? (
-        <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-6 shadow-lg">
-            <h2 className="text-xl font-semibold text-white mb-6">Kreator Nowej Transakcji</h2>
-            <TransactionWizard
-              onComplete={handleCreateTransaction}
-              onCancel={() => setShowWizard(false)}
-              employeeId={currentEmployee?.id || 'emp_demo'}
-            />
+        <div className="bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
+          <h2 className="text-xl font-semibold text-slate-900 mb-6">Kreator Nowej Transakcji</h2>
+          <TransactionWizard
+            onComplete={handleCreateTransaction}
+            onCancel={() => setShowWizard(false)}
+            employeeId={currentEmployee?.id || 'emp_demo'}
+          />
         </div>
       ) : (
         /* Transaction History */

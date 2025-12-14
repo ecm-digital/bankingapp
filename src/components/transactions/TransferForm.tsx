@@ -11,12 +11,12 @@ interface TransferFormProps {
 }
 
 const categories = [
-  { value: 'FOOD', label: 'Jedzenie', color: 'bg-green-500/20 text-green-400 border-green-500/30' },
-  { value: 'TRANSPORT', label: 'Transport', color: 'bg-blue-500/20 text-blue-400 border-blue-500/30' },
-  { value: 'SHOPPING', label: 'Zakupy', color: 'bg-purple-500/20 text-purple-400 border-purple-500/30' },
-  { value: 'BILLS', label: 'Rachunki', color: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30' },
-  { value: 'ENTERTAINMENT', label: 'Rozrywka', color: 'bg-pink-500/20 text-pink-400 border-pink-500/30' },
-  { value: 'OTHER', label: 'Inne', color: 'bg-gray-500/20 text-gray-400 border-gray-500/30' },
+  { value: 'FOOD', label: 'Żywność', color: 'bg-green-100 text-green-700 border-green-200' },
+  { value: 'TRANSPORT', label: 'Transport', color: 'bg-blue-100 text-blue-700 border-blue-200' },
+  { value: 'SHOPPING', label: 'Zakupy', color: 'bg-purple-100 text-purple-700 border-purple-200' },
+  { value: 'BILLS', label: 'Rachunki', color: 'bg-amber-100 text-amber-700 border-amber-200' },
+  { value: 'ENTERTAINMENT', label: 'Rozrywka', color: 'bg-pink-100 text-pink-700 border-pink-200' },
+  { value: 'OTHER', label: 'Inne', color: 'bg-slate-100 text-slate-700 border-slate-200' },
 ];
 
 export function TransferForm({ description, category, onChange, onNext }: TransferFormProps) {
@@ -41,11 +41,11 @@ export function TransferForm({ description, category, onChange, onNext }: Transf
 
   return (
     <div className="space-y-6">
-      <h3 className="text-lg font-medium text-white">Szczegóły transakcji</h3>
+      <h3 className="text-lg font-semibold text-slate-900">Szczegóły transakcji</h3>
 
       <div>
-        <label className="block text-sm font-medium text-gray-300 mb-2">
-          Opis transakcji *
+        <label className="block text-sm font-medium text-slate-700 mb-2">
+          Opis transakcji <span className="text-red-500">*</span>
         </label>
         <input
           type="text"
@@ -55,44 +55,42 @@ export function TransferForm({ description, category, onChange, onNext }: Transf
             setError('');
           }}
           placeholder="np. Przelew za zakupy"
-          className={`w-full px-4 py-3 rounded-xl border ${
-            error ? 'border-red-500/50' : 'border-white/10'
-          } bg-black/20 text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-transparent placeholder-gray-600 transition-all`}
+          className={`w-full px-4 py-3 rounded-lg border ${
+            error ? 'border-red-500 ring-1 ring-red-500' : 'border-slate-300'
+          } text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 placeholder-slate-400 transition-all`}
           maxLength={100}
         />
         <div className="flex justify-between mt-1">
-          <p className="text-xs text-red-400 h-4">{error}</p>
-          <p className="text-xs text-gray-500">
+          {error && <p className="text-xs text-red-600">{error}</p>}
+          <p className="text-xs text-slate-500 ml-auto">
             {desc.length}/100 znaków
           </p>
         </div>
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-300 mb-3">
+        <label className="block text-sm font-medium text-slate-700 mb-3">
           Kategoria
         </label>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
           {categories.map((cat) => (
             <button
               key={cat.value}
               onClick={() => setSelectedCategory(cat.value as TransactionCategory)}
-              className={`p-3 border rounded-xl text-sm font-medium transition-all ${
+              className={`p-3 border rounded-lg text-sm font-medium transition-all ${
                 selectedCategory === cat.value
-                  ? `border-white/20 bg-white/10 shadow-lg`
-                  : 'border-white/5 bg-white/5 hover:bg-white/10 hover:border-white/10 opacity-60 hover:opacity-100'
+                  ? 'border-blue-500 bg-blue-50 text-blue-700 ring-1 ring-blue-500'
+                  : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50 hover:border-slate-300'
               }`}
             >
-              <span className={`inline-block px-2 py-1 rounded-lg border ${cat.color} text-xs mb-1`}>
-                {cat.label}
-              </span>
+              {cat.label}
             </button>
           ))}
         </div>
       </div>
 
-      <div className="bg-blue-500/10 border border-blue-500/20 rounded-xl p-4">
-        <p className="text-sm text-blue-300">
+      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+        <p className="text-sm text-blue-800">
           <strong>Uwaga:</strong> Upewnij się, że wszystkie dane są poprawne przed przejściem dalej.
           Po zatwierdzeniu transakcji nie będzie można jej anulować.
         </p>
@@ -100,7 +98,7 @@ export function TransferForm({ description, category, onChange, onNext }: Transf
 
       <button
         onClick={handleNext}
-        className="w-full py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold shadow-lg shadow-emerald-500/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
         disabled={!desc.trim()}
       >
         Dalej

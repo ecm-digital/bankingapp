@@ -1,7 +1,8 @@
+import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { MainLayout } from './components/layout/MainLayout';
 import { ProtectedRoute } from './components/auth/ProtectedRoute';
-import { Dashboard } from './pages/Dashboard';
+import Dashboard from './pages/Dashboard';
 import { Customers } from './pages/Customers';
 import { Transactions } from './pages/Transactions';
 import { Queue } from './pages/Queue';
@@ -11,8 +12,14 @@ import { Products } from './pages/Products';
 import { Reports } from './pages/Reports';
 import { Settings } from './pages/Settings';
 import { LanguageProvider } from './contexts/LanguageContext';
+import { seedDemoData } from './utils/dataSeed';
 
 function App() {
+  useEffect(() => {
+    // Initialize demo data on app start
+    seedDemoData().catch(console.error);
+  }, []);
+
   return (
     <LanguageProvider>
       <Router>

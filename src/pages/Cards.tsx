@@ -17,7 +17,6 @@ export function Cards() {
 
   useEffect(() => {
     fetchCustomers();
-    // Fetch cards for first customer as demo
     if (customers.length > 0 && !selectedCustomerId) {
       const firstCustomerId = customers[0].id;
       setSelectedCustomerId(firstCustomerId);
@@ -57,7 +56,6 @@ export function Cards() {
   };
 
   const handleNewCard = async (cardType: Card['cardType'], cardBrand: Card['cardBrand'], creditLimit?: number) => {
-    // Mock card application
     console.log('New card application:', { cardType, cardBrand, creditLimit, customerId: selectedCustomerId });
     alert('Wniosek o nową kartę został złożony! (Symulacja)');
     setShowNewCardWizard(false);
@@ -71,17 +69,17 @@ export function Cards() {
   return (
     <div className="space-y-6">
       {/* Page header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-white">Zarządzanie Kartami</h1>
-          <p className="mt-1 text-sm text-gray-400">
+          <h1 className="text-2xl font-bold text-slate-900">Zarządzanie Kartami</h1>
+          <p className="text-slate-500 mt-1">
             Przeglądaj i zarządzaj kartami klientów
           </p>
         </div>
         <button
           onClick={() => setShowNewCardWizard(true)}
           disabled={!selectedCustomerId}
-          className="flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-medium transition-colors shadow-lg shadow-emerald-500/20 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <Plus className="h-5 w-5" />
           Nowa Karta
@@ -89,10 +87,10 @@ export function Cards() {
       </div>
 
       {/* Customer Selector & Search */}
-      <div className="glass-panel rounded-2xl p-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-slate-700 mb-2">
               Wybierz klienta
             </label>
             <select
@@ -101,11 +99,11 @@ export function Cards() {
                 setSelectedCustomerId(e.target.value);
                 fetchCustomerCards(e.target.value);
               }}
-              className="w-full px-4 py-2.5 rounded-xl bg-black/20 border border-white/10 text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/50 transition-all"
+              className="w-full px-4 py-2.5 border border-slate-300 rounded-lg text-slate-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
             >
-              <option value="" className="bg-[#0f172a]">Wybierz klienta...</option>
+              <option value="">Wybierz klienta...</option>
               {customers.map((customer) => (
-                <option key={customer.id} value={customer.id} className="bg-[#0f172a]">
+                <option key={customer.id} value={customer.id}>
                   {customer.personalInfo.firstName} {customer.personalInfo.lastName}
                 </option>
               ))}
@@ -113,19 +111,17 @@ export function Cards() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-slate-700 mb-2">
               Szukaj karty
             </label>
-            <div className="relative group">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Search className="h-5 w-5 text-gray-400 group-focus-within:text-emerald-400 transition-colors" />
-              </div>
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
               <input
                 type="text"
                 placeholder="Szukaj po numerze lub marce..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-black/20 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 transition-all"
+                className="w-full pl-10 pr-4 py-2.5 border border-slate-300 rounded-lg text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
               />
             </div>
           </div>
@@ -136,14 +132,14 @@ export function Cards() {
       {selectedCustomerId ? (
         <div>
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-medium text-white flex items-center gap-2">
-              <CreditCard className="h-5 w-5 text-emerald-400" />
+            <h2 className="text-base font-semibold text-slate-900 flex items-center gap-2">
+              <CreditCard className="h-5 w-5 text-blue-600" />
               Karty klienta ({filteredCards.length})
             </h2>
           </div>
 
           {filteredCards.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {filteredCards.map((card) => (
                 <CardComponent
                   key={card.id}
@@ -155,15 +151,15 @@ export function Cards() {
               ))}
             </div>
           ) : (
-            <div className="glass-panel rounded-2xl p-12 text-center">
-              <p className="text-gray-400 mb-4">
+            <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-12 text-center">
+              <p className="text-slate-500 mb-4">
                 {searchQuery
                   ? 'Nie znaleziono kart spełniających kryteria wyszukiwania'
                   : 'Klient nie posiada żadnych kart'}
               </p>
               <button
                 onClick={() => setShowNewCardWizard(true)}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white transition-colors"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium rounded-lg transition-colors"
               >
                 <Plus className="h-5 w-5" />
                 Złóż wniosek o kartę
@@ -172,8 +168,8 @@ export function Cards() {
           )}
         </div>
       ) : (
-        <div className="glass-panel rounded-2xl p-12 text-center">
-          <p className="text-gray-400">Wybierz klienta, aby wyświetlić jego karty</p>
+        <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-12 text-center">
+          <p className="text-slate-500">Wybierz klienta, aby wyświetlić jego karty</p>
         </div>
       )}
 

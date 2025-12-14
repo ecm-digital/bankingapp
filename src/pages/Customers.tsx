@@ -50,7 +50,6 @@ export function Customers() {
     }
   };
 
-  // Filter transactions for selected customer
   const customerTransactions = selectedCustomer
     ? transactions.filter(t => t.customerId === selectedCustomer.id)
     : [];
@@ -59,8 +58,8 @@ export function Customers() {
     <div className="space-y-6">
       {/* Page header */}
       <div>
-        <h1 className="text-2xl font-bold text-white">Klienci</h1>
-        <p className="mt-1 text-sm text-gray-400">
+        <h1 className="text-2xl font-bold text-slate-900">Klienci</h1>
+        <p className="text-slate-500 mt-1">
           Wyszukaj i zarządzaj profilami klientów banku
         </p>
       </div>
@@ -68,7 +67,7 @@ export function Customers() {
       {/* Customer Search */}
       {viewMode === 'search' && (
         <>
-          <div className="glass-panel rounded-2xl p-6">
+          <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-5">
             <CustomerSearch
               onSearch={handleSearch}
               searchResults={searchResults}
@@ -78,28 +77,28 @@ export function Customers() {
           </div>
 
           {/* Customer List */}
-          <div className="glass-panel rounded-2xl p-6">
-            <h3 className="text-lg font-medium text-white mb-4 flex items-center gap-2">
-              <Users className="h-5 w-5 text-emerald-400" />
+          <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-5">
+            <h3 className="text-base font-semibold text-slate-900 mb-4 flex items-center gap-2">
+              <Users className="h-5 w-5 text-blue-600" />
               Wszyscy Klienci ({customers.length})
             </h3>
             {customers.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                 {customers.slice(0, 12).map((customer) => (
                   <button
                     key={customer.id}
                     onClick={() => handleSelectCustomer(customer)}
-                    className="p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-emerald-500/30 transition-all text-left group"
+                    className="p-4 rounded-lg bg-white border border-slate-200 hover:bg-slate-50 hover:border-blue-300 transition-all text-left group"
                   >
                     <div className="flex items-center space-x-3">
-                      <div className="h-12 w-12 rounded-full bg-gradient-to-br from-emerald-500 to-blue-600 flex items-center justify-center text-white font-bold shadow-lg shadow-emerald-500/20 group-hover:scale-110 transition-transform">
+                      <div className="h-10 w-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-semibold text-sm">
                         {customer.personalInfo.firstName[0]}{customer.personalInfo.lastName[0]}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-white truncate group-hover:text-emerald-300 transition-colors">
+                        <p className="text-sm font-medium text-slate-900 truncate group-hover:text-blue-600 transition-colors">
                           {customer.personalInfo.firstName} {customer.personalInfo.lastName}
                         </p>
-                        <p className="text-xs text-gray-400 truncate">
+                        <p className="text-xs text-slate-500 truncate">
                           {customer.personalInfo.email}
                         </p>
                       </div>
@@ -108,7 +107,7 @@ export function Customers() {
                 ))}
               </div>
             ) : (
-              <p className="text-sm text-gray-500 text-center py-8">
+              <p className="text-sm text-slate-500 text-center py-8">
                 Brak klientów do wyświetlenia
               </p>
             )}
@@ -122,7 +121,7 @@ export function Customers() {
           <div className="flex items-center justify-between">
             <button
               onClick={handleBackToSearch}
-              className="flex items-center gap-2 text-sm text-emerald-400 hover:text-emerald-300 font-medium transition-colors"
+              className="flex items-center gap-2 text-sm text-blue-600 hover:text-blue-700 font-medium transition-colors"
             >
               <ArrowLeft className="h-4 w-4" />
               Powrót do wyszukiwania
@@ -135,25 +134,21 @@ export function Customers() {
           />
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {/* Balance Card */}
             <div className="lg:col-span-1">
               {selectedCustomer.bankingInfo.accounts[0] && (
                 <BalanceCard
                   account={selectedCustomer.bankingInfo.accounts[0]}
                   onNewTransaction={() => {
-                    // TODO: Navigate to transactions page
                     console.log('Navigate to new transaction');
                   }}
                 />
               )}
             </div>
 
-            {/* Recent Transactions */}
             <div className="lg:col-span-2">
               <RecentTransactions
                 transactions={customerTransactions}
                 onViewAll={() => {
-                  // TODO: Navigate to transactions page with filter
                   console.log('View all transactions');
                 }}
               />

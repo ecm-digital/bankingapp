@@ -31,17 +31,17 @@ export function LoanCalculator() {
   };
 
   return (
-    <div className="glass-panel rounded-2xl p-6">
-      <div className="flex items-center mb-6">
-        <div className="p-2 rounded-lg bg-emerald-500/10 mr-3">
-          <Calculator className="h-6 w-6 text-emerald-400" />
+    <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-5">
+      <div className="flex items-center mb-4">
+        <div className="p-2 rounded-lg bg-blue-100 mr-3">
+          <Calculator className="h-5 w-5 text-blue-600" />
         </div>
-        <h3 className="text-lg font-medium text-white">Kalkulator Kredytowy</h3>
+        <h3 className="text-base font-semibold text-slate-900">Kalkulator Kredytowy</h3>
       </div>
 
-      <div className="space-y-5">
+      <div className="space-y-4">
         <div>
-          <label className="block text-sm font-medium text-gray-300 mb-2">
+          <label className="block text-sm font-medium text-slate-700 mb-2">
             Kwota kredytu (PLN)
           </label>
           <input
@@ -50,12 +50,12 @@ export function LoanCalculator() {
             onChange={(e) => setAmount(e.target.value)}
             min="1000"
             step="1000"
-            className="w-full px-4 py-2.5 rounded-xl bg-black/20 border border-white/10 text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/50 transition-all"
+            className="w-full px-4 py-2.5 border border-slate-300 rounded-lg text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-300 mb-2">
+          <label className="block text-sm font-medium text-slate-700 mb-2">
             Oprocentowanie roczne (%)
           </label>
           <input
@@ -64,12 +64,12 @@ export function LoanCalculator() {
             onChange={(e) => setInterestRate(e.target.value)}
             min="0.1"
             step="0.1"
-            className="w-full px-4 py-2.5 rounded-xl bg-black/20 border border-white/10 text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/50 transition-all"
+            className="w-full px-4 py-2.5 border border-slate-300 rounded-lg text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-300 mb-2">
+          <label className="block text-sm font-medium text-slate-700 mb-2">
             Okres kredytowania (miesiące)
           </label>
           <input
@@ -78,39 +78,39 @@ export function LoanCalculator() {
             onChange={(e) => setTermMonths(e.target.value)}
             min="12"
             step="12"
-            className="w-full px-4 py-2.5 rounded-xl bg-black/20 border border-white/10 text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/50 transition-all"
+            className="w-full px-4 py-2.5 border border-slate-300 rounded-lg text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
           />
-          <p className="text-xs text-gray-500 mt-1 ml-1">
+          <p className="text-xs text-slate-500 mt-1">
             {Math.round(parseInt(termMonths) / 12)} lat
           </p>
         </div>
 
         <button
           onClick={calculateLoan}
-          className="w-full py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-medium transition-colors shadow-lg shadow-emerald-500/20"
+          className="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors shadow-sm"
         >
           Oblicz ratę
         </button>
 
         {result && (
-          <div className="mt-6 pt-6 border-t border-white/10 space-y-4 animate-in fade-in slide-in-from-top-2">
-            <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-4 text-center">
-              <p className="text-sm text-emerald-300 mb-1">Miesięczna rata</p>
-              <p className="text-3xl font-bold text-white">
+          <div className="mt-4 pt-4 border-t border-slate-200 space-y-3">
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-center">
+              <p className="text-sm text-blue-700 mb-1">Miesięczna rata</p>
+              <p className="text-2xl font-bold text-slate-900">
                 {formatCurrency(result.monthlyPayment, 'PLN')}
               </p>
             </div>
 
             <div className="grid grid-cols-2 gap-3">
-              <div className="bg-white/5 rounded-xl p-3 border border-white/5">
-                <p className="text-xs text-gray-400 mb-1">Całkowity koszt</p>
-                <p className="text-lg font-semibold text-white">
+              <div className="bg-slate-50 border border-slate-200 rounded-lg p-3">
+                <p className="text-xs text-slate-500 mb-0.5">Całkowity koszt</p>
+                <p className="text-base font-semibold text-slate-900">
                   {formatCurrency(result.totalAmount, 'PLN')}
                 </p>
               </div>
-              <div className="bg-white/5 rounded-xl p-3 border border-white/5">
-                <p className="text-xs text-gray-400 mb-1">Odsetki</p>
-                <p className="text-lg font-semibold text-emerald-400">
+              <div className="bg-slate-50 border border-slate-200 rounded-lg p-3">
+                <p className="text-xs text-slate-500 mb-0.5">Odsetki</p>
+                <p className="text-base font-semibold text-red-600">
                   {formatCurrency(result.totalInterest, 'PLN')}
                 </p>
               </div>

@@ -20,35 +20,35 @@ export function CustomerProfile({ customer, onUpdate }: CustomerProfileProps) {
     <>
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
         {/* Client Profile Section */}
-        <div className="lg:col-span-1 glass-panel rounded-2xl p-6">
+        <div className="lg:col-span-1 bg-white rounded-xl border border-slate-200 shadow-sm p-6">
           <div className="flex flex-col items-center">
-            <div className="h-24 w-24 rounded-full bg-gradient-to-br from-emerald-500 to-blue-600 flex items-center justify-center text-white text-2xl font-bold mb-4 shadow-xl shadow-emerald-500/20">
+            <div className="h-20 w-20 rounded-full bg-blue-600 flex items-center justify-center text-white text-2xl font-bold mb-4">
               {initials}
             </div>
-            <h2 className="text-xl font-bold text-white">
+            <h2 className="text-xl font-bold text-slate-900">
               {personalInfo.firstName} {personalInfo.lastName}
             </h2>
-            <p className="text-sm text-gray-400 mt-1">
+            <p className="text-sm text-slate-500 mt-1">
               Klient od {formatDate(bankingInfo.customerSince)}
             </p>
-            <span className={`mt-3 inline-flex items-center px-3 py-1 rounded-full text-sm font-medium border ${accountStatus === 'ACTIVE'
-                ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
-                : 'bg-red-500/10 text-red-400 border-red-500/20'
+            <span className={`mt-3 inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${accountStatus === 'ACTIVE'
+                ? 'bg-green-100 text-green-700'
+                : 'bg-red-100 text-red-700'
               }`}>
               {accountStatus === 'ACTIVE' ? 'Aktywny' : 'Nieaktywny'}
             </span>
-            <div className="mt-6 w-full space-y-3">
-              <div className="flex items-center justify-between text-sm p-3 rounded-lg bg-white/5 border border-white/5">
-                <span className="text-gray-400">ID Klienta:</span>
-                <span className="font-mono text-white">{customer.id}</span>
+            <div className="mt-6 w-full space-y-2">
+              <div className="flex items-center justify-between text-sm p-3 rounded-lg bg-slate-50">
+                <span className="text-slate-500">ID Klienta:</span>
+                <span className="font-mono text-slate-900">{customer.id}</span>
               </div>
-              <div className="flex items-center justify-between text-sm p-3 rounded-lg bg-white/5 border border-white/5">
-                <span className="text-gray-400">Segment:</span>
-                <span className="font-medium text-emerald-400">{bankingInfo.segment}</span>
+              <div className="flex items-center justify-between text-sm p-3 rounded-lg bg-slate-50">
+                <span className="text-slate-500">Segment:</span>
+                <span className="font-medium text-blue-600">{bankingInfo.segment}</span>
               </div>
             </div>
             <button
-              className="w-full mt-6 flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-white transition-all"
+              className="w-full mt-6 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium transition-colors"
               onClick={() => setIsEditModalOpen(true)}
             >
               <Edit2 className="h-4 w-4" />
@@ -60,33 +60,33 @@ export function CustomerProfile({ customer, onUpdate }: CustomerProfileProps) {
         {/* Account Information & Contact */}
         <div className="lg:col-span-2 space-y-6">
           {/* Account Information Card */}
-          <div className="glass-panel rounded-2xl p-6">
-            <h3 className="text-lg font-medium text-white mb-4">Informacje o Koncie</h3>
+          <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+            <h3 className="text-base font-semibold text-slate-900 mb-4">Informacje o Koncie</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {bankingInfo.accounts.map((account, index) => (
-                <div key={index} className="border border-white/10 rounded-xl p-4 bg-white/5 hover:bg-white/10 transition-colors">
+                <div key={index} className="border border-slate-200 rounded-lg p-4 bg-slate-50 hover:bg-slate-100 transition-colors">
                   <div className="flex items-center justify-between mb-3">
-                    <span className="text-sm font-medium text-gray-300">
+                    <span className="text-sm font-medium text-slate-700">
                       {account.type === 'PERSONAL_CHECKING' ? 'Konto Osobiste' :
                         account.type === 'SAVINGS' ? 'Konto Oszczędnościowe' :
                           account.type === 'BUSINESS' ? 'Konto Biznesowe' :
                             'Konto Inwestycyjne'}
                     </span>
-                    <span className={`px-2 py-1 rounded text-xs font-medium border ${account.isActive
-                        ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
-                        : 'bg-red-500/10 text-red-400 border-red-500/20'
+                    <span className={`px-2 py-0.5 rounded text-xs font-medium ${account.isActive
+                        ? 'bg-green-100 text-green-700'
+                        : 'bg-red-100 text-red-700'
                       }`}>
-                      {account.isActive ? 'ACTIVE' : 'INACTIVE'}
+                      {account.isActive ? 'Aktywne' : 'Nieaktywne'}
                     </span>
                   </div>
-                  <div className="space-y-3">
+                  <div className="space-y-2">
                     <div>
-                      <p className="text-xs text-gray-500 mb-1">Numer konta</p>
-                      <p className="font-mono text-sm text-white tracking-wide">{account.accountNumber}</p>
+                      <p className="text-xs text-slate-500 mb-0.5">Numer konta</p>
+                      <p className="font-mono text-sm text-slate-900">{account.accountNumber}</p>
                     </div>
                     <div>
-                      <p className="text-xs text-gray-500 mb-1">IBAN</p>
-                      <p className="font-mono text-xs text-gray-400">{account.iban}</p>
+                      <p className="text-xs text-slate-500 mb-0.5">IBAN</p>
+                      <p className="font-mono text-xs text-slate-600">{account.iban}</p>
                     </div>
                   </div>
                 </div>
@@ -95,55 +95,54 @@ export function CustomerProfile({ customer, onUpdate }: CustomerProfileProps) {
           </div>
 
           {/* Contact Information Card */}
-          <div className="glass-panel rounded-2xl p-6">
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-lg font-medium text-white">Dane Kontaktowe</h3>
+          <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-base font-semibold text-slate-900">Dane Kontaktowe</h3>
               <button
-                className="flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors"
+                className="flex items-center gap-1 text-sm text-blue-600 hover:text-blue-700 font-medium transition-colors"
                 onClick={() => setIsEditModalOpen(true)}
               >
                 <Edit2 className="h-4 w-4" />
                 Edytuj
               </button>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="flex items-start p-3 rounded-lg hover:bg-white/5 transition-colors">
-                <Mail className="h-5 w-5 text-emerald-400 mt-0.5 mr-3" />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="flex items-start p-3 rounded-lg bg-slate-50">
+                <Mail className="h-5 w-5 text-blue-600 mt-0.5 mr-3" />
                 <div>
-                  <p className="text-sm font-medium text-gray-500">Email</p>
-                  <p className="text-sm text-white">{personalInfo.email}</p>
+                  <p className="text-xs font-medium text-slate-500 mb-0.5">Email</p>
+                  <p className="text-sm text-slate-900">{personalInfo.email}</p>
                 </div>
               </div>
-              <div className="flex items-start p-3 rounded-lg hover:bg-white/5 transition-colors">
-                <Phone className="h-5 w-5 text-emerald-400 mt-0.5 mr-3" />
+              <div className="flex items-start p-3 rounded-lg bg-slate-50">
+                <Phone className="h-5 w-5 text-blue-600 mt-0.5 mr-3" />
                 <div>
-                  <p className="text-sm font-medium text-gray-500">Telefon</p>
-                  <p className="text-sm text-white">{personalInfo.phone}</p>
+                  <p className="text-xs font-medium text-slate-500 mb-0.5">Telefon</p>
+                  <p className="text-sm text-slate-900">{personalInfo.phone}</p>
                 </div>
               </div>
-              <div className="flex items-start p-3 rounded-lg hover:bg-white/5 transition-colors">
-                <MapPin className="h-5 w-5 text-emerald-400 mt-0.5 mr-3" />
+              <div className="flex items-start p-3 rounded-lg bg-slate-50">
+                <MapPin className="h-5 w-5 text-blue-600 mt-0.5 mr-3" />
                 <div>
-                  <p className="text-sm font-medium text-gray-500">Adres</p>
-                  <p className="text-sm text-white">
+                  <p className="text-xs font-medium text-slate-500 mb-0.5">Adres</p>
+                  <p className="text-sm text-slate-900">
                     {personalInfo.address.street}<br />
-                    {personalInfo.address.postalCode} {personalInfo.address.city}<br />
-                    {personalInfo.address.country}
+                    {personalInfo.address.postalCode} {personalInfo.address.city}
                   </p>
                 </div>
               </div>
-              <div className="flex items-start p-3 rounded-lg hover:bg-white/5 transition-colors">
-                <Calendar className="h-5 w-5 text-emerald-400 mt-0.5 mr-3" />
+              <div className="flex items-start p-3 rounded-lg bg-slate-50">
+                <Calendar className="h-5 w-5 text-blue-600 mt-0.5 mr-3" />
                 <div>
-                  <p className="text-sm font-medium text-gray-500">Data urodzenia</p>
-                  <p className="text-sm text-white">{formatDate(personalInfo.dateOfBirth)}</p>
+                  <p className="text-xs font-medium text-slate-500 mb-0.5">Data urodzenia</p>
+                  <p className="text-sm text-slate-900">{formatDate(personalInfo.dateOfBirth)}</p>
                 </div>
               </div>
-              <div className="flex items-start p-3 rounded-lg hover:bg-white/5 transition-colors">
-                <User className="h-5 w-5 text-emerald-400 mt-0.5 mr-3" />
+              <div className="flex items-start p-3 rounded-lg bg-slate-50">
+                <User className="h-5 w-5 text-blue-600 mt-0.5 mr-3" />
                 <div>
-                  <p className="text-sm font-medium text-gray-500">PESEL</p>
-                  <p className="text-sm text-white font-mono">{personalInfo.pesel}</p>
+                  <p className="text-xs font-medium text-slate-500 mb-0.5">PESEL</p>
+                  <p className="text-sm text-slate-900 font-mono">{personalInfo.pesel}</p>
                 </div>
               </div>
             </div>

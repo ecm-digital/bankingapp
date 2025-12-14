@@ -63,26 +63,30 @@ export function TransactionWizard({ onComplete, onCancel, customerId, employeeId
   return (
     <div className="space-y-6">
       {/* Progress Steps */}
-      <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6">
+      <div className="bg-slate-50 border border-slate-200 rounded-xl p-4">
         <div className="flex items-center justify-between relative">
-          {/* Connecting Line Background */}
-          <div className="absolute top-5 left-0 w-full h-0.5 bg-white/10 -z-10"></div>
+          {/* Connecting Line */}
+          <div className="absolute top-5 left-0 w-full h-0.5 bg-slate-200 -z-10"></div>
+          <div 
+            className="absolute top-5 left-0 h-0.5 bg-blue-600 -z-10 transition-all duration-300"
+            style={{ width: `${(currentStepIndex / (steps.length - 1)) * 100}%` }}
+          ></div>
           
           {steps.map((step, index) => (
             <div key={step.id} className="flex flex-col items-center relative z-10 flex-1">
               <div
-                className={`w-10 h-10 rounded-full flex items-center justify-center font-medium transition-all duration-300 ${
+                className={`w-10 h-10 rounded-full flex items-center justify-center font-medium transition-all ${
                   index < currentStepIndex
-                    ? 'bg-emerald-500 text-white shadow-[0_0_10px_rgba(16,185,129,0.5)]'
+                    ? 'bg-blue-600 text-white'
                     : index === currentStepIndex
-                    ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/50 shadow-[0_0_15px_rgba(16,185,129,0.3)]'
-                    : 'bg-black/40 text-gray-500 border border-white/5'
+                    ? 'bg-white text-blue-600 border-2 border-blue-600'
+                    : 'bg-white text-slate-400 border-2 border-slate-200'
                 }`}
               >
                 {index < currentStepIndex ? <Check className="h-5 w-5" /> : index + 1}
               </div>
-              <span className={`text-xs mt-3 font-medium ${
-                index <= currentStepIndex ? 'text-white' : 'text-gray-600'
+              <span className={`text-xs mt-2 font-medium hidden sm:block ${
+                index <= currentStepIndex ? 'text-slate-900' : 'text-slate-400'
               }`}>
                 {step.label}
               </span>
@@ -92,11 +96,11 @@ export function TransactionWizard({ onComplete, onCancel, customerId, employeeId
       </div>
 
       {/* Step Content */}
-      <div>
+      <div className="min-h-[300px]">
         {currentStep === 'type' && (
           <div className="space-y-4">
-            <h3 className="text-lg font-medium text-white mb-4">Wybierz typ transakcji</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <h3 className="text-lg font-semibold text-slate-900">Wybierz typ transakcji</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {(['TRANSFER', 'DEPOSIT', 'WITHDRAWAL', 'PAYMENT'] as const).map((type) => (
                 <button
                   key={type}
@@ -104,20 +108,20 @@ export function TransactionWizard({ onComplete, onCancel, customerId, employeeId
                     updateTransactionData({ type });
                     handleNext();
                   }}
-                  className={`p-6 border rounded-2xl text-left transition-all group ${
+                  className={`p-5 border rounded-xl text-left transition-all ${
                     transactionData.type === type
-                      ? 'border-emerald-500/50 bg-emerald-500/10'
-                      : 'border-white/10 bg-white/5 hover:bg-white/10 hover:border-white/20'
+                      ? 'border-blue-500 bg-blue-50 ring-1 ring-blue-500'
+                      : 'border-slate-200 bg-white hover:bg-slate-50 hover:border-slate-300'
                   }`}
                 >
-                  <p className={`font-medium text-lg mb-1 ${
-                    transactionData.type === type ? 'text-emerald-400' : 'text-white'
+                  <p className={`font-semibold text-base ${
+                    transactionData.type === type ? 'text-blue-700' : 'text-slate-900'
                   }`}>
                     {type === 'TRANSFER' ? 'Przelew' :
                      type === 'DEPOSIT' ? 'Wpłata' :
                      type === 'WITHDRAWAL' ? 'Wypłata' : 'Płatność'}
                   </p>
-                  <p className="text-sm text-gray-400 group-hover:text-gray-300">
+                  <p className="text-sm text-slate-500 mt-1">
                     {type === 'TRANSFER' ? 'Przelew między kontami' :
                      type === 'DEPOSIT' ? 'Wpłata gotówki' :
                      type === 'WITHDRAWAL' ? 'Wypłata gotówki' : 'Płatność rachunku'}
@@ -165,10 +169,10 @@ export function TransactionWizard({ onComplete, onCancel, customerId, employeeId
       </div>
 
       {/* Navigation Buttons */}
-      <div className="flex justify-between pt-4 border-t border-white/10">
+      <div className="flex justify-between pt-4 border-t border-slate-200">
         <button
           onClick={currentStepIndex === 0 ? onCancel : handleBack}
-          className="flex items-center px-6 py-2.5 rounded-lg bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white border border-white/10 transition-all font-medium"
+          className="flex items-center px-5 py-2.5 rounded-lg bg-white text-slate-700 border border-slate-300 hover:bg-slate-50 transition-colors font-medium"
         >
           <ArrowLeft className="h-4 w-4 mr-2" />
           {currentStepIndex === 0 ? 'Anuluj' : 'Wstecz'}
@@ -177,7 +181,7 @@ export function TransactionWizard({ onComplete, onCancel, customerId, employeeId
         {currentStep !== 'confirmation' && currentStep !== 'type' && (
           <button 
             onClick={handleNext}
-            className="flex items-center px-6 py-2.5 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white shadow-lg shadow-emerald-500/20 transition-all font-medium"
+            className="flex items-center px-5 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white transition-colors font-medium shadow-sm"
           >
             Dalej
             <ArrowRight className="h-4 w-4 ml-2" />

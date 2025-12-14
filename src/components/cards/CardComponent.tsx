@@ -12,7 +12,7 @@ interface CardComponentProps {
 const cardBrandColors = {
   VISA: 'from-blue-600 to-blue-800',
   MASTERCARD: 'from-orange-600 to-red-700',
-  AMEX: 'from-gray-700 to-gray-900',
+  AMEX: 'from-slate-700 to-slate-900',
 };
 
 const cardTypeLabels = {
@@ -26,81 +26,77 @@ export function CardComponent({ card, onViewDetails, onBlockCard, onUnblockCard 
   const displayStatus = isExpired ? 'EXPIRED' : card.status;
 
   return (
-    <div className="glass-panel rounded-2xl overflow-hidden hover:shadow-2xl hover:shadow-emerald-500/10 transition-all duration-300 group">
+    <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden hover:shadow-md transition-shadow">
       {/* Card Visual */}
-      <div className={`bg-gradient-to-br ${cardBrandColors[card.cardBrand]} p-6 text-white relative overflow-hidden`}>
-        <div className="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl group-hover:bg-white/20 transition-colors duration-500" />
+      <div className={`bg-gradient-to-br ${cardBrandColors[card.cardBrand]} p-5 text-white relative`}>
+        <div className="flex justify-between items-start mb-6">
+          <div>
+            <p className="text-xs text-white/70 mb-1 font-medium">{cardTypeLabels[card.cardType]}</p>
+            <p className="text-lg font-bold">{card.cardBrand}</p>
+          </div>
+          <CreditCard className="h-8 w-8 text-white/50" />
+        </div>
 
-        <div className="relative z-10">
-          <div className="flex justify-between items-start mb-8">
-            <div>
-              <p className="text-xs opacity-75 mb-1 font-medium tracking-wide">{cardTypeLabels[card.cardType]}</p>
-              <p className="text-lg font-bold tracking-tight">{card.cardBrand}</p>
-            </div>
-            <CreditCard className="h-8 w-8 opacity-75" />
+        <div className="space-y-3">
+          <div>
+            <p className="text-xs text-white/70 mb-0.5">Numer karty</p>
+            <p className="text-lg font-mono tracking-wider">
+              {card.cardNumber}
+            </p>
           </div>
 
-          <div className="space-y-4">
+          <div className="flex justify-between items-end">
             <div>
-              <p className="text-xs opacity-75 mb-1">Numer karty</p>
-              <p className="text-xl font-mono tracking-wider drop-shadow-md">
-                {card.cardNumber}
+              <p className="text-xs text-white/70 mb-0.5">Ważna do</p>
+              <p className="font-mono font-medium">
+                {new Date(card.expiryDate).toLocaleDateString('pl-PL', {
+                  month: '2-digit',
+                  year: '2-digit'
+                })}
               </p>
             </div>
-
-            <div className="flex justify-between items-end">
-              <div>
-                <p className="text-xs opacity-75 mb-1">Ważna do</p>
-                <p className="font-mono font-medium">
-                  {new Date(card.expiryDate).toLocaleDateString('pl-PL', {
-                    month: '2-digit',
-                    year: '2-digit'
-                  })}
+            {card.cardType === 'CREDIT' && card.creditLimit && (
+              <div className="text-right">
+                <p className="text-xs text-white/70 mb-0.5">Dostępny limit</p>
+                <p className="font-semibold">
+                  {card.availableLimit?.toLocaleString('pl-PL')} PLN
                 </p>
               </div>
-              {card.cardType === 'CREDIT' && card.creditLimit && (
-                <div className="text-right">
-                  <p className="text-xs opacity-75 mb-1">Dostępny limit</p>
-                  <p className="font-semibold">
-                    {card.availableLimit?.toLocaleString('pl-PL')} PLN
-                  </p>
-                </div>
-              )}
-            </div>
+            )}
           </div>
         </div>
       </div>
 
       {/* Card Info */}
-      <div className="p-5 space-y-4">
+      <div className="p-4 space-y-4">
         <div className="flex items-center justify-between">
-          <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${displayStatus === 'ACTIVE' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' :
-              displayStatus === 'BLOCKED' ? 'bg-red-500/10 text-red-400 border-red-500/20' :
-                displayStatus === 'EXPIRED' ? 'bg-gray-500/10 text-gray-400 border-gray-500/20' :
-                  'bg-yellow-500/10 text-yellow-400 border-yellow-500/20'
+          <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${displayStatus === 'ACTIVE' ? 'bg-green-100 text-green-700' :
+              displayStatus === 'BLOCKED' ? 'bg-red-100 text-red-700' :
+                displayStatus === 'EXPIRED' ? 'bg-slate-100 text-slate-700' :
+                  'bg-amber-100 text-amber-700'
             }`}>
             {displayStatus === 'ACTIVE' ? 'Aktywna' :
               displayStatus === 'BLOCKED' ? 'Zablokowana' :
                 displayStatus === 'EXPIRED' ? 'Wygasła' : 'Oczekująca'}
           </span>
           {card.lastUsed && (
-            <p className="text-xs text-gray-400">
+            <p className="text-xs text-slate-500">
               Ostatnie użycie: {formatDate(card.lastUsed)}
             </p>
           )}
         </div>
 
         {card.cardType === 'CREDIT' && card.creditLimit && (
-          <div className="pt-3 border-t border-white/5">
+          <div className="pt-3 border-t border-slate-200">
             <div className="flex justify-between text-sm mb-2">
-              <span className="text-gray-400">Wykorzystany limit</span>
-              <span className="font-medium text-white">
+              <span className="text-slate-500">Wykorzystany limit</span>
+              <span className="font-medium text-slate-900">
                 {((card.creditLimit - (card.availableLimit || 0)) / card.creditLimit * 100).toFixed(0)}%
               </span>
             </div>
-            <div className="w-full bg-white/10 rounded-full h-1.5 overflow-hidden">
+            <div className="w-full bg-slate-200 rounded-full h-2 overflow-hidden">
               <div
-                className="bg-gradient-to-r from-emerald-500 to-blue-500 h-1.5 rounded-full transition-all duration-500"
+                className="bg-blue-600 h-2 rounded-full transition-all duration-500"
                 style={{
                   width: `${((card.creditLimit - (card.availableLimit || 0)) / card.creditLimit * 100)}%`
                 }}
@@ -113,7 +109,7 @@ export function CardComponent({ card, onViewDetails, onBlockCard, onUnblockCard 
         <div className="flex space-x-2 pt-2">
           <button
             onClick={() => onViewDetails(card)}
-            className="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white text-sm font-medium transition-colors"
+            className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-medium rounded-lg transition-colors"
           >
             <Settings className="h-4 w-4" />
             Szczegóły
@@ -121,7 +117,7 @@ export function CardComponent({ card, onViewDetails, onBlockCard, onUnblockCard 
           {card.status === 'ACTIVE' && onBlockCard && (
             <button
               onClick={() => onBlockCard(card)}
-              className="flex items-center justify-center gap-2 px-3 py-2 rounded-xl bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 text-red-400 text-sm font-medium transition-colors"
+              className="flex items-center justify-center gap-2 px-3 py-2 bg-red-50 hover:bg-red-100 text-red-600 text-sm font-medium rounded-lg transition-colors"
             >
               <Lock className="h-4 w-4" />
               Zablokuj
@@ -130,7 +126,7 @@ export function CardComponent({ card, onViewDetails, onBlockCard, onUnblockCard 
           {card.status === 'BLOCKED' && onUnblockCard && (
             <button
               onClick={() => onUnblockCard(card)}
-              className="flex items-center justify-center gap-2 px-3 py-2 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/20 text-emerald-400 text-sm font-medium transition-colors"
+              className="flex items-center justify-center gap-2 px-3 py-2 bg-green-50 hover:bg-green-100 text-green-600 text-sm font-medium rounded-lg transition-colors"
             >
               <Unlock className="h-4 w-4" />
               Odblokuj
