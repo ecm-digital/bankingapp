@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Plus } from 'lucide-react';
 import { TransactionWizard, TransactionHistory, ReceiptModal } from '@/components/transactions';
 import { useTransactionsStore } from '@/stores/transactionsStore';
@@ -6,9 +7,12 @@ import { useAuth } from '@/hooks/useAuth';
 import { Transaction } from '@/types';
 
 export function Transactions() {
-  const [showWizard, setShowWizard] = useState(false);
+  const location = useLocation();
+  const locationState = location.state as { customerId?: string; showWizard?: boolean } | null;
+  const [showWizard, setShowWizard] = useState(locationState?.showWizard || false);
   const [selectedTransaction, setSelectedTransaction] = useState<Transaction | null>(null);
   const [showReceipt, setShowReceipt] = useState(false);
+  const customerId = locationState?.customerId;
 
   const { currentEmployee } = useAuth();
   const { transactions, fetchTransactions, createTransaction } = useTransactionsStore();
@@ -16,6 +20,11 @@ export function Transactions() {
   useEffect(() => {
     fetchTransactions();
   }, [fetchTransactions]);
+
+  // Filter transactions by customerId if provided
+  const displayedTransactions = customerId
+    ? transactions.filter(t => t.customerId === customerId)
+    : transactions;
 
   const handleCreateTransaction = async (transactionData: Omit<Transaction, 'id' | 'timestamp' | 'referenceNumber'>) => {
     try {
@@ -63,12 +72,13 @@ export function Transactions() {
             onComplete={handleCreateTransaction}
             onCancel={() => setShowWizard(false)}
             employeeId={currentEmployee?.id || 'emp_demo'}
+            customerId={customerId}
           />
         </div>
       ) : (
         /* Transaction History */
         <TransactionHistory
-          transactions={transactions}
+          transactions={displayedTransactions}
           onViewReceipt={handleViewReceipt}
         />
       )}

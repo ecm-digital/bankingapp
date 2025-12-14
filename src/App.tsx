@@ -11,6 +11,9 @@ import { Loans } from './pages/Loans';
 import { Products } from './pages/Products';
 import { Reports } from './pages/Reports';
 import { Settings } from './pages/Settings';
+import Login from './pages/Login';
+import NotFound from './pages/NotFound';
+import Unauthorized from './pages/Unauthorized';
 import { LanguageProvider } from './contexts/LanguageContext';
 import { seedDemoData } from './utils/dataSeed';
 
@@ -44,10 +47,10 @@ function App() {
             <Route path="settings" element={<Settings />} />
           </Route>
 
-          {/* Public routes (for future implementation) */}
-          <Route path="/login" element={<div>Login Page - To be implemented</div>} />
-          <Route path="/unauthorized" element={<div>Unauthorized Access</div>} />
-          <Route path="*" element={<div>404 - Page Not Found</div>} />
+          {/* Public routes */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/unauthorized" element={<Unauthorized />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
     </LanguageProvider>

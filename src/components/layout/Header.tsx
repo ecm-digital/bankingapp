@@ -1,5 +1,8 @@
-import { Bell, Menu, Search, Globe, ChevronDown } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Bell, Menu, Search, Globe, ChevronDown, LogOut, User } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useAuthStore } from '@/stores/authStore';
 
 interface HeaderProps {
   onMenuClick: () => void;
@@ -7,6 +10,45 @@ interface HeaderProps {
 
 export function Header({ onMenuClick }: HeaderProps) {
   const { language, toggleLanguage } = useLanguage();
+  const navigate = useNavigate();
+  const { currentEmployee, logout, isAuthenticated } = useAuthStore();
+  const [showUserMenu, setShowUserMenu] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setShowUserMenu(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate('/login', { replace: true });
+    } catch (error) {
+      console.error('Logout error:', error);
+      navigate('/login', { replace: true });
+    }
+  };
+
+  const employeeName = currentEmployee 
+    ? `${currentEmployee.firstName} ${currentEmployee.lastName}`
+    : 'Anna Kowalska';
+  
+  const employeeRole = currentEmployee?.role === 'ADVISOR' 
+    ? 'Doradca Klienta' 
+    : currentEmployee?.role === 'TELLER'
+    ? 'Kasjer'
+    : 'Pracownik';
+
+  const initials = currentEmployee
+    ? `${currentEmployee.firstName[0]}${currentEmployee.lastName[0]}`
+    : 'AK';
 
   return (
     <header className="bg-white border-b border-slate-200 sticky top-0 z-40">
@@ -51,18 +93,50 @@ export function Header({ onMenuClick }: HeaderProps) {
             </button>
 
             {/* User menu */}
-            <div className="flex items-center gap-3 pl-3 ml-2 border-l border-slate-200">
-              <div className="hidden md:block text-right">
-                <p className="text-sm font-medium text-slate-900">Anna Kowalska</p>
-                <p className="text-xs text-slate-500">Doradca Klienta</p>
-              </div>
-              <button className="flex items-center gap-2">
-                <div className="h-9 w-9 rounded-full bg-blue-600 flex items-center justify-center text-white font-semibold text-sm">
-                  AK
+            {isAuthenticated && (
+              <div className="relative flex items-center gap-3 pl-3 ml-2 border-l border-slate-200" ref={menuRef}>
+                <div className="hidden md:block text-right">
+                  <p className="text-sm font-medium text-slate-900">{employeeName}</p>
+                  <p className="text-xs text-slate-500">{employeeRole}</p>
                 </div>
-                <ChevronDown className="hidden md:block h-4 w-4 text-slate-400" />
-              </button>
-            </div>
+                <button 
+                  onClick={() => setShowUserMenu(!showUserMenu)}
+                  className="flex items-center gap-2 hover:opacity-80 transition-opacity"
+                >
+                  <div className="h-9 w-9 rounded-full bg-blue-600 flex items-center justify-center text-white font-semibold text-sm">
+                    {initials}
+                  </div>
+                  <ChevronDown className={`hidden md:block h-4 w-4 text-slate-400 transition-transform ${showUserMenu ? 'rotate-180' : ''}`} />
+                </button>
+
+                {/* Dropdown Menu */}
+                {showUserMenu && (
+                  <div className="absolute right-0 top-full mt-2 w-56 bg-white rounded-lg shadow-lg border border-slate-200 py-1 z-50">
+                    <div className="px-4 py-3 border-b border-slate-200">
+                      <p className="text-sm font-medium text-slate-900">{employeeName}</p>
+                      <p className="text-xs text-slate-500 mt-0.5">{currentEmployee?.email}</p>
+                    </div>
+                    <button
+                      onClick={() => {
+                        setShowUserMenu(false);
+                        // Navigate to profile/settings if needed
+                      }}
+                      className="w-full px-4 py-2 text-left text-sm text-slate-700 hover:bg-slate-50 flex items-center gap-2"
+                    >
+                      <User className="h-4 w-4" />
+                      Profil
+                    </button>
+                    <button
+                      onClick={handleLogout}
+                      className="w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-red-50 flex items-center gap-2"
+                    >
+                      <LogOut className="h-4 w-4" />
+                      Wyloguj się
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </div>
