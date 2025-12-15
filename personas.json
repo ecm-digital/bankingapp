@@ -1,0 +1,357 @@
+{
+  "project": "Banking App",
+  "version": "2.0",
+  "created": "2024-12-14",
+  "personas": [
+    {
+      "id": "persona-1",
+      "name": "Katarzyna Wiśniewska",
+      "role": "Doradca Klienta",
+      "age": 32,
+      "experience": "8 lat w bankowości",
+      "location": "Oddział banku w centrum Warszawy",
+      "education": "Magister ekonomii",
+      "priority": "HIGH",
+      "demographics": {
+        "family": "Mieszka w Warszawie z mężem i 5-letnim synem",
+        "career": "Kasjer (2016-2018) → Doradca Klienta (2018-obecnie)",
+        "values": ["work-life balance", "elastyczność pracy", "sport"]
+      },
+      "goals": [
+        "Zapewnienie najlepszej obsługi klientom",
+        "Efektywność pracy",
+        "Budowanie długotrwałych relacji z klientami",
+        "Osiąganie celów sprzedażowych"
+      ],
+      "frustrations": {
+        "technical": [
+          "Powolne systemy bankowe",
+          "Konieczność korzystania z wielu aplikacji",
+          "Brak intuicyjnego interfejsu",
+          "Częste timeouty i błędy"
+        ],
+        "organizational": [
+          "Presja czasowa podczas obsługi kolejki",
+          "Skomplikowane procedury",
+          "Trudność w szybkim dostępie do historii klienta"
+        ]
+      },
+      "needs": {
+        "functional": [
+          "Szybki dostęp do pełnych informacji o kliencie",
+          "Intuicyjny interfejs do transakcji",
+          "Efektywne zarządzanie kolejką",
+          "Łatwe generowanie raportów"
+        ],
+        "emotional": [
+          "Poczucie kontroli",
+          "Pewność, że nie popełni błędu",
+          "Satysfakcja z dobrze wykonanej pracy"
+        ]
+      },
+      "scenarios": [
+        "Poranek: Sprawdza dashboard z zadaniami",
+        "Obsługa klienta: Wyszukuje, przegląda profil, przeprowadza transakcję",
+        "Zarządzanie kolejką: Monitoruje, wywołuje klientów",
+        "Sprzedaż produktów: Prezentuje, składa wnioski"
+      ],
+      "techLevel": "Średni",
+      "devices": ["Komputer stacjonarny", "Tablet"],
+      "metrics": {
+        "avgServiceTime": "< 15 minut",
+        "clientsPerDay": "20-25",
+        "satisfaction": "> 4.5/5",
+        "salesGoals": "90%+"
+      },
+      "quotes": [
+        "Najważniejsze dla mnie to szybko znaleźć wszystkie informacje o kliencie w jednym miejscu.",
+        "Gdy klient czeka, każda sekunda się liczy. System musi być szybki i niezawodny."
+      ]
+    },
+    {
+      "id": "persona-2",
+      "name": "Marek Kowalski",
+      "role": "Kierownik Oddziału",
+      "age": 45,
+      "experience": "20 lat w bankowości",
+      "location": "Oddział banku w Krakowie",
+      "education": "Magister zarządzania, MBA",
+      "priority": "HIGH",
+      "demographics": {
+        "family": "Żonaty, dwoje dzieci w wieku licealnym",
+        "career": "Kasjer → Doradca → Starszy Doradca → Kierownik (od 5 lat)",
+        "responsibility": "Zespół 12 osób"
+      },
+      "goals": [
+        "Zarządzanie efektywnym i rentownym oddziałem",
+        "Osiąganie celów biznesowych",
+        "Rozwój zespołu",
+        "Optymalizacja procesów"
+      ],
+      "frustrations": {
+        "managerial": [
+          "Trudność w monitorowaniu wydajności w czasie rzeczywistym",
+          "Brak przejrzystych raportów",
+          "Czasochłonne procesy administracyjne"
+        ],
+        "strategic": [
+          "Presja na wyniki finansowe",
+          "Konkurencja z bankami cyfrowymi",
+          "Zmieniające się oczekiwania klientów"
+        ]
+      },
+      "needs": {
+        "analytical": [
+          "Dashboardy z KPI",
+          "Raporty w czasie rzeczywistym",
+          "Analiza trendów",
+          "Porównanie z innymi oddziałami"
+        ],
+        "managerial": [
+          "Narzędzia do zarządzania zespołem",
+          "Monitoring kolejek",
+          "Analiza wydajności pracowników"
+        ]
+      },
+      "scenarios": [
+        "Poranny przegląd: Sprawdza wyniki, planuje zadania",
+        "Monitoring operacji: Śledzi kolejki, wydajność",
+        "Spotkania z zespołem: Przygotowuje raporty",
+        "Raportowanie: Generuje raporty miesięczne"
+      ],
+      "techLevel": "Zaawansowany",
+      "devices": ["Komputer stacjonarny", "Laptop", "Smartphone"],
+      "metrics": {
+        "salesGoals": "100%+",
+        "avgServiceTime": "< 12 minut",
+        "employeeTurnover": "< 10% rocznie",
+        "satisfaction": "> 4.7/5"
+      },
+      "quotes": [
+        "Potrzebuję mieć pełny obraz tego, co dzieje się w oddziale - w czasie rzeczywistym.",
+        "Dane to podstawa dobrych decyzji biznesowych."
+      ]
+    },
+    {
+      "id": "persona-3",
+      "name": "Anna Nowak",
+      "role": "Młodszy Doradca Klienta",
+      "age": 26,
+      "experience": "2 lata w bankowości",
+      "location": "Oddział banku w Gdańsku",
+      "education": "Licencjat finansów i rachunkowości",
+      "priority": "MEDIUM",
+      "demographics": {
+        "family": "Singielka, mieszka z współlokatorkami",
+        "career": "Pierwsza praca po studiach (2022)",
+        "values": ["ambicja", "rozwój zawodowy", "tech-savvy"]
+      },
+      "goals": [
+        "Szybkie opanowanie wszystkich aspektów pracy",
+        "Zdobycie doświadczenia",
+        "Budowanie pewności siebie",
+        "Awans na starszego doradcę"
+      ],
+      "frustrations": {
+        "educational": [
+          "Przytłaczająca ilość procedur",
+          "Stres związany z trudnymi klientami",
+          "Niepewność co do poprawności",
+          "Strach przed błędem"
+        ],
+        "technical": [
+          "Skomplikowane systemy",
+          "Brak jasnych wskazówek",
+          "Trudność w znalezieniu funkcji"
+        ]
+      },
+      "needs": {
+        "educational": [
+          "Intuicyjny interfejs z podpowiedziami",
+          "Jasne instrukcje krok po kroku",
+          "Możliwość cofnięcia akcji",
+          "Dokumentacja kontekstowa"
+        ],
+        "support": [
+          "Szybki dostęp do pomocy",
+          "Możliwość konsultacji",
+          "Feedback na temat zadań",
+          "Weryfikacja przed finalizacją"
+        ]
+      },
+      "scenarios": [
+        "Nauka nowych procedur: Korzysta z systemu po raz pierwszy",
+        "Obsługa standardowego klienta: Wykonuje rutynowe operacje",
+        "Sytuacje problemowe: Szuka pomocy, konsultuje się",
+        "Rozwój kompetencji: Eksploruje nowe funkcje"
+      ],
+      "techLevel": "Początkujący/średni",
+      "devices": ["Komputer stacjonarny", "Smartphone", "Tablet"],
+      "metrics": {
+        "correctOperations": "95%+",
+        "learningTime": "< 2 dni",
+        "errorRate": "< 2%",
+        "satisfaction": "> 4.0/5"
+      },
+      "quotes": [
+        "Chciałabym, żeby system podpowiadał mi, co robić krok po kroku.",
+        "Boję się popełnić błąd, który może zaszkodzić klientowi."
+      ]
+    },
+    {
+      "id": "persona-4",
+      "name": "Tomasz Zieliński",
+      "role": "Kasjer",
+      "age": 38,
+      "experience": "12 lat w bankowości",
+      "location": "Oddział banku w Poznaniu",
+      "education": "Technikum ekonomiczne",
+      "priority": "HIGH",
+      "demographics": {
+        "family": "Żonaty, troje dzieci (8, 12, 15 lat)",
+        "career": "Stabilna praca, nie planuje zmiany zawodu",
+        "values": ["rutyna", "przewidywalność", "stabilność"]
+      },
+      "goals": [
+        "Efektywne i bezbłędne wykonywanie zadań",
+        "Zapewnienie bezpieczeństwa finansowego rodzinie",
+        "Utrzymanie dobrej reputacji",
+        "Pomoc klientom"
+      ],
+      "frustrations": {
+        "operational": [
+          "Długie kolejki, presja czasowa",
+          "Skomplikowane procedury",
+          "Częste zmiany w systemach"
+        ],
+        "technical": [
+          "Niechęć do częstych zmian",
+          "Potrzeba dodatkowego szkolenia",
+          "Obawy przed nowymi technologiami"
+        ]
+      },
+      "needs": {
+        "stability": [
+          "Spójny, przewidywalny interfejs",
+          "Minimalne zmiany w procedurach",
+          "Jasne komunikaty o błędach"
+        ],
+        "efficiency": [
+          "Szybkie wykonywanie operacji",
+          "Automatyzacja powtarzalnych zadań",
+          "Łatwy dostęp do najczęstszych funkcji"
+        ]
+      },
+      "scenarios": [
+        "Obsługa wpłat i wypłat: Szybkie przetwarzanie transakcji",
+        "Weryfikacja tożsamości: Sprawdzanie dokumentów",
+        "Obsługa kolejki: Efektywne zarządzanie czasem",
+        "Rozliczenia dzienne: Bilansowanie kasy"
+      ],
+      "techLevel": "Podstawowy/średni",
+      "devices": ["Komputer stacjonarny", "Urządzenia bankowe"],
+      "metrics": {
+        "clientsPerDay": "40-50",
+        "avgServiceTime": "< 5 minut",
+        "errorRate": "< 0.5%",
+        "accuracy": "100%"
+      },
+      "quotes": [
+        "Najważniejsze to żeby system był niezawodny i nie zmieniał się co chwilę.",
+        "Muszę obsłużyć klienta szybko, ale przede wszystkim bez błędów."
+      ]
+    },
+    {
+      "id": "persona-5",
+      "name": "Joanna Szymańska",
+      "role": "Specjalista ds. Compliance i AML",
+      "age": 35,
+      "experience": "10 lat w bankowości (5 lat w compliance)",
+      "location": "Centrala banku w Warszawie",
+      "education": "Magister prawa, certyfikaty AML",
+      "priority": "MEDIUM",
+      "demographics": {
+        "family": "Mężatka, jedno dziecko (3 lata)",
+        "career": "Pracuje w centrali, wspiera oddziały",
+        "responsibility": "Weryfikacja transakcji i klientów"
+      },
+      "goals": [
+        "Zapewnienie zgodności z regulacjami",
+        "Ochrona banku przed ryzykiem",
+        "Zapobieganie przestępstwom finansowym",
+        "Rozwój ekspertyzy w compliance"
+      ],
+      "frustrations": {
+        "operational": [
+          "Duża ilość transakcji do weryfikacji",
+          "Czasochłonne procesy",
+          "Trudność w identyfikowaniu podejrzanych transakcji"
+        ],
+        "technical": [
+          "Brak zintegrowanego systemu",
+          "Trudność w śledzeniu historii",
+          "Brak automatycznych alertów"
+        ]
+      },
+      "needs": {
+        "analytical": [
+          "Dashboard z podejrzanymi transakcjami",
+          "Automatyczne alerty",
+          "Szybki dostęp do historii klienta",
+          "Narzędzia do analizy trendów"
+        ],
+        "operational": [
+          "Szybka weryfikacja tożsamości",
+          "Oznaczanie transakcji",
+          "Generowanie raportów",
+          "Komunikacja z oddziałami"
+        ]
+      },
+      "scenarios": [
+        "Poranna weryfikacja: Sprawdza alerty",
+        "Weryfikacja klienta: Analizuje profil i transakcje",
+        "Raportowanie: Generuje raporty dla regulatorów",
+        "Audyt: Przegląda losowe transakcje"
+      ],
+      "techLevel": "Zaawansowany",
+      "devices": ["Laptop", "Smartphone", "Tablet"],
+      "metrics": {
+        "verificationTime": "< 30 minut",
+        "detectionRate": "> 95%",
+        "compliance": "100%",
+        "responseTime": "< 2 godziny"
+      },
+      "quotes": [
+        "Muszę mieć szybki dostęp do wszystkich danych o kliencie. Czasem decyzję muszę podjąć w ciągu kilku minut.",
+        "System powinien automatycznie wykrywać nietypowe wzorce."
+      ]
+    }
+  ],
+  "summary": {
+    "totalPersonas": 5,
+    "highPriority": 3,
+    "mediumPriority": 2,
+    "keyInsights": [
+      "Różnorodność potrzeb i poziomów kompetencji",
+      "Wspólne wyzwania: szybkość, niezawodność, intuicyjność",
+      "Znaczenie kontekstu: presja czasowa i odpowiedzialność",
+      "Potrzeba wsparcia szczególnie dla młodszych pracowników"
+    ],
+    "designImplications": [
+      "Adaptacyjny interfejs",
+      "Hierarchia informacji",
+      "Mechanizmy bezpieczeństwa",
+      "Wsparcie kontekstowe",
+      "Różne widoki dla różnych ról"
+    ],
+    "functionalPriorities": [
+      "Szybkość",
+      "Przejrzystość",
+      "Niezawodność",
+      "Elastyczność",
+      "Bezpieczeństwo"
+    ]
+  }
+}
+
+

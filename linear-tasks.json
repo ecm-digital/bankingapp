@@ -1,0 +1,317 @@
+{
+  "project": "Banking App",
+  "tasks": [
+    {
+      "title": "Implement navigation from customer profile to transactions module",
+      "priority": "P0",
+      "status": "Done",
+      "description": "Add navigation functionality from customer profile page to transactions module with customer filter pre-applied.",
+      "acceptanceCriteria": [
+        "Add `useNavigate` from React Router to `src/pages/Customers.tsx`",
+        "\"New Transaction\" button in BalanceCard navigates to transactions page",
+        "\"View All\" in RecentTransactions navigates with customerId filter",
+        "Pass customerId as URL parameter or route state"
+      ],
+      "files": [
+        "src/pages/Customers.tsx (lines 144, 156)",
+        "src/components/customers/BalanceCard.tsx",
+        "src/components/customers/RecentTransactions.tsx"
+      ],
+      "labels": ["frontend", "enhancement"]
+    },
+    {
+      "title": "Create Login page with mock authentication",
+      "priority": "P0",
+      "status": "Done",
+      "description": "Implement a login page with mock authentication for the prototype.",
+      "acceptanceCriteria": [
+        "Create `src/pages/Login.tsx`",
+        "Login form with validation (email/password or employee ID)",
+        "Mock authentication (hardcoded credentials for demo)",
+        "Integration with authStore",
+        "Redirect to dashboard after login",
+        "Design consistent with application design system"
+      ],
+      "files": [
+        "src/pages/Login.tsx (new file)",
+        "src/App.tsx (update routing)"
+      ],
+      "labels": ["frontend"]
+    },
+    {
+      "title": "Create 404 Not Found page",
+      "priority": "P0",
+      "status": "Done",
+      "description": "Improve 404 error page with better UX and helpful navigation.",
+      "acceptanceCriteria": [
+        "Create `src/pages/NotFound.tsx`",
+        "User-friendly error message",
+        "Button to return to dashboard",
+        "Error illustration/icon",
+        "Suggestions for popular pages"
+      ],
+      "files": [
+        "src/pages/NotFound.tsx (new file)",
+        "src/App.tsx (update routing)"
+      ],
+      "labels": ["frontend", "enhancement"]
+    },
+    {
+      "title": "Create Unauthorized access page",
+      "priority": "P0",
+      "status": "Done",
+      "description": "Implement unauthorized access page for users without required permissions.",
+      "acceptanceCriteria": [
+        "Create `src/pages/Unauthorized.tsx`",
+        "Message about lack of permissions",
+        "Option to go back or logout",
+        "Design consistent with application"
+      ],
+      "files": [
+        "src/pages/Unauthorized.tsx (new file)",
+        "src/App.tsx (update routing)"
+      ],
+      "labels": ["frontend"]
+    },
+    {
+      "title": "Write unit tests for key components",
+      "priority": "P1",
+      "status": "Backlog",
+      "description": "Write basic unit tests for critical components to ensure code quality.",
+      "acceptanceCriteria": [
+        "Tests for UI components (Button, Input, Card, Modal)",
+        "Tests for business components (CustomerProfile, TransactionWizard)",
+        "Tests for custom hooks (useAuth, useToast, useCustomers)",
+        "Tests for stores (authStore, customersStore)",
+        "Configure coverage thresholds"
+      ],
+      "techStack": ["Vitest or Jest", "React Testing Library"],
+      "labels": ["testing", "frontend"]
+    },
+    {
+      "title": "Write integration tests for user flows",
+      "priority": "P1",
+      "status": "Backlog",
+      "description": "Create integration tests for critical user workflows.",
+      "acceptanceCriteria": [
+        "Test login and navigation flow",
+        "Test customer search flow",
+        "Test transaction creation wizard",
+        "Test queue management flow"
+      ],
+      "techStack": ["Vitest or Jest", "React Testing Library"],
+      "labels": ["testing", "frontend"]
+    },
+    {
+      "title": "Accessibility audit and improvements",
+      "priority": "P1",
+      "status": "Backlog",
+      "description": "Conduct accessibility audit and fix issues to meet WCAG 2.1 AA standards.",
+      "acceptanceCriteria": [
+        "Test with screen readers (NVDA, JAWS, VoiceOver)",
+        "Check all forms for ARIA labels",
+        "Test keyboard navigation",
+        "Verify color contrast (WCAG 2.1 AA)",
+        "Focus management in modals"
+      ],
+      "tools": ["axe-core", "Lighthouse accessibility audit"],
+      "labels": ["accessibility", "frontend"]
+    },
+    {
+      "title": "Performance optimization - Bundle size",
+      "priority": "P1",
+      "status": "Backlog",
+      "description": "Analyze and optimize application bundle size for better performance.",
+      "acceptanceCriteria": [
+        "Code splitting for routes (React.lazy)",
+        "Lazy loading for heavy components",
+        "Image optimization (if applicable)",
+        "Tree shaking verification",
+        "Bundle analysis (webpack-bundle-analyzer or vite-bundle-visualizer)"
+      ],
+      "labels": ["performance", "frontend"]
+    },
+    {
+      "title": "Improve error handling",
+      "priority": "P1",
+      "status": "Backlog",
+      "description": "Enhance error handling throughout the application with better user feedback.",
+      "acceptanceCriteria": [
+        "Better error messages for users",
+        "Error logging (console in prototype)",
+        "Retry mechanisms for failed operations",
+        "Graceful degradation"
+      ],
+      "files": [
+        "src/utils/errorHandling.ts",
+        "All components with error states"
+      ],
+      "labels": ["frontend", "enhancement"]
+    },
+    {
+      "title": "Component documentation with Storybook",
+      "priority": "P1",
+      "status": "Backlog",
+      "description": "Set up Storybook for component documentation and visual testing.",
+      "acceptanceCriteria": [
+        "Setup Storybook",
+        "Stories for main components",
+        "Documentation of props and usage",
+        "Usage examples"
+      ],
+      "techStack": ["Storybook", "@storybook/react"],
+      "labels": ["documentation", "frontend"]
+    },
+    {
+      "title": "Export data to PDF/CSV",
+      "priority": "P2",
+      "status": "Backlog",
+      "description": "Add functionality to export data in various formats for reporting.",
+      "acceptanceCriteria": [
+        "Generate PDF for transaction receipts",
+        "Export transaction history to CSV",
+        "Export reports to PDF"
+      ],
+      "libraries": ["jsPDF or react-pdf", "papaparse for CSV"],
+      "labels": ["frontend", "enhancement"]
+    },
+    {
+      "title": "Keyboard shortcuts",
+      "priority": "P2",
+      "status": "Backlog",
+      "description": "Add keyboard shortcuts for common actions to improve productivity.",
+      "acceptanceCriteria": [
+        "\"/\" - focus search",
+        "Ctrl+K - command palette (optional)",
+        "Shortcuts for most common actions"
+      ],
+      "files": ["Create `src/hooks/useKeyboardShortcuts.ts`"],
+      "labels": ["frontend", "enhancement"]
+    },
+    {
+      "title": "Dark mode implementation",
+      "priority": "P2",
+      "status": "Backlog",
+      "description": "Add dark mode theme toggle for user preference.",
+      "acceptanceCriteria": [
+        "Implement dark mode theme",
+        "Toggle in settings",
+        "Persist preferences (localStorage)"
+      ],
+      "files": [
+        "src/contexts/ThemeContext.tsx (new)",
+        "src/pages/Settings.tsx (update)"
+      ],
+      "labels": ["frontend", "enhancement"]
+    },
+    {
+      "title": "Date picker component",
+      "priority": "P2",
+      "status": "Backlog",
+      "description": "Create or integrate date picker component for date filters.",
+      "acceptanceCriteria": [
+        "Custom component or library integration",
+        "Usage in date filters",
+        "Consistent with design system"
+      ],
+      "libraries": ["react-datepicker or custom component"],
+      "labels": ["frontend", "enhancement"]
+    },
+    {
+      "title": "Advanced data table component",
+      "priority": "P2",
+      "status": "Backlog",
+      "description": "Create advanced data table with sorting, filtering, and export capabilities.",
+      "acceptanceCriteria": [
+        "Multi-column sorting",
+        "CSV export",
+        "Advanced filtering",
+        "Pagination"
+      ],
+      "files": ["src/components/ui/DataTable.tsx (new)"],
+      "labels": ["frontend", "enhancement"]
+    },
+    {
+      "title": "Extend internationalization",
+      "priority": "P2",
+      "status": "Backlog",
+      "description": "Add more languages to the application.",
+      "acceptanceCriteria": [
+        "Currently only Polish and English",
+        "Add additional languages if needed",
+        "Update `src/i18n/translations.ts`"
+      ],
+      "labels": ["frontend", "enhancement"]
+    },
+    {
+      "title": "Add micro-interactions and animations",
+      "priority": "P2",
+      "status": "Backlog",
+      "description": "Enhance UX with micro-interactions and smooth animations.",
+      "acceptanceCriteria": [
+        "Loading states for async operations",
+        "Success animations",
+        "Skeleton screens for all loading states"
+      ],
+      "libraries": ["Framer Motion (already installed)"],
+      "labels": ["frontend", "enhancement"]
+    },
+    {
+      "title": "Mobile optimizations",
+      "priority": "P2",
+      "status": "Backlog",
+      "description": "Optimize application for mobile devices with touch-friendly interactions.",
+      "acceptanceCriteria": [
+        "Pull-to-refresh",
+        "Swipe gestures",
+        "Touch optimizations",
+        "Bottom navigation bar for mobile"
+      ],
+      "labels": ["frontend", "enhancement"]
+    },
+    {
+      "title": "Performance monitoring",
+      "priority": "P2",
+      "status": "Backlog",
+      "description": "Add Core Web Vitals tracking and performance monitoring.",
+      "acceptanceCriteria": [
+        "Web Vitals tracking",
+        "Performance monitoring",
+        "Error tracking (console in prototype)"
+      ],
+      "libraries": ["web-vitals"],
+      "labels": ["performance", "frontend"]
+    },
+    {
+      "title": "CI/CD Pipeline setup",
+      "priority": "P2",
+      "status": "Backlog",
+      "description": "Set up continuous integration and deployment pipeline.",
+      "acceptanceCriteria": [
+        "GitHub Actions or GitLab CI",
+        "Automated tests",
+        "Automated build",
+        "Deploy to staging/production"
+      ],
+      "labels": ["devops", "enhancement"]
+    }
+  ],
+  "labels": [
+    "frontend",
+    "backend",
+    "testing",
+    "accessibility",
+    "performance",
+    "documentation",
+    "enhancement",
+    "bug-fix",
+    "devops"
+  ],
+  "priorities": {
+    "P0": "Critical - High Priority",
+    "P1": "High - Medium Priority",
+    "P2": "Medium - Low Priority"
+  }
+}
+
+

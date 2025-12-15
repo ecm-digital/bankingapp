@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useCustomersStore } from '@/stores/customersStore';
 import { useTransactionsStore } from '@/stores/transactionsStore';
 import { CustomerSearch, CustomerProfile, BalanceCard, RecentTransactions } from '@/components/customers';
@@ -6,6 +7,7 @@ import { Customer } from '@/types';
 import { ArrowLeft, Users } from 'lucide-react';
 
 export function Customers() {
+  const navigate = useNavigate();
   const {
     customers,
     selectedCustomer,
@@ -139,7 +141,12 @@ export function Customers() {
                 <BalanceCard
                   account={selectedCustomer.bankingInfo.accounts[0]}
                   onNewTransaction={() => {
-                    console.log('Navigate to new transaction');
+                    navigate('/transactions', { 
+                      state: { 
+                        customerId: selectedCustomer.id,
+                        showWizard: true 
+                      } 
+                    });
                   }}
                 />
               )}
@@ -149,7 +156,11 @@ export function Customers() {
               <RecentTransactions
                 transactions={customerTransactions}
                 onViewAll={() => {
-                  console.log('View all transactions');
+                  navigate('/transactions', { 
+                    state: { 
+                      customerId: selectedCustomer.id 
+                    } 
+                  });
                 }}
               />
             </div>

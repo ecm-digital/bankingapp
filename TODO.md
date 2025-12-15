@@ -5,36 +5,36 @@ Lista zadań i ulepszeń dla prototypu aplikacji bankowej.
 ## 🔴 Wysoki Priorytet
 
 ### 1. Nawigacja między modułami
-- [ ] **Implementacja nawigacji z profilu klienta do modułu transakcji**
+- [x] **Implementacja nawigacji z profilu klienta do modułu transakcji** ✅
   - Lokalizacja: `src/pages/Customers.tsx` (linie 144, 156)
-  - Dodaj `useNavigate` z React Router
-  - Nawigacja z przycisku "New Transaction" w BalanceCard
-  - Nawigacja z "View All" w RecentTransactions z filtrem dla klienta
-  - Dodaj przekazywanie customerId jako parametr URL lub state
+  - ✅ Dodano `useNavigate` z React Router
+  - ✅ Nawigacja z przycisku "New Transaction" w BalanceCard
+  - ✅ Nawigacja z "View All" w RecentTransactions z filtrem dla klienta
+  - ✅ Dodano przekazywanie customerId jako parametr URL lub state
 
 ### 2. Strona logowania (UI Prototyp)
-- [ ] **Implementacja strony logowania z mockowaną autoryzacją**
-  - Lokalizacja: `src/pages/Login.tsx` (utworzyć nowy plik)
-  - Formularz logowania z walidacją (email/password lub employee ID)
-  - Mockowana autoryzacja (np. hardcoded credentials dla demo)
-  - Integracja z authStore
-  - Przekierowanie do dashboardu po zalogowaniu
-  - Design zgodny z design systemem aplikacji
+- [x] **Implementacja strony logowania z mockowaną autoryzacją** ✅
+  - Lokalizacja: `src/pages/Login.tsx` (utworzono nowy plik)
+  - ✅ Formularz logowania z walidacją (email/password lub employee ID)
+  - ✅ Mockowana autoryzacja (np. hardcoded credentials dla demo)
+  - ✅ Integracja z authStore
+  - ✅ Przekierowanie do dashboardu po zalogowaniu
+  - ✅ Design zgodny z design systemem aplikacji
 
 ### 3. Strona 404 (Błąd - Nie znaleziono)
-- [ ] **Poprawienie strony 404 z lepszym UX**
-  - Lokalizacja: `src/pages/NotFound.tsx` (utworzyć nowy plik)
-  - Przyjazny komunikat błędu
-  - Przycisk powrotu do dashboardu
-  - Ilustracja/ikonka błędu
-  - Sugestie popularnych stron
+- [x] **Poprawienie strony 404 z lepszym UX** ✅
+  - Lokalizacja: `src/pages/NotFound.tsx` (utworzono nowy plik)
+  - ✅ Przyjazny komunikat błędu
+  - ✅ Przycisk powrotu do dashboardu
+  - ✅ Ilustracja/ikonka błędu
+  - ✅ Sugestie popularnych stron
 
 ### 4. Strona Unauthorized
-- [ ] **Implementacja strony braku dostępu**
-  - Lokalizacja: `src/pages/Unauthorized.tsx` (utworzyć nowy plik)
-  - Komunikat o braku uprawnień
-  - Możliwość powrotu lub wylogowania
-  - Design zgodny z aplikacją
+- [x] **Implementacja strony braku dostępu** ✅
+  - Lokalizacja: `src/pages/Unauthorized.tsx` (utworzono nowy plik)
+  - ✅ Komunikat o braku uprawnień
+  - ✅ Możliwość powrotu lub wylogowania
+  - ✅ Design zgodny z aplikacją
 
 ## 🟡 Średni Priorytet
 
@@ -153,7 +153,13 @@ Lista zadań i ulepszeń dla prototypu aplikacji bankowej.
 
 - **Zakończone zadania podstawowe**: Wszystkie główne moduły są zaimplementowane
 - **Gotowe do demo**: Aplikacja jest gotowa do prezentacji jako prototyp UX/UI
-- **Wymaga dopracowania**: Nawigacja, strony błędów, testy
+- **✅ Ukończone (2024-12-14)**: 
+  - ✅ Nawigacja między modułami
+  - ✅ Strona logowania
+  - ✅ Strona 404
+  - ✅ Strona Unauthorized
+- **Wymaga dopracowania**: Testy, optymalizacja, dokumentacja
 
 ---
 *Ostatnia aktualizacja: $(date)*
+
