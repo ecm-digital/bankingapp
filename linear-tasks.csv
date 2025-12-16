@@ -1,0 +1,31 @@
+Title,Priority,Status,Description,Labels
+"Implement navigation from customer profile to transactions module",P0,Backlog,"Add navigation functionality from customer profile page to transactions module with customer filter pre-applied. Acceptance: Add useNavigate from React Router, New Transaction button navigates to transactions, View All navigates with customerId filter, Pass customerId as URL parameter","frontend,enhancement"
+"Create Login page with mock authentication",P0,Backlog,"Implement a login page with mock authentication for the prototype. Acceptance: Create Login.tsx, Login form with validation, Mock authentication, Integration with authStore, Redirect to dashboard, Design consistent with app","frontend"
+"Create 404 Not Found page",P0,Backlog,"Improve 404 error page with better UX and helpful navigation. Acceptance: Create NotFound.tsx, User-friendly error message, Button to return to dashboard, Error illustration, Suggestions for popular pages","frontend,enhancement"
+"Create Unauthorized access page",P0,Backlog,"Implement unauthorized access page for users without required permissions. Acceptance: Create Unauthorized.tsx, Message about lack of permissions, Option to go back or logout, Design consistent with app","frontend"
+"Write unit tests for key components",P1,Backlog,"Write basic unit tests for critical components to ensure code quality. Acceptance: Tests for UI components, Tests for business components, Tests for custom hooks, Tests for stores, Configure coverage thresholds","testing,frontend"
+"Write integration tests for user flows",P1,Backlog,"Create integration tests for critical user workflows. Acceptance: Test login and navigation flow, Test customer search flow, Test transaction creation wizard, Test queue management flow","testing,frontend"
+"Accessibility audit and improvements",P1,Backlog,"Conduct accessibility audit and fix issues to meet WCAG 2.1 AA standards. Acceptance: Test with screen readers, Check all forms for ARIA labels, Test keyboard navigation, Verify color contrast, Focus management in modals","accessibility,frontend"
+"Performance optimization - Bundle size",P1,Backlog,"Analyze and optimize application bundle size for better performance. Acceptance: Code splitting for routes, Lazy loading for heavy components, Image optimization, Tree shaking verification, Bundle analysis","performance,frontend"
+"Improve error handling",P1,Backlog,"Enhance error handling throughout the application with better user feedback. Acceptance: Better error messages, Error logging, Retry mechanisms, Graceful degradation","frontend,enhancement"
+"Component documentation with Storybook",P1,Backlog,"Set up Storybook for component documentation and visual testing. Acceptance: Setup Storybook, Stories for main components, Documentation of props and usage, Usage examples","documentation,frontend"
+"Export data to PDF/CSV",P2,Backlog,"Add functionality to export data in various formats for reporting. Acceptance: Generate PDF for transaction receipts, Export transaction history to CSV, Export reports to PDF","frontend,enhancement"
+"Keyboard shortcuts",P2,Backlog,"Add keyboard shortcuts for common actions to improve productivity. Acceptance: / - focus search, Ctrl+K - command palette, Shortcuts for most common actions","frontend,enhancement"
+"Dark mode implementation",P2,Backlog,"Add dark mode theme toggle for user preference. Acceptance: Implement dark mode theme, Toggle in settings, Persist preferences","frontend,enhancement"
+"Date picker component",P2,Backlog,"Create or integrate date picker component for date filters. Acceptance: Custom component or library integration, Usage in date filters, Consistent with design system","frontend,enhancement"
+"Advanced data table component",P2,Backlog,"Create advanced data table with sorting, filtering, and export capabilities. Acceptance: Multi-column sorting, CSV export, Advanced filtering, Pagination","frontend,enhancement"
+"Extend internationalization",P2,Backlog,"Add more languages to the application. Acceptance: Currently only Polish and English, Add additional languages if needed, Update translations.ts","frontend,enhancement"
+"Add micro-interactions and animations",P2,Backlog,"Enhance UX with micro-interactions and smooth animations. Acceptance: Loading states for async operations, Success animations, Skeleton screens for all loading states","frontend,enhancement"
+"Mobile optimizations",P2,Backlog,"Optimize application for mobile devices with touch-friendly interactions. Acceptance: Pull-to-refresh, Swipe gestures, Touch optimizations, Bottom navigation bar for mobile","frontend,enhancement"
+"Performance monitoring",P2,Backlog,"Add Core Web Vitals tracking and performance monitoring. Acceptance: Web Vitals tracking, Performance monitoring, Error tracking","performance,frontend"
+"CI/CD Pipeline setup",P2,Backlog,"Set up continuous integration and deployment pipeline. Acceptance: GitHub Actions or GitLab CI, Automated tests, Automated build, Deploy to staging/production","devops,enhancement"
+
+
+
+
+
+
+
+
+
+

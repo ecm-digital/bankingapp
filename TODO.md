@@ -157,3 +157,12 @@ Lista zadań i ulepszeń dla prototypu aplikacji bankowej.
 
 ---
 *Ostatnia aktualizacja: $(date)*
+
+
+
+
+
+
+
+
+
