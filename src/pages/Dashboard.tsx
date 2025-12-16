@@ -13,10 +13,12 @@ import {
 import { useTransactionsStore } from '@/stores/transactionsStore';
 import { useQueueStore } from '@/stores/queueStore';
 import { QueueItem } from '@/types';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function Dashboard() {
   const { transactions } = useTransactionsStore();
   const { queueItems } = useQueueStore();
+  const { t, language } = useLanguage();
   
   // Calculate queue stats
   const queueStats = {
@@ -38,7 +40,7 @@ export default function Dashboard() {
 
   const stats = [
     {
-      name: 'Obsłużeni klienci',
+      name: t.dashboard.servedCustomers,
       value: queueStats?.served || 24,
       change: '+12%',
       changeType: 'positive' as const,
@@ -47,7 +49,7 @@ export default function Dashboard() {
       iconColor: 'text-blue-600',
     },
     {
-      name: 'Wpłaty dzisiaj',
+      name: t.dashboard.depositsToday,
       value: `${(totalDeposits / 1000).toFixed(1)}k PLN`,
       change: '+8.2%',
       changeType: 'positive' as const,
@@ -56,7 +58,7 @@ export default function Dashboard() {
       iconColor: 'text-green-600',
     },
     {
-      name: 'Wypłaty dzisiaj',
+      name: t.dashboard.withdrawalsToday,
       value: `${(totalWithdrawals / 1000).toFixed(1)}k PLN`,
       change: '-3.1%',
       changeType: 'negative' as const,
@@ -65,9 +67,9 @@ export default function Dashboard() {
       iconColor: 'text-red-600',
     },
     {
-      name: 'Śr. czas obsługi',
-      value: `${queueStats?.averageWaitTime || 8} min`,
-      change: '-2 min',
+      name: t.dashboard.avgServiceTime,
+      value: `${queueStats?.averageWaitTime || 8} ${t.common.min}`,
+      change: `-2 ${t.common.min}`,
       changeType: 'positive' as const,
       icon: Clock,
       iconBg: 'bg-purple-100',
@@ -81,21 +83,21 @@ export default function Dashboard() {
         return (
           <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-700">
             <CheckCircle className="h-3 w-3" />
-            Zakończona
+            {t.dashboard.status.completed}
           </span>
         );
       case 'PENDING':
         return (
           <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-700">
             <Clock className="h-3 w-3" />
-            Oczekująca
+            {t.dashboard.status.pending}
           </span>
         );
       case 'FAILED':
         return (
           <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-700">
             <XCircle className="h-3 w-3" />
-            Odrzucona
+            {t.dashboard.status.failed}
           </span>
         );
       default:
@@ -109,9 +111,9 @@ export default function Dashboard() {
 
   const getTransactionTypeLabel = (type: string) => {
     switch (type) {
-      case 'DEPOSIT': return 'Wpłata';
-      case 'WITHDRAWAL': return 'Wypłata';
-      case 'TRANSFER': return 'Przelew';
+      case 'DEPOSIT': return t.dashboard.transactionTypes.deposit;
+      case 'WITHDRAWAL': return t.dashboard.transactionTypes.withdrawal;
+      case 'TRANSFER': return t.dashboard.transactionTypes.transfer;
       default: return type;
     }
   };
@@ -121,12 +123,12 @@ export default function Dashboard() {
       {/* Page header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">Pulpit</h1>
-          <p className="text-slate-500 mt-1">Przegląd działań i statystyk oddziału</p>
+          <h1 className="text-2xl font-bold text-slate-900">{t.dashboard.title}</h1>
+          <p className="text-slate-500 mt-1">{t.dashboard.subtitle}</p>
         </div>
         <div className="flex items-center gap-2 text-sm text-slate-500">
           <Clock className="h-4 w-4" />
-          <span>Ostatnia aktualizacja: {new Date().toLocaleTimeString('pl-PL')}</span>
+          <span>{t.common.lastUpdate}: {new Date().toLocaleTimeString(language === 'pl' ? 'pl-PL' : 'en-US')}</span>
         </div>
       </div>
 
@@ -163,11 +165,11 @@ export default function Dashboard() {
         <div className="lg:col-span-2 bg-white rounded-xl border border-slate-200 shadow-sm">
           <div className="px-5 py-4 border-b border-slate-200 flex items-center justify-between">
             <div>
-              <h2 className="font-semibold text-slate-900">Ostatnie transakcje</h2>
-              <p className="text-sm text-slate-500 mt-0.5">Dzisiejsze operacje w oddziale</p>
+              <h2 className="font-semibold text-slate-900">{t.dashboard.recentTransactions}</h2>
+              <p className="text-sm text-slate-500 mt-0.5">{t.dashboard.todayOperations}</p>
             </div>
             <button className="text-sm text-blue-600 font-medium hover:text-blue-700">
-              Zobacz wszystkie
+              {t.common.seeAll}
             </button>
           </div>
           <div className="overflow-x-auto">
@@ -175,19 +177,19 @@ export default function Dashboard() {
               <thead>
                 <tr className="bg-slate-50 border-b border-slate-200">
                   <th className="px-5 py-3 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
-                    Klient
+                    {t.dashboard.table.client}
                   </th>
                   <th className="px-5 py-3 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
-                    Typ
+                    {t.dashboard.table.type}
                   </th>
                   <th className="px-5 py-3 text-right text-xs font-semibold text-slate-600 uppercase tracking-wider">
-                    Kwota
+                    {t.dashboard.table.amount}
                   </th>
                   <th className="px-5 py-3 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
-                    Status
+                    {t.dashboard.table.status}
                   </th>
                   <th className="px-5 py-3 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
-                    Godzina
+                    {t.dashboard.table.time}
                   </th>
                 </tr>
               </thead>
@@ -204,7 +206,7 @@ export default function Dashboard() {
                           </div>
                           <div>
                             <p className="text-sm font-medium text-slate-900">
-                              {transaction.description || 'Klient'}
+                              {transaction.description || t.common.client}
                             </p>
                             <p className="text-xs text-slate-500">
                               {transaction.fromAccount?.slice(0, 8)}...
@@ -224,7 +226,7 @@ export default function Dashboard() {
                         }`}>
                           {transaction.type === 'DEPOSIT' ? '+' : 
                            transaction.type === 'WITHDRAWAL' ? '-' : ''}
-                          {transaction.amount.toLocaleString('pl-PL')} PLN
+                          {transaction.amount.toLocaleString(language === 'pl' ? 'pl-PL' : 'en-US')} PLN
                         </span>
                       </td>
                       <td className="px-5 py-4">
@@ -232,7 +234,7 @@ export default function Dashboard() {
                       </td>
                       <td className="px-5 py-4">
                         <span className="text-sm text-slate-500">
-                          {new Date(transaction.timestamp).toLocaleTimeString('pl-PL', {
+                          {new Date(transaction.timestamp).toLocaleTimeString(language === 'pl' ? 'pl-PL' : 'en-US', {
                             hour: '2-digit',
                             minute: '2-digit'
                           })}
@@ -243,7 +245,7 @@ export default function Dashboard() {
                 ) : (
                   <tr>
                     <td colSpan={5} className="px-5 py-8 text-center text-slate-500">
-                      Brak transakcji do wyświetlenia
+                      {t.common.noData}
                     </td>
                   </tr>
                 )}
@@ -256,8 +258,8 @@ export default function Dashboard() {
         <div className="bg-white rounded-xl border border-slate-200 shadow-sm">
           <div className="px-5 py-4 border-b border-slate-200 flex items-center justify-between">
             <div>
-              <h2 className="font-semibold text-slate-900">Kolejka klientów</h2>
-              <p className="text-sm text-slate-500 mt-0.5">Oczekujący na obsługę</p>
+              <h2 className="font-semibold text-slate-900">{t.dashboard.queue}</h2>
+              <p className="text-sm text-slate-500 mt-0.5">{t.dashboard.waitingForService}</p>
             </div>
             <button className="p-1.5 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-100">
               <MoreHorizontal className="h-5 w-5" />
@@ -268,11 +270,11 @@ export default function Dashboard() {
             <div className="grid grid-cols-2 gap-3">
               <div className="bg-slate-50 rounded-lg p-3 text-center">
                 <p className="text-2xl font-bold text-slate-900">{queueStats?.waiting || 0}</p>
-                <p className="text-xs text-slate-500 mt-1">Oczekujących</p>
+                <p className="text-xs text-slate-500 mt-1">{t.dashboard.waiting}</p>
               </div>
               <div className="bg-slate-50 rounded-lg p-3 text-center">
                 <p className="text-2xl font-bold text-slate-900">{queueStats?.averageWaitTime || 0}</p>
-                <p className="text-xs text-slate-500 mt-1">Min. oczekiwania</p>
+                <p className="text-xs text-slate-500 mt-1">{t.common.min} {t.dashboard.waiting.toLowerCase()}</p>
               </div>
             </div>
 
@@ -297,14 +299,14 @@ export default function Dashboard() {
                     </div>
                     <div>
                       <p className="text-sm font-medium text-slate-900">
-                        {item.customerName || `Bilet ${item.queueNumber}`}
+                        {item.customerName || `${t.common.ticket} ${item.queueNumber}`}
                       </p>
                       <p className="text-xs text-slate-500">{item.serviceType}</p>
                     </div>
                   </div>
                   {index === 0 && (
                     <span className="text-xs font-medium text-blue-600 bg-blue-100 px-2 py-1 rounded-full">
-                      Następny
+                      {t.common.next}
                     </span>
                   )}
                 </div>
@@ -312,13 +314,13 @@ export default function Dashboard() {
               {(!queueItems || queueItems.length === 0) && (
                 <div className="text-center py-6">
                   <Users className="h-10 w-10 text-slate-300 mx-auto mb-2" />
-                  <p className="text-sm text-slate-500">Brak klientów w kolejce</p>
+                  <p className="text-sm text-slate-500">{t.dashboard.noCustomersInQueue}</p>
                 </div>
               )}
             </div>
 
             <button className="w-full py-2.5 text-sm font-medium text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors">
-              Wywołaj następnego
+              {t.dashboard.callNext}
             </button>
           </div>
         </div>
@@ -327,17 +329,17 @@ export default function Dashboard() {
       {/* Alerts section */}
       <div className="bg-white rounded-xl border border-slate-200 shadow-sm">
         <div className="px-5 py-4 border-b border-slate-200">
-          <h2 className="font-semibold text-slate-900">Powiadomienia systemowe</h2>
+          <h2 className="font-semibold text-slate-900">{t.dashboard.systemNotifications}</h2>
         </div>
         <div className="p-5 space-y-3">
           <div className="flex items-start gap-3 p-3 bg-amber-50 border border-amber-200 rounded-lg">
             <AlertCircle className="h-5 w-5 text-amber-600 flex-shrink-0 mt-0.5" />
             <div>
               <p className="text-sm font-medium text-amber-800">
-                Limit dzienny wpłat gotówkowych bliski przekroczenia
+                {t.dashboard.alerts.cashDepositLimit}
               </p>
               <p className="text-xs text-amber-600 mt-0.5">
-                Wykorzystano 85% limitu (425,000 / 500,000 PLN)
+                {t.dashboard.alerts.limitUsed}
               </p>
             </div>
           </div>
@@ -345,10 +347,10 @@ export default function Dashboard() {
             <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
             <div>
               <p className="text-sm font-medium text-green-800">
-                System AML - wszystkie weryfikacje pozytywne
+                {t.dashboard.alerts.amlVerification}
               </p>
               <p className="text-xs text-green-600 mt-0.5">
-                Ostatnia aktualizacja: dziś o 09:45
+                {t.dashboard.alerts.lastUpdate}
               </p>
             </div>
           </div>
@@ -356,10 +358,10 @@ export default function Dashboard() {
             <Clock className="h-5 w-5 text-blue-600 flex-shrink-0 mt-0.5" />
             <div>
               <p className="text-sm font-medium text-blue-800">
-                Planowana przerwa techniczna
+                {t.dashboard.alerts.plannedMaintenance}
               </p>
               <p className="text-xs text-blue-600 mt-0.5">
-                Dziś w godz. 22:00-23:00 - aktualizacja systemu
+                {t.dashboard.alerts.maintenanceTime}
               </p>
             </div>
           </div>

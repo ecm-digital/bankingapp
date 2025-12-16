@@ -10,24 +10,27 @@ import {
   BarChart3,
   Settings
 } from 'lucide-react';
-
-const navItems = [
-  { name: 'Pulpit', href: '/', icon: LayoutDashboard },
-  { name: 'Klienci', href: '/customers', icon: Users },
-  { name: 'Transakcje', href: '/transactions', icon: ArrowLeftRight },
-  { name: 'Karty', href: '/cards', icon: CreditCard },
-  { name: 'Produkty', href: '/products', icon: Package },
-  { name: 'Kredyty', href: '/loans', icon: PiggyBank },
-  { name: 'Kolejka', href: '/queue', icon: ListOrdered },
-  { name: 'Raporty', href: '/reports', icon: BarChart3 },
-  { name: 'Ustawienia', href: '/settings', icon: Settings },
-];
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface NavigationProps {
   onItemClick?: () => void;
 }
 
 export function Navigation({ onItemClick }: NavigationProps) {
+  const { t } = useLanguage();
+  
+  const navItems = [
+    { name: t.nav.dashboard, href: '/', icon: LayoutDashboard },
+    { name: t.nav.customers, href: '/customers', icon: Users },
+    { name: t.nav.transactions, href: '/transactions', icon: ArrowLeftRight },
+    { name: t.nav.cards, href: '/cards', icon: CreditCard },
+    { name: t.nav.products, href: '/products', icon: Package },
+    { name: t.nav.loans, href: '/loans', icon: PiggyBank },
+    { name: t.nav.queue, href: '/queue', icon: ListOrdered },
+    { name: t.nav.reports, href: '/reports', icon: BarChart3 },
+    { name: t.nav.settings, href: '/settings', icon: Settings },
+  ];
+
   return (
     <nav className="px-3 space-y-1">
       {navItems.map((item) => (
