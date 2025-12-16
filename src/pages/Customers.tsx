@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useCustomersStore } from '@/stores/customersStore';
 import { useTransactionsStore } from '@/stores/transactionsStore';
 import { CustomerSearch, CustomerProfile, BalanceCard, RecentTransactions } from '@/components/customers';
+import { CustomerAnalysis, AIAssistant } from '@/components/gemini';
 import { Customer } from '@/types';
 import { ArrowLeft, Users } from 'lucide-react';
 
@@ -134,7 +135,7 @@ export function Customers() {
           />
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div className="lg:col-span-1">
+            <div className="lg:col-span-1 space-y-6">
               {selectedCustomer.bankingInfo.accounts[0] && (
                 <BalanceCard
                   account={selectedCustomer.bankingInfo.accounts[0]}
@@ -143,6 +144,11 @@ export function Customers() {
                   }}
                 />
               )}
+              {/* AI Customer Analysis */}
+              <CustomerAnalysis
+                customer={selectedCustomer}
+                transactions={customerTransactions}
+              />
             </div>
 
             <div className="lg:col-span-2">
@@ -154,6 +160,12 @@ export function Customers() {
               />
             </div>
           </div>
+
+          {/* AI Assistant */}
+          <AIAssistant
+            customer={selectedCustomer}
+            transactions={customerTransactions}
+          />
         </>
       )}
     </div>
