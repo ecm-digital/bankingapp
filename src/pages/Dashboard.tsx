@@ -12,10 +12,20 @@ import {
 } from 'lucide-react';
 import { useTransactionsStore } from '@/stores/transactionsStore';
 import { useQueueStore } from '@/stores/queueStore';
+import { QueueItem } from '@/types';
 
 export default function Dashboard() {
   const { transactions } = useTransactionsStore();
-  const { items: queueItems, stats: queueStats } = useQueueStore();
+  const { queueItems } = useQueueStore();
+  
+  // Calculate queue stats
+  const queueStats = {
+    waiting: queueItems.filter(item => item.status === 'WAITING').length,
+    served: queueItems.filter(item => item.status === 'COMPLETED').length,
+    averageWaitTime: queueItems.length > 0 
+      ? Math.round(queueItems.reduce((sum, item) => sum + item.estimatedTime, 0) / queueItems.length)
+      : 0,
+  };
 
   // Oblicz statystyki
   const todayTransactions = (transactions || []).slice(0, 5);
@@ -197,7 +207,7 @@ export default function Dashboard() {
                               {transaction.description || 'Klient'}
                             </p>
                             <p className="text-xs text-slate-500">
-                              {transaction.sourceAccountId?.slice(0, 8)}...
+                              {transaction.fromAccount?.slice(0, 8)}...
                             </p>
                           </div>
                         </div>
@@ -222,7 +232,7 @@ export default function Dashboard() {
                       </td>
                       <td className="px-5 py-4">
                         <span className="text-sm text-slate-500">
-                          {new Date(transaction.createdAt).toLocaleTimeString('pl-PL', {
+                          {new Date(transaction.timestamp).toLocaleTimeString('pl-PL', {
                             hour: '2-digit',
                             minute: '2-digit'
                           })}
@@ -268,7 +278,7 @@ export default function Dashboard() {
 
             {/* Queue items */}
             <div className="space-y-2">
-              {(queueItems || []).slice(0, 4).map((item, index) => (
+              {(queueItems || []).slice(0, 4).map((item: QueueItem, index: number) => (
                 <div 
                   key={item.id} 
                   className={`flex items-center justify-between p-3 rounded-lg border ${
@@ -283,11 +293,11 @@ export default function Dashboard() {
                         ? 'bg-blue-600 text-white' 
                         : 'bg-slate-200 text-slate-600'
                     }`}>
-                      {item.ticketNumber}
+                      {item.queueNumber}
                     </div>
                     <div>
                       <p className="text-sm font-medium text-slate-900">
-                        {item.customerName || `Bilet ${item.ticketNumber}`}
+                        {item.customerName || `Bilet ${item.queueNumber}`}
                       </p>
                       <p className="text-xs text-slate-500">{item.serviceType}</p>
                     </div>
